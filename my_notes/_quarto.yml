@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "My notes"
@@ -15,4 +16,5 @@ format:
     documentclass: scrreprt
 
 editor: visual
+
 
