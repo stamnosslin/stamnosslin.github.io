@@ -1,0 +1,18 @@
+project:
+  type: book
+
+book:
+  title: "My notes"
+  author: "Mats E. Nilsson"
+  date: "2023-04-14"
+  chapters:
+    - index.qmd
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

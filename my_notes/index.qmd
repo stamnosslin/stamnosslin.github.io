@@ -1,0 +1,11 @@
+# Preface {.unnumbered}
+
+This is a book with only one page, this one! It contains links to my notes for various course that I teach here at the Department of Psychology, Stockholm University.
+
+| Course                                                                               | Description                                                                     |
+|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| [REX](https://matni.bitbucket.io/rex/docs/){target="_blank"}                         | learn R by EXample: Intro to R , satellite course to Method 1 and Stat 1        |
+| [RMS notes](https://matni.bitbucket.io/rmsnotes/docs/){target="_blank"}              | Notes for the master courses Method 1 and Stat 1                                |
+| [Stat 2 notes](https://matni.bitbucket.io/stat2notes/docs/){target="_blank"}         | Notes doctoral course Stat 2 and Stat 2.5                                       |
+| [Stat 2 solutions](https://matni.bitbucket.io/stat2solutions/docs/){target="_blank"} | My solutions to problems discussed at Stat 2 and Stat 2.5                       |
+| [Stan notes](https://matni.bitbucket.io/stan_notes/_book/){target="_blank"}          | My personal notes on Stan, a "Stan for complete dummies", work in progress ...  |
