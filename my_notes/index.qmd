@@ -11,4 +11,3 @@ This is a book with only one page, this one! It contains links to my notes for v
 | [Stan notes](https://matni.bitbucket.io/stan_notes/_book/){target="_blank"}          | My personal notes on Stan, a "Stan for complete dummies", work in progress ...  |
 
 
-.. this is a test ...
