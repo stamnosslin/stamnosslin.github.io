@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; M: Measurement and Data Quality – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./06-stat25.html" rel="next">
+<link href="./04-stat25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-method25.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#measurement" id="toc-measurement" class="nav-link" data-scroll-target="#measurement"><span class="header-section-number">5.1</span> Measurement</a>
+  <ul class="collapse">
+  <li><a href="#scale-levels" id="toc-scale-levels" class="nav-link" data-scroll-target="#scale-levels">Scale levels</a></li>
+  <li><a href="#observed-and-latent-variables" id="toc-observed-and-latent-variables" class="nav-link" data-scroll-target="#observed-and-latent-variables">Observed and latent variables</a></li>
+  </ul></li>
+  <li><a href="#effect-size-measures" id="toc-effect-size-measures" class="nav-link" data-scroll-target="#effect-size-measures"><span class="header-section-number">5.2</span> “Effect-size” measures</a></li>
+  <li><a href="#measurment-error" id="toc-measurment-error" class="nav-link" data-scroll-target="#measurment-error"><span class="header-section-number">5.3</span> Measurment error</a>
+  <ul class="collapse">
+  <li><a href="#misclassification" id="toc-misclassification" class="nav-link" data-scroll-target="#misclassification">Misclassification</a></li>
+  </ul></li>
+  <li><a href="#fooled-by-measurment" id="toc-fooled-by-measurment" class="nav-link" data-scroll-target="#fooled-by-measurment"><span class="header-section-number">5.4</span> Fooled by measurment</a>
+  <ul class="collapse">
+  <li><a href="#mono-method-bias" id="toc-mono-method-bias" class="nav-link" data-scroll-target="#mono-method-bias">Mono-method bias</a></li>
+  </ul></li>
+  <li><a href="#fooled-by-randomness" id="toc-fooled-by-randomness" class="nav-link" data-scroll-target="#fooled-by-randomness"><span class="header-section-number">5.5</span> Fooled by randomness</a>
+  <ul class="collapse">
+  <li><a href="#small-sample-fallacy" id="toc-small-sample-fallacy" class="nav-link" data-scroll-target="#small-sample-fallacy">Small sample fallacy</a></li>
+  <li><a href="#regression-fallacy" id="toc-regression-fallacy" class="nav-link" data-scroll-target="#regression-fallacy">Regression fallacy</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty) <span class="co"># R implementation of http://www.dagitty.net</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dagitty' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Measurement</li>
+<li>Scale levels</li>
+<li>Variables: Manifest and latent</li>
+<li>Measurement error and bias
+<ul>
+<li>Test reliability</li>
+<li>Test validity</li>
+<li>Selection, including missing data</li>
+</ul></li>
+<li>Misclassification (a type of measurement error)</li>
+<li>Examples of biases related to measurement and to causal interpretation of measures
+<ul>
+<li>Response bias</li>
+<li>Mono-method bias</li>
+<li>Experimenter bias</li>
+<li>Demand characteristics</li>
+<li>Regression fallacy</li>
+<li>Placebo effect</li>
+<li>Hawthorn effect</li>
+</ul></li>
+<li>Examples of design tricks to reduce the risk of measurement-related bias:
+<ul>
+<li>Reliable and valid measures</li>
+<li>Repeated testing (averaging over many stimulus repetitions)</li>
+<li>Blind, double blind, triple blind tests</li>
+<li>Masked purpose</li>
+<li>Filler items</li>
+<li>Random stimulus order</li>
+<li>Negative controls, i.e., experimental controls designed to ensure that no effect is observed when no effect is expected.
+<ul>
+<li>Negative exposure controls: Involve exposures that are not expected to cause the outcome of interest.</li>
+<li>Negative outcome controls: Measure outcomes that are not expected to be affected by the exposure of interest.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Theoretical articles to read:</p>
+<ul>
+<li><span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>, measurement and data quality discussed at several places</li>
+<li><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> chapter 2 devotes a large part to measurement and data quality</li>
+</ul>
+</div>
+<p><br><br></p>
+<div class="cell" type="citations">
+<div class="citations">
+<p>
+<strong>Construct validity</strong>. The validity with which inferences are made from the operations and settings in a study to the theoretical constructs those operations and settings are intended to represent. It is about the correct labeling of variables and accurate <em>language use</em>.<br> <font size="2"> <span class="citation"><span class="citation" data-cites="steiner2023frameworks">Steiner et al. (<a href="references.htmlreferences.html#ref-steiner2023frameworks" role="doc-biblioref">2023</a>)</span></span>, p.25</font>
+</p>
+</div>
+</div>
+<p><br></p>
+<div class="citations">
+<p><strong>Measurement</strong></p>
+<p><strong>Variables</strong>. <em>Explicitly define the variables in the</em> <em>study, show how they are related to the goals of the study,</em> <em>and explain how they are measured. The units of measurement</em> <em>of all variables, causal and outcome, should fit the</em> <em>language you use in the introduction and discussion sections</em> <em>of your report.</em></p>
+<p><font size="2"><span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>, p.&nbsp;595</font></p>
+</div>
+<p><br></p>
+</section>
+<section id="measurement" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="measurement"><span class="header-section-number">5.1</span> Measurement</h2>
+<p>Measurement is fundamental to empirical science. However, there seem to be no single agreed upon definition of “measurement”. In physics, measurement is typically defined as <em>the estimation of ratios of quantities</em> (or quantifiable attributes). For example, if an object is twice as long as the standard meter [m], then its length is 2 m (length being an attribute of the object, 2 being its magnitude relative to the standard).</p>
+<p>In psychology (and similar fields), it may, of course, be hard to establish ratios: What would it mean to say that someone is twice as depressed as a standard case of depression? It seem that we need a weaker definition of “measurement” to be able to claim that we can measure things like degree of depression, happiness, annoyance, trust, empathy, health, …</p>
+<p>The most famous weak definition was proposed by the psychologist S.S. Stevens:</p>
+<div class="citations">
+<p>… measurement, in the broadest sense, is defined as the assignment of numerals to objects or events according to rules.<br>
+<span class="citation" data-cites="stevens1946theory">Stevens (<a href="references.html#ref-stevens1946theory" role="doc-biblioref">1946</a>)</span>.</p>
+</div>
+<p>This definition is admittedly weak, and we can likely improve upon it. However, let’s leave that task to the measurement theorists (e.g., <span class="citation" data-cites="michell1997quantitative">Michell (<a href="references.html#ref-michell1997quantitative" role="doc-biblioref">1997</a>)</span>). For our purposes, Stevens’ definition will suffice.</p>
+<section id="scale-levels" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="scale-levels">Scale levels</h3>
+<p>Stevens identified four levels of measurement scales:</p>
+<ul>
+<li><strong>Nominal</strong>. Naming attributes: same attribute (e.g., nationality), same name (“Denmark”, “Norway,”Sweden”, …).
+<ul>
+<li><em>Permissible transformations</em>: any change of names consistent with the “same attribute, same name” rule, for example, from “Denmark”, “Norway,”Sweden” to “DK”, “NO”, “S”, or from “male” and “female” to “1” and “2”.</li>
+</ul></li>
+<li><strong>Ordinal</strong>. Rank-order of attributes, for example, 1st, 2nd, 3rd,… place in a contest.
+<ul>
+<li><em>Permissible transformations</em>: Any monotonic transformation that keeps the rank-order intact.</li>
+</ul></li>
+<li><strong>Interval</strong>. Determining equality of intervals or differences. Equal scale steps means equal distance in term of the attribute. For example, if the 2nd place came in 5 seconds after the winner, and the 3rd placed come in 10 seconds after the winner, then the scale values 0, 5, 10 seconds for, 1st, 2nd, and 3rd place, respectively, would be on an interval scale level. <em>Note:</em> the zero point of an interval scale is arbitrary, therefore we cannot say that 2nd place was twice as fast as the 3rd place, but we can say that the distance between 1st and 3rd was twice as large (10 s) as the distance between 1st and 2nd (5 S). Interval scales implies a ratio scale of differences.
+<ul>
+<li><em>Permissible transformations</em>: Linear transformation: <span class="math inline">\(x' = b_0 + b_1x\)</span>. For example, if <span class="math inline">\(b_0 = 50\)</span> and <span class="math inline">\(b_1= 2\)</span>, then <span class="math inline">\(x'\)</span> would be 50, 60 and 70 for the 0, 5, 10 seconds values above. The differences between 1st and 2nd is still the same as between 2nd and 3rd, and the difference between 3nd and 1st is still twice as large as between 2nd and 3rd.</li>
+</ul></li>
+<li><strong>Ratio</strong>. Determining equality of ratios. The scale has a meaningful zero, so it is meaningful to talk about ratios, as well as differences. If the finishing times were 100, 105, and 110 seconds for 1st, 2nd, and 3rd place, respectively, then we may say that the 2nd place was 5 % and the 3rd place was 10 % slower than the winner.
+<ul>
+<li><em>Permissible transformations</em>: Linear transformation with zero intercept, <span class="math inline">\(x' = b_1x\)</span>, preserving the meaningful zero point. The finishing times 100, 105, and 110 seconds may for example be transformed to milliseconds by <span class="math inline">\(x'  \ [ms] \  = 1000 x \ [s]\)</span>.</li>
+</ul></li>
+</ul>
+<p>The view that measurement is the <em>estimation of ratios of quantities</em> would include measurement at the interval or ratio scale level, but would not accept rank-ordering or naming (nominal) as measurement. But since these are examples of “assignment of values according to rule”, they are measurement according to S.S. Stevens.</p>
+<p>Three remarks:</p>
+<ol type="1">
+<li>Steven’s four categories are not exhaustive, other type of scales exist that do not fit into these four categories. For example, the decibel scale is a log-interval scale, where equal steps means equal ratios.</li>
+<li>It is not a matter of either or. Many measurement scales are somewhere between categories. In psychology, many self-report scales are somewhere between ordinal and interval levels, for example, Visual Analogue Scale (VAS) and Likert scales.</li>
+<li>Scale values (scores) may be on well-defined level, but that does not necessarily mean that the underlying latent construct is. For example, reaction time (RT) in millisecond is on a ratio scale, but if used to measure “discrimination ability” (latent construct) it does not necessarily follow that RT measures “discrimination ability” on a ratio scale, see next on the distinction between variables and latent construct.</li>
+</ol>
+<p><br></p>
+<p><strong>Always try to measure your key variables on well-defined scales, in particular</strong> <strong>your outcome variable</strong>. This is crucial if your goal is to assess causal effects, that is, to assess a difference (or ratio, or some other contrast) between potential outcomes. Differences require at least interval-scale data, so you need either to show that this is at least approximately true for your outcome measure, or you need to state this as an explicit assumption of your assessment.</p>
+<section id="matching-strategy-to-obtain-meaningful-units" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="matching-strategy-to-obtain-meaningful-units">Matching strategy to obtain meaningful units</h4>
+<p>Sometimes it is possible to use a <em>matching strategy</em> to transform a less well-defined outcome variable on a well-defined physical scale. Here is an example:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3212</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">35</span>, <span class="dv">85</span>, <span class="dv">5</span>), <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">each =</span> <span class="fu">length</span>(x)<span class="sc">/</span><span class="dv">2</span> )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.8</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fl">4.5</span> <span class="sc">*</span> d <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression model</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> d)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> mfit<span class="sc">$</span>coefficients</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Empty plot</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="st">""</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">90</span>), </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Sound pressure level, dB(A)"</span>, <span class="at">ylab =</span> <span class="st">"Loudness rating (mm VAS)"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add prediction lines</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="dv">35</span><span class="sc">:</span><span class="dv">85</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xx , cf[<span class="dv">1</span>] <span class="sc">+</span> cf[<span class="dv">2</span>]<span class="sc">*</span>(xx ), <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xx , cf[<span class="dv">1</span>] <span class="sc">+</span> <span class="sc">+</span>cf[<span class="dv">3</span>] <span class="sc">+</span> cf[<span class="dv">2</span>]<span class="sc">*</span>xx, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add points</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x[d <span class="sc">==</span> <span class="dv">0</span>], y[d <span class="sc">==</span> <span class="dv">0</span>], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"white"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(x[d <span class="sc">==</span> <span class="dv">1</span>], y[d <span class="sc">==</span> <span class="dv">1</span>], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"darkgrey"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legend</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">35</span>, <span class="dv">95</span>, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"darkgrey"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">36</span>, <span class="dv">95</span>, <span class="at">labels =</span> <span class="st">"Low-frequency noise"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">35</span>, <span class="dv">90</span>, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">36</span>, <span class="dv">90</span>, <span class="at">labels =</span> <span class="st">"High-frequency noise"</span>, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add regression equation</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>eq <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"y = "</span>, <span class="fu">round</span>(cf[<span class="dv">1</span>], <span class="dv">1</span>), <span class="st">" + "</span>, <span class="fu">round</span>(cf[<span class="dv">2</span>], <span class="dv">1</span>), <span class="st">" * Level + "</span>, </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>            <span class="fu">round</span>(cf[<span class="dv">3</span>], <span class="dv">1</span>), <span class="st">" * Type"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="at">labels =</span> eq, <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-method25_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A listener rated the loudness of sounds on a visual analogue scale (VAS) with endpoints labeled ‘very soft’ and ‘very loud.’ The sounds were dominated by either low-frequency or high-frequency components, with their overall levels systematically varied in terms of A-weighted sound pressure level, dB(A). On average, low-frequency sounds were rated as louder than high-frequency sounds, with a difference of about 5 units (mm) on the loudness VAS. However, the interpretation of these units is unclear—what does a difference of 5 units really signify?</p>
+<p>A more meaningful comparison can be made by expressing this difference in decibels, specifically along the x-axis. Since the regression lines for the two frequency groups were parallel, the vertical difference was constant, corresponding to approximately 6 dB(A). In psychoacoustics, dB(A) is a well-understood measure, and a 6 dB(A) difference is considered substantial. Therefore, the results can be interpreted in terms of loudness matching: at the same dB(A) level, low-frequency sounds are perceived as louder, and the high-frequency noise needs to be increased by 6 dB(A) to be perceived as equally loud.</p>
+<p><br></p>
+<p>Here is another example form an observational study of the causal effect of aircraft noise exposure of schools on the pupils’ performance on a test of reading comprehension. The study was conducted around airports in three countries, UK, Netherlands, and Spain, and reading comprehension was assessed using nationally standardized and normed tests (different for the three countries). To compare across countries, outcome scores from each country was standardized so a score of 0 is equal to the average score of all pupils, 1 is equal to a performance corresponding to one standard deviation above the average score, etc.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/ranch_fig1.PNG" class="img-fluid figure-img"></p>
+<figcaption>Fig. 1 from <span class="citation" data-cites="stansfeld2005aircraft">Stansfeld et al. (<a href="references.html#ref-stansfeld2005aircraft" role="doc-biblioref">2005</a>)</span></figcaption>
+</figure>
+</div>
+<p>The figure show a decline in performance (z-scores) with higher aircraft noise exposure (linear regression with a slope of about -.01 per dB) and the author’s concluded that “Our findings indicate that a chronic environmental stressor, aircraft noise, could impair cognitive development in children, specifically reading comprehension” <span class="citation" data-cites="stansfeld2005aircraft">Stansfeld et al. (<a href="references.html#ref-stansfeld2005aircraft" role="doc-biblioref">2005</a>)</span>.</p>
+<p>But how large was the estimated causal effect? It is not easy to judge from z-scores from a reading-comprehension test. The data was from three countries, and the authors used national data to express the result in months of reading delay as a function of exposure: “A 5 dB difference in aircraft noise was equivalent to a 2-month reading delay in the UK and a 1-month reading delay in the Netherlands. There are no national data available for Spain”.</p>
+<p><br></p>
+</section>
+</section>
+<section id="observed-and-latent-variables" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="observed-and-latent-variables">Observed and latent variables</h3>
+<p>Variables are set of values assigned to attributes of objects. For instance, we may define “age” as a variable that may take integer values between 20 and 80. Our sample may have been restricted to participants in that age range and we did not bother to measure age to decimals of years. Despite these limitations, it make sense to treat this as a continuous variable at ratio level. We may define a variable “eye-color” to have one of four values “blue”, “brown”, “green”, “other”, and this variable would be at the nominal scale level, because there is no meaning in saying that one value is greater or lesser than another. This would of course still be true if we recoded the variable to let the integers 1, 2, 3, and 4 represent “blue”, “brown”, “green”, and “other”, respectively.</p>
+<p>All measured values can be viewed as reflections of an underlying and unobservable <em>latent variable</em> (or <em>construct</em>). Sometimes, this distinction is trivial and therefore ignored, as we can be pretty sure that the measured value is just proportional to the latent construct. For example, it seem safe to assume that measurements in centimeters are proportional to the latent variable length. It is much less obvious for latent variables such as “intelligence” or “depression”. In order to avoid ambiguity, it is a good idea to stick to what is observable and prefer “IQ-score” over “intelligence”, or “depression-score” over “depression”.</p>
+<p><br></p>
+</section>
+</section>
+<section id="effect-size-measures" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="effect-size-measures"><span class="header-section-number">5.2</span> “Effect-size” measures</h2>
+<p><strong>Read Wilkinson et al.&nbsp;!</strong></p>
+<div class="citations">
+<p><strong>Effect sizes.</strong> <em>Always present effect sizes for primary outcomes. If the units of measurement are meaningful on a practical level (e.g., number of cigarettes smoked per day), then we usually prefer an unstandardized measure (regression coefficient or mean difference) to a standardized measure (r or d). It helps to add brief comments that place these effect sizes in a practical and theoretical context.</em></p>
+<p><span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>, p.&nbsp;599,</p>
+</div>
+<p>“Effect” is a causal term, and the statement that a treatment has an effect on an outcome is a causal statement. Thus, “effect size” implies (or should imply) causality. However, the term “effect size” is typically used in a broader sense than this, including contrasts (Cohen’s <span class="math inline">\(d\)</span>) or associations (e.g., Pearson’s <span class="math inline">\(r\)</span>) between variables that we do not believe to be causally related. In this course, we will restrict our use of the term “effect size” to estimates of a causal effect sizes, and use “difference”, “contrast”, or “association” when we talk about relationships without claims of causality.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d simulation ... under construction ...</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+<section id="measurment-error" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="measurment-error"><span class="header-section-number">5.3</span> Measurment error</h2>
+<ul>
+<li>Random error: Reliability of measurement.</li>
+<li>Systematic error (bias): Validity of measurement.</li>
+</ul>
+<p>Random error generally adds to the variability of results and thereby to the uncertainty of estimated effects. Averaging over repeated measures (e.g., many items in a questionnaire) reduces random error (increase reliability) but not systematic error. An invalid test will bias effect estimates away from the true effect also when random measurement error is low.</p>
+<p><br></p>
+<section id="misclassification" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="misclassification">Misclassification</h3>
+<p>Classification is a kind of measurement (in Stevens’s sense), typically at the nominal or ordinal level. For instance, individuals may be classified in terms of a categorical outcome variable (e.g., Dead versus Alive, or Cases with versus Cases without disease) or exposure variable (e.g., Exposed versus Non-exposed, or Noise exposure categories: &lt;45, 45-49, 50-54, 55-59, 60-64, &gt;= 65 dB).</p>
+<p>Random misclassification, also called <em>nondifferential misclassification</em>, will generally attenuate effect size estimates. For example, the relative risk of disease for exposed versus non-exposed individuals will be lower with nondifferential misclassification of exposure or outcome or both.</p>
+<p>Systematic misclassification, also called <em>differential misclassification</em>, is categorization errors that are related to other variables of interest to the causal question. This may introduce bias in either direction, that is, it may lead to effect estimates that over- or underestimate the true effect.</p>
+<p>As an example, <em>Diagnostic suspicion bias</em> (e.g.&nbsp;https://catalogofbias.org/biases/diagnostic-suspicion-bias/) may lead to differential misclassification. Example: Emphysema is diagnosed more frequently in smokers than in non-smokers. However, smokers may visit the doctor more often for other conditions (e.g.&nbsp;bronchitis) than non-smokers, which means that a reason smokers could be diagnosed with emphysema more often is simply because they go to the doctor more often – not because they actually have higher odds of getting the disease. Unless steps are taken to control for this possibility, emphysema will be under-diagnosed in non-smokers, which is a classification error because the diagnosis is related to the variable “how often smokers visit the doctor, versus non-smokers”. (I borrowed this example from another source, but unfortunately, I’ve lost the reference.)</p>
+<p><br></p>
+</section>
+</section>
+<section id="fooled-by-measurment" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="fooled-by-measurment"><span class="header-section-number">5.4</span> Fooled by measurment</h2>
+<p>In this section, I will give some examples how we may be mislead by measurement. Note that for some of these examples, the issue may not be with quality of measurement, but rather with the interpretation of measured values. For example, performance of a work unit may be measured as the number of items produced on a day, and this measure may have high reliability and high validity. However, we may still question it as a measure of the effect of our treatment (e.g., improved lighting conditions) as we might have obtained the same result no matter the treatment. Maybe the fact that the workers knew they were participants in a study made all the difference (the so called <em>Hawthorne effect</em>).</p>
+<p><br></p>
+<p>Examples of biases related to measurement and to causal interpretation of measures:</p>
+<ul>
+<li><strong>Response bias</strong>. General term for systematic errors in self-reports, for instance a tendency to avoid (or prefer) end-points of response scales.</li>
+<li><strong>Experimenter bias</strong>. General term for how an experimental leader unconsciously may influence the results, for example, by subtle hints to favor results in line with the experimenters hypothesis.</li>
+<li><strong>Social desirability bias</strong>. Respondents may answer in a way that make them look better than they are.</li>
+<li><strong>Mono-method bias</strong>. Measuring all variables with the same method may introduce spurious association, for example, a questionnaire may introduce spurious associations related to systematic biases in how respondents answer questions (response bias).</li>
+<li><strong>Demand characteristics</strong>, general term for the risk that participants may respond in a way influenced by their interpretation of the purpose of the experiment.</li>
+<li><strong>Wrong mechanism bias</strong>. This is my term for causal misinterpretation of measurement.
+<ul>
+<li><strong>Hawthorne effect</strong>. The effect of treatment is fully or partly caused by the participants awareness of being under study.</li>
+<li><strong>Placebo effect</strong> Real effect after receiving a fake or inactive treatment, known as a placebo treatment.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Examples of <em>design tricks</em> to reduce the risk of bias:</p>
+<ul>
+<li><strong>Random order of stimuli</strong> or questionnaire items, to reduce risk for Item-order bias.</li>
+<li><strong>Masked purpose</strong> to reduce risk of bias related to demand characteristics. Example: Filler items or stimuli.</li>
+<li><strong>Blinding</strong>: single, double, triple blind testing, to reduce risk for experimenter bias, and to be able to assess Placebo effects</li>
+<li><strong>Negative control conditions</strong>, that is, a control condition where we do not expected a difference between control and treatment group. Such <em>diverging evidence</em> is a valuable compliment to <em>converging evidence</em> of effects where expected.</li>
+</ul>
+<p><br></p>
+<section id="mono-method-bias" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="mono-method-bias">Mono-method bias</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-method25_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Latent variables</strong> (unmeasured): JobSatisfaction, LunchRoomSatisfaction, Response bias</p>
+<p><strong>Manifest variables</strong> (measured): JSscore, LRSscore</p>
+<p><br></p>
+</section>
+</section>
+<section id="fooled-by-randomness" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="fooled-by-randomness"><span class="header-section-number">5.5</span> Fooled by randomness</h2>
+<p>In this section, I will give some examples how we may be mislead by random error. Note that these examples may relate to sampling errors or to measurement errors or both in combination.</p>
+<ul>
+<li>Small study, uncertain effect: Point estimates based on small studies (and/or based on irreliable measures) may substantially over- or underestimation the true effect. It is therefore important to not only focus on point estimates, but always discuss uncertainty, typically in relation to a compatibility interval around the point estimate. The term <em>statistical power</em>, understood broadly, could be used here. But I will avoid it, as it has a very specific meaning related to null-hypothesis significance testing (<span class="math inline">\(power = 1 - \beta\)</span>, where <span class="math inline">\(\beta\)</span> is the Type-II-error rate). See <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, chapter 16 for a detailed discussion statistical power.</li>
+<li>Small study, large effect: Small sample fallacy, see below</li>
+<li>Regression fallacy: Failing to appreciate that a large random error typically is followed by a smaller random error on a repeated test, see below</li>
+</ul>
+<section id="small-sample-fallacy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="small-sample-fallacy">Small sample fallacy</h3>
+<p>You will find the largest and the smallest effects in studies with small samples, because random errors are more likely to cancel out in large than in small samples. Sometimes this statistical phenomenon is mistaken for a real causal effect. For instance, the average performance on standardized tests will probably be highest in small schools, but this is not because small schools make students better but because of random variability. If you looked at the other end, the worst average performance would probably also be from small schools. Here is a simulation of this phenomenon illustrated in a so called <em>funnel plot</em>. Here a sneaked in the <code>sapply()</code> function that is useful for repeated use of a function with different arguments each time.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Size of 250 schools, from n = 10 to n = 1000</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">250</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># Random uniform</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Function that simulates a mean score for a school of size n </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>mean_score <span class="ot">&lt;-</span> <span class="cf">function</span>(n){</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  out </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply function on each of the school sizes in nn, using the sapply() function</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sapply</span>(nn, mean_score)  <span class="co"># User-made function as argument!</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># n for worst school</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>largest_neg <span class="ot">&lt;-</span> nn[x <span class="sc">==</span> <span class="fu">min</span>(x)]  <span class="co"># Size of school with the worst performance</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># n for large effect sizes</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>largest_pos <span class="ot">&lt;-</span> nn[x <span class="sc">==</span> <span class="fu">max</span>(x)] <span class="co"># Size of school with the best performance</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">worst_score =</span> <span class="fu">min</span>(x), <span class="at">n_worst =</span> largest_neg, </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">best_score =</span> <span class="fu">max</span>(x), <span class="at">n_best =</span> largest_pos)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Funnel plot</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, nn, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">110</span>), <span class="at">ylab =</span> <span class="st">"School size"</span>, </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mean performance on test"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-method25_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>School-size of worst and best average performance</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(ss, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>worst_score     n_worst  best_score      n_best 
+       95.2        54.0       106.4        36.0 </code></pre>
+</div>
+</div>
+</section>
+<section id="regression-fallacy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="regression-fallacy">Regression fallacy</h3>
+<p><strong>Regression fallacy</strong>: Regression to the mean interpreted as a causal effect.</p>
+<ul>
+<li><p>Sports Illustrated Jinx. A successful athlete that make it to the front page of the prestigious sport journal <em>Sport Illustrated</em> will performance less well in the coming season (from <span class="citation" data-cites="gilovich2008how">Gilovich (<a href="references.html#ref-gilovich2008how" role="doc-biblioref">2008</a>)</span>).</p></li>
+<li><p>A flurry of deaths by natural causes in a village led to speculation about some new and unusual threat. A group of priests attributed the problem to the sacrilege of allowing women to attend funerals, formerly a forbidden practice. The remedy was a decree that barred women from funerals in the area. The decree was quickly enforced, and the rash of unusual deaths subsided. This proves that the priests were correct (from <span class="citation" data-cites="gilovich2008how">Gilovich (<a href="references.html#ref-gilovich2008how" role="doc-biblioref">2008</a>)</span>).</p></li>
+<li><p>Old exam question: “Children of chess world-champions are likely to become proficient chess players, but so far none have reached the top 100, presumably because chess world champions tend to be selfish persons unwilling to share their knowledge with others, including their children”. Find an alternative explanation.</p></li>
+<li><p><strong>Success</strong>: Talent + Hard Work + Luck</p></li>
+<li><p><strong>Great success</strong>: a little more Talent + more Hard Work + much more Luck.</p></li>
+</ul>
+<p><br></p>
+</section>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<p><br></p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>5E1.</strong> Here some common measurement scales. Discuss how they relate to Steven’s classification of nominal, ordinal, interval, and ratio scales.</p>
+<ol type="a">
+<li>IQ-scores measured on a scale with mean = 100 and standard deviation of 15</li>
+<li>Weight in kilograms</li>
+<li>What’s your gender:
+<ul class="task-list">
+<li><label><input type="checkbox">&nbsp;Male</label></li>
+<li><label><input type="checkbox">&nbsp;Sex</label></li>
+<li><label><input type="checkbox">&nbsp;Other</label></li>
+</ul></li>
+<li>“It is great fun to study Research methods”
+<ul class="task-list">
+<li><label><input type="checkbox">&nbsp; Disagree completely</label></li>
+<li><label><input type="checkbox">&nbsp; Disagree somewhat</label></li>
+<li><label><input type="checkbox">&nbsp; Agree somewhat</label></li>
+<li><label><input type="checkbox">&nbsp; Agree completely</label></li>
+</ul></li>
+<li>Number of children less than 18 years living in your home</li>
+<li>Sound pressure level in decibels</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5E2.</strong> What is the difference between intelligence and IQ-score?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5E3.</strong></p>
+<ol type="a">
+<li>Measurement error of nominal-level measurements may be called misclassification, explain?<br>
+</li>
+<li>What is the difference between differential and non-differential misclassification?</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5E4.</strong> Construct validity is about “correct labeling of variables and accurate <em>language use</em>” (<span class="citation" data-cites="steiner2023frameworks">Steiner et al. (<a href="references.html#ref-steiner2023frameworks" role="doc-biblioref">2023</a>)</span>). Explain with an example.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5E5.</strong> “Children of chess world champions are often skilled players, but none have yet reached the top 100. This because chess champions are typically focused on their own success and are reluctant to share their expertise with others, including their own children”. Please find an alternative explanation.</p>
+</div>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>5M1.</strong> Reaction time [ms] as a measure of time is clearly on a ratio scale, but what if its used as a measure of intelligence? Discuss with reference to the concepts “manifest” and “latent” variable.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M2.</strong> From Wikipedia: <em>Construct validation is the accumulation of evidence to</em> <em>support the interpretation of what a measure reflects.</em> What does this mean? Interpret in terms of latent and observable variables.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M3.</strong> An influential book considered the <em>Placebo effect</em> and the <em>Hawthorne effect</em> as threats to construct validity, that is, related to the interpretation of measurement scores. Do you agree?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M4.</strong> Explain how negative controls may be used in support for a causal interpretation of data.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M5.</strong> <em>Demand characteristics</em> is a curious term in psychology research. Define what it means and provide your own examples to illustrate how demand characteristics might influence the outcomes of a study.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M6.</strong> A visual analogue scale (VAS) typically consists of a straight horizontal line with labels at each end representing the extremes of the characteristic being measured (e.g., ‘no pain’ to ‘worst possible pain’). Respondents indicate their answer by marking a point on the line. The score is calculated by measuring the distance, in millimeters, from the left end of the line to the respondent’s mark.</p>
+<p>Discuss the scale level of VAS scores. Specifically, consider whether these scores should be interpreted as ordinal, interval, or ratio data, and explain the implications of each interpretation in terms of statistical analyses that might be conducted using these scores.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5M7.</strong> Speed cameras were installed at traffic sites that had experienced eight or more accidents over the last three years. In the following three-year period, the number of accidents at these sites dropped from 225 to 125. At sites where no cameras were installed, no reduction in accidents was observed. Based on this data, it was concluded that the speed cameras had prevented about 100 accidents. Explain why this conclusion may overestimate the impact of the speed cameras.</p>
+<p><font size="2"> Inspired by David Hand’s book, <em>The Improbability Principle</em> (<span class="citation" data-cites="hand2014improbability">Hand (<a href="references.html#ref-hand2014improbability" role="doc-biblioref">2014</a>)</span>), where he references <span class="citation" data-cites="mountain2006safety">Mountain (<a href="references.html#ref-mountain2006safety" role="doc-biblioref">2006</a>)</span>, highlighting the challenges in assessing the impact of speed cameras.</font></p>
+</div>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>5H1.</strong> Pearson’s coefficient of correlation, <span class="math inline">\(r\)</span>, is a common measure of the strength of the linear relationship between two variables. Discuss the scale level of <span class="math inline">\(r\)</span> using Stevens’s terminology.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5H2.</strong> In a randomized experiment involving a sample of men and women aged between 18 and 75 years, the average weight loss under my new diet plan was 6 kg (SD = 5 kg), compared to 4 kg (SD = 5 kg) under a conventional diet. Therefore, the unstandardized causal effect size was 2 kg.</p>
+<ol type="a">
+<li>Calculate Cohen’s <em>d</em> for this effect.<br>
+</li>
+<li>In a follow-up study with a more homogeneous sample (only middle-aged men), the unstandardized effect size remained 2 kg, but Cohen’s <em>d</em> was larger. Explain how this is possible.<br>
+</li>
+<li>Based on the results, would you conclude that the average causal effect of the diet was the same or different in the two studies? Discuss.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5H4.</strong> “… when signal is low and noise is high, statistically significant patterns in the data are likely to be wrong, in the sense that the results are unlikely to replicate” (<span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.&nbsp;292) Explain and relate to the Small-sample fallacy.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5H5.</strong> “Researchers wanted to compare kids from a low and a high socioeconomic area on their response to a new pedagogic method for teaching math. They first administered a short math test to all kids in each area and noted the the average score among the kids from the high socioeconomic area was much higher than the average score among the kids from the low socioeconomic area. To achieve balanced groups, they took a random sample of 50 kids from the low socioeconomic area and then matched each kid with a kid from the high socioeconomic area with a similar score on the math test. Both groups were then subjected to the new pedagogic method, after which they were tested again on a similar test. The 50 low socioeconomic kids had about the same average result as before, whereas the 50 high socioeconomic kids had a higher average score after than before. The conclusion was that the method seems to work, but only for kids with a high socioeconomic background. Give an alternative explanation in terms of random error”. (This is an old exam question)</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>5H6.</strong> Use R or some other software to simulate mono-method bias. Simulate two latent variables T1 and T2 that are independent and measures of these X1 and X2 that are associated. Explain in words the mechanism of your simulated response bias.</p>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dagitty_0.3-4
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     fastmap_1.2.0     xfun_0.52         knitr_1.50       
+ [5] htmltools_0.5.8.1 rmarkdown_2.29    cli_3.6.5         compiler_4.4.2   
+ [9] boot_1.3-31       rstudioapi_0.17.1 tools_4.4.2       curl_6.4.0       
+[13] evaluate_1.0.3    Rcpp_1.0.14       rlang_1.1.6       jsonlite_2.0.0   
+[17] V8_6.0.4          htmlwidgets_1.6.4 MASS_7.3-61      </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-gilovich2008how" class="csl-entry" role="listitem">
+Gilovich, T. (2008). <em>How we know what isn’t so</em>. Simon; Schuster.
+</div>
+<div id="ref-hand2014improbability" class="csl-entry" role="listitem">
+Hand, D. J. (2014). <em>The improbability principle: Why coincidences, miracles, and rare events happen every day</em>. Scientific American/Farrar, Straus; Giroux.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-michell1997quantitative" class="csl-entry" role="listitem">
+Michell, J. (1997). Quantitative science and the definition of measurement in psychology. <em>British Journal of Psychology</em>, <em>88</em>(3), 355–383.
+</div>
+<div id="ref-mountain2006safety" class="csl-entry" role="listitem">
+Mountain, L. (2006). Safety cameras: Stealth tax or life-savers? <em>Significance</em>, <em>3</em>(3), 111–113.
+</div>
+<div id="ref-stansfeld2005aircraft" class="csl-entry" role="listitem">
+Stansfeld, S. A., Berglund, B., Clark, C., Lopez-Barrio, I., Fischer, P., Öhrström, E., Haines, M. M., Head, J., Hygge, S., Van Kamp, I., et al. (2005). Aircraft and road traffic noise and children’s cognition and health: A cross-national study. <em>The Lancet</em>, <em>365</em>(9475), 1942–1949.
+</div>
+<div id="ref-steiner2023frameworks" class="csl-entry" role="listitem">
+Steiner, P. M., Shadish, W. R., &amp; Sullivan, K. J. (2023). <em>Frameworks for causal inference in psychological science.</em>
+</div>
+<div id="ref-stevens1946theory" class="csl-entry" role="listitem">
+Stevens, S. S. (1946). On the theory of scales of measurement. <em>Science</em>, <em>103</em>(2684), 677–680.
+</div>
+<div id="ref-wilkinson99apa" class="csl-entry" role="listitem">
+Wilkinson, L. (1999). APA task force on statistical inference. Statistical methods in psychology journals: Guidelines and explanations. <em>American Psychologist</em>, <em>54</em>(8), 594–604.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-stat25.html" class="pagination-link" aria-label="S: Descriptive Statistics and Visualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./06-stat25.html" class="pagination-link" aria-label="S: Point Estimates and Their Uncertainty">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

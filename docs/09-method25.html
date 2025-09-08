@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; M: Randomized Experiments – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10-stat25.html" rel="next">
+<link href="./08-stat25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-method25.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#between-participant-designs" id="toc-between-participant-designs" class="nav-link" data-scroll-target="#between-participant-designs"><span class="header-section-number">9.1</span> Between-participant designs</a></li>
+  <li><a href="#randomized-experiment" id="toc-randomized-experiment" class="nav-link" data-scroll-target="#randomized-experiment"><span class="header-section-number">9.2</span> Randomized experiment</a>
+  <ul class="collapse">
+  <li><a href="#random-assignment-methods" id="toc-random-assignment-methods" class="nav-link" data-scroll-target="#random-assignment-methods">Random assignment methods</a></li>
+  </ul></li>
+  <li><a href="#why-random-assignment-works" id="toc-why-random-assignment-works" class="nav-link" data-scroll-target="#why-random-assignment-works"><span class="header-section-number">9.3</span> Why random assignment works</a></li>
+  <li><a href="#simulating-a-randomized-experiment" id="toc-simulating-a-randomized-experiment" class="nav-link" data-scroll-target="#simulating-a-randomized-experiment"><span class="header-section-number">9.4</span> Simulating a randomized experiment</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty) <span class="co"># R implementation of http://www.dagitty.net</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dagitty' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li><strong>Between-participant experiments</strong>, and why they cannot target <em>single-unit causal effects</em>.</li>
+<li><strong>Prima facie causal effect</strong>, i.e., observed contrast between group-averages.</li>
+<li><strong>Random assignment</strong>
+<ul>
+<li>Simple randomization (a.k.a. completely randomized experiment)</li>
+<li>Stratified randomization
+<ul>
+<li>In groups of participants (to adjust for categorical covariate)</li>
+<li>In pairs of participants (to adjust for continous covariate)</li>
+</ul></li>
+</ul></li>
+<li><strong>Ignorable assignment mechanism</strong>. Random assignment is an ignorable assignment mechanisms because it implies that groups will be <em>balanced</em> on all covariates, measured and unmeasured (for large n), which in turn implies that group assignment is independent of potential outcomes</li>
+<li><strong>Sample average causal effect</strong> unobserved true average in the sample</li>
+<li><strong>Population average causal effect</strong> unobserved true average in the population</li>
+<li><strong>Sampling error</strong>. Relates to the <em>sampling distribution</em> and its dispersion</li>
+<li><strong>Randomization error</strong>. Relates to the <em>randomization distribution</em> and its dispersion</li>
+<li><strong>Match first, then randomize</strong> may reduce randomization error.</li>
+</ul>
+<p>Theoretical articles to read:</p>
+<ul>
+<li><span class="citation" data-cites="christensen2023randomized">Christensen et al. (<a href="references.html#ref-christensen2023randomized" role="doc-biblioref">2023</a>)</span>, sections on between-participant designs and randomization</li>
+<li><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, chapter 18, sections 18.3 - 18.6; tables 18.1-5.</li>
+</ul>
+<p>Other sources:</p>
+</div>
+<p><br></p>
+</section>
+<section id="between-participant-designs" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="between-participant-designs"><span class="header-section-number">9.1</span> Between-participant designs</h2>
+<p>Remember that the single-unit causal effect <span class="math inline">\(\tau_i\)</span> for an individual <span class="math inline">\(i\)</span> involve the contrast between two potential outcomes, for example, their difference:</p>
+<p><span class="math inline">\(\tau_i = y_i^1 - y_i^0\)</span>, where</p>
+<p><span class="math inline">\(y_i^1\)</span> is individual <span class="math inline">\(i\)</span>’s outcome had he or she been in the treatment group and <span class="math inline">\(y_i^0\)</span> is <span class="math inline">\(i\)</span>’s outcome had he or she been in the control group (cf. <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.343).</p>
+<p>The Fundamental Problem of Causality (<span class="citation" data-cites="holland1986statistics">Holland (<a href="references.html#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span>) implies that <span class="math inline">\(\tau_i\)</span> always is unobserved, because we can never test a single individual twice at the same time. We may however estimate <span class="math inline">\(\tau_i\)</span> if repeated measures is an option. But in many situations, repeated measures are not practically or ethically possible or it is not scientifically meaningful to repeat measurements due to carry-over effects. In such situations, we cannot estimate single-unit causal effects (they are “unidentified”), and have to settle with estimates of average causal effects. In experimental research this is done by comparing outcomes of groups in between-subject experiments.</p>
+<p><br></p>
+<p>The way individuals are assigned to experimental groups in between-participants experiments is crucial for the causal interpretation of between-group differences. If the participants are free to chose experimental group or if we don’t know how they were assigned to treatments (both often called “self-selection”), then the difference between group means is probably a biased estimate of the average causal effect. The observed group difference is sometimes called the <em>prima-facie</em> causal effect estimate.</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/gelman_table18_1.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Table 18.1 <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span></figcaption>
+</figure>
+</div>
+<p>In the table above <span class="math inline">\(z = 1\)</span> refer to treatment group (fish oil supplements) and <span class="math inline">\(z = 0\)</span> refer to control group (no fish oil supplements). If interpreted causally, <span class="math inline">\(\tau_{pf} = 12.5\)</span> suggest that fish oil supplements on average <em>increased</em> systolic blood pressure with 12.5 units. This interpretation rests on the assumption that <span class="math inline">\(\tau_{pf}\)</span> is an unbiased estimate of what we really want to know, namely the average single-unit causal effect, SATE. <span class="math inline">\(\tau_{pf}\)</span> would be an unbiased estimate of SATE if it would be the same as SATE for very large sample sizes, or on average if the study was conducted over and over again.</p>
+<p>If participants are self-selected to groups, then the <em>prima-facie</em> causal effect estimate may not equal the true average causal effect in the sample even for large N or repeated studies, because of systematic errors (bias) due to group differences at baseline, or group differences in treatment effects, or both.</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/gelman_table18_2.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Table 18.2 <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span></figcaption>
+</figure>
+</div>
+<p>In this table we see the unobserved potential outcomes (also known as the counterfactual outcomes). The true average causal effect was -7.5 units, that is, the treatment would on average <em>decrease</em> the systolic blood pressure, not <em>increase</em> it as suggested by the prima-facie estimate. Maybe the participants were free to select group, and the older, being more concerned with their health, chose fish oil supplements whereas the younger did not. If so, age may be a confounder causing both treatment and outcome.</p>
+<p><br></p>
+</section>
+<section id="randomized-experiment" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="randomized-experiment"><span class="header-section-number">9.2</span> Randomized experiment</h2>
+<p>The randomized experiment is generally agreed to be the “Gold Standard” for estimating average causal effects. A randomized experiment, in medicine often called <em>randomized clinical trial</em> (RCT), is a between-subject experiment in which participants are randomly assigned to experimental conditions, for instance to a control condition and a treatment condition. The main idea is that the contrast between the <em>average</em> outcome of the treatment group and the <em>average</em> outcome of control group is an unbiased estimate of the (unobservable) <em>average</em> causal effect of the treatment.</p>
+<p><br></p>
+<section id="random-assignment-methods" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="random-assignment-methods">Random assignment methods</h3>
+<p>Random assignment means that study participants are assigned to different treatment conditions using a random process, for example, using a random number generator. Each participant has a non-zero probability to be assigned to all conditions, typically, but not always, with the same probability to each condition.</p>
+<p>There are various ways to do this, below examples for an experiment with two groups (control and treatment groups):</p>
+<ul>
+<li><strong>Completely randomized experiment</strong>. Each participant have the same probability to be assigned to treatment. For example:
+<ul>
+<li>For each participant, we just toss a coin, or use R: <code>z = sample(c(0, 1), size = 1)</code>, to decided whether he or she should be assigned to the the control (<code>z = 0</code>) or treatment group (<code>z = 1</code>). This may lead to different numbers of participants in the two groups.</li>
+<li>To make sure that the both groups will have the same number of participants, all coin tosses can be made in advanced. For an experiment with eight participants:<br>
+<code>z = sample(c(0, 0, 0, 0, 1, 1, 1, 1), size = 8, replace = FALSE)</code> will yield a random order of treatment conditions, and then you assign your first participant to the first treatment, your second to the second, etc. (there are of course equivalent alternatives, such as randomizing your list of participants, and assign the upper half to treatment <code>z = 0</code> and the lower half to treatment <code>z = 1</code>.)</li>
+</ul></li>
+<li><strong>Stratified randomization</strong>
+<ul>
+<li><strong>Randomized blocks experiment</strong>. You do the randomization separately for specified blocks (strata) of participants, for example, separately for men and women. One may view this as several randomized experiments, one per stratum. Blocking will make sure that the groups are perfectly balanced on the stratified variable. For small samples, this may be a good idea if the stratified variable is strongly related to the outcome. Note that the probability of being assigned to treatment may differ between strata.</li>
+<li><strong>Matched pairs experiment</strong>. Randomization done in blocks of only two participants (“twins”), may be very effective to create groups balanced on continuous variables. For example, if the outcome is performance on a logical test, with two groups, one doing physical exercises before the test and the other relaxing before the test, then intelligence may be an important variable to control. One way would be to measure IQ before the test, and then rank order the participants on their IQ scores, and randomly assign the two best to either conditions, the third and forth, to either conditions, etc. This would lead to approximately balanced groups with regard to IQ scores. See also Gelman et al.&nbsp; Table 18.3.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>In general:</p>
+<p><strong>Match or block as far as possible on measured variables that you</strong> <strong>consider causally relevant, then randomize.</strong></p>
+<p>This will reduce randomization errors (discussed further below), and thereby increase the precision of estimates.</p>
+<p><br></p>
+</section>
+</section>
+<section id="why-random-assignment-works" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="why-random-assignment-works"><span class="header-section-number">9.3</span> Why random assignment works</h2>
+<ol type="1">
+<li><strong>Simple answer</strong>: Makes the groups <em>balanced</em> an all covariates, measured and unmeasured. So random assignment works not by eliminating individual differences, but by making the composition of individual differences equal across treatment groups (for large n).</li>
+<li><strong>Technical answer</strong>: Because it implies that treatment assignment is <em>independent</em> of the potential outcomes. If true, the assignment mechanism may be considered <em>ignorable</em> (“worry-free”), i.e., the average causal effect estimates would only be prone to random errors.</li>
+</ol>
+<p>For small sample sizes, randomization may not make group assignment independent of potential outcomes, and the groups they may still differ in expected outcomes at baseline or in the way they react to treatment. This is called a randomization error. Here is an illustration for potential outcomes of eight participants (from <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, Table 18.2):</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gelman background and potential uutcomes, Table 18.2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Audry"</span>, <span class="st">"Anna"</span>, <span class="st">"Bob"</span>, <span class="st">"Bill"</span>, <span class="st">"Caitlin"</span>, <span class="st">"Cara"</span>, <span class="st">"Dave"</span>, <span class="st">"Doug"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">70</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">160</span>, <span class="dv">160</span>, <span class="dv">170</span>, <span class="dv">170</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">135</span>, <span class="dv">135</span>, <span class="dv">140</span>, <span class="dv">140</span>, <span class="dv">155</span>, <span class="dv">155</span>, <span class="dv">160</span>, <span class="dv">160</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sate <span class="ot">&lt;-</span> <span class="fu">mean</span>(y1) <span class="sc">-</span> <span class="fu">mean</span>(y0)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> id, <span class="at">female =</span> female, <span class="at">age =</span> age, <span class="at">y0 =</span> y0, <span class="at">y1 =</span> y1)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data frame, using knitr::kable()</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(d, <span class="at">align =</span> <span class="st">"c"</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Potential outcomes eight participants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Potential outcomes eight participants</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">id</th>
+<th style="text-align: center;">female</th>
+<th style="text-align: center;">age</th>
+<th style="text-align: center;">y0</th>
+<th style="text-align: center;">y1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Audry</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">140</td>
+<td style="text-align: center;">135</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Anna</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">140</td>
+<td style="text-align: center;">135</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Bob</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">140</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Bill</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">150</td>
+<td style="text-align: center;">140</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Caitlin</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">160</td>
+<td style="text-align: center;">155</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Cara</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">160</td>
+<td style="text-align: center;">155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Dave</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">160</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Doug</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">70</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">160</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>With 8 participants, there are 70 ways in which half can be assigned to the treatment group and the rest to the control condition. Figure below show <em>prima-facie</em> estimates for all 70 splits.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All possible assignments of half to treatment group, rest to control group</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">combn</span>(<span class="dv">8</span>, <span class="dv">4</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>all_pf <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">choose</span>(<span class="dv">8</span>, <span class="dv">4</span>))  <span class="co"># Empty vector to be filled</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>idn <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>  <span class="co"># ID as 1 to 8</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">choose</span>(<span class="dv">8</span>, <span class="dv">4</span>)){</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  treat <span class="ot">&lt;-</span> gg[, j]  <span class="co"># Treatment group</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> idn[<span class="sc">!</span><span class="fu">is.element</span>(idn, gg[, j])]  <span class="co"># Remaining to control group</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  pf <span class="ot">&lt;-</span> <span class="fu">mean</span>(y1[treat]) <span class="sc">-</span> <span class="fu">mean</span>(y0[control])  <span class="co"># Calculate PF</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  all_pf[j] <span class="ot">&lt;-</span> pf</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>hh <span class="ot">&lt;-</span> <span class="fu">hist</span>(all_pf, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">27.75</span>, <span class="fl">12.75</span>, <span class="at">by =</span> <span class="fl">0.5</span>), </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>, <span class="dv">20</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>), </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Prima-facie causal effect estimate"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(sate, sate), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="fl">0.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-method25_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The red line show the average causal effect in this sample = -7.5 units, <em>prima-facie</em> estimates range from -27.5 to +12.5: Deviations from the average causal effect are <strong>randomization errors</strong> that only are due to how the participants happened to be assigned to groups. The particular assignments illustrated in Gelman <em>et al</em>’s Table 18.3 and 18.4 yield <em>prima-facie</em> estimates of -7.5 (= SATE) and -17.5 units, respectively.</p>
+<p><br> <br></p>
+</section>
+<section id="simulating-a-randomized-experiment" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="simulating-a-randomized-experiment"><span class="header-section-number">9.4</span> Simulating a randomized experiment</h2>
+<p>Here a simulation with a more realistic scenario of 30 + 30 participants, with an average causal effect in the population of 2 units (0.2 sd units) and average causal effect in the sample (n = 30 + 30) of about 3 units.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate potential outcomes for one sample of n participants</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pate <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># Population average causal effect</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">50</span> <span class="sc">+</span> pate, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sate <span class="ot">&lt;-</span> <span class="fu">mean</span>(y1) <span class="sc">-</span> <span class="fu">mean</span>(y0)  <span class="co"># Sample average causal effect</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Function that randomly assigns participants, and out-put the </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># prima-facie causal effect estimate</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>randexp <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(y0)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">/</span><span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">1</span>, n<span class="sc">/</span><span class="dv">2</span>)), <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> z)<span class="sc">*</span>y0 <span class="sc">+</span> z<span class="sc">*</span>y1  <span class="co"># Observed value</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  pf <span class="ot">&lt;-</span> <span class="fu">mean</span>(y[z <span class="sc">==</span> <span class="dv">1</span>]) <span class="sc">-</span><span class="fu">mean</span>(y[z <span class="sc">==</span> <span class="dv">0</span>])</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  pf</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat randomization many times</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>prima_facie <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="fl">1e4</span>, <span class="fu">randexp</span>())</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Display result</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(prima_facie, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="fl">10.5</span>, <span class="at">to =</span> <span class="fl">10.5</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">main =</span> <span class="st">""</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">side =</span> <span class="dv">3</span>, </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"Red line: Sample average causal effect</span><span class="sc">\n</span><span class="st">Blue line: Population average causal effect"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(pate, pate), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">5e3</span>), <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">1</span> )</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(sate, sate), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">5e3</span>), <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-method25_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">c</span>(<span class="at">sate =</span> sate, <span class="at">pate =</span> pate), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> sate  pate 
+2.974 2.000 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>9E1.</strong> <em>Random selection</em> of study participants from a population increases the <em>external validity</em> of a study, whereas <em>random assignment</em> of participants to experimental conditions increases its <em>internal validity</em>. Explain.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9E2.</strong> Why may it be beneficial to first match or block on measured variables before randomly assign to treatment conditions?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9E3.</strong> The table below similar to those in chapter 18 of <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, with</p>
+<ul>
+<li><strong>Unit</strong>: Name of participant</li>
+<li><strong>y0</strong>: Potential outcome if in control group (group = 0)</li>
+<li><strong>y1</strong>: Potential outcome if treated (group = 1)</li>
+<li><strong>Group</strong>: Treatment group (1 = treated, 0 = control)</li>
+<li><strong>Observed</strong>: Observed data</li>
+</ul>
+<ol type="a">
+<li>Calculate the sample average treatment effect (SATE)</li>
+<li>Calculate the prima-facie (or naive) causal effect estimate, does it agree with SATE?</li>
+<li>From the perspective of the potential outcome model of causality, causal inference may be viewed as a missing data problem, explain with reference to the table (what data is missing?)</li>
+</ol>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">sample</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)  <span class="co"># Participant number</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Cpot <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">14</span>)  <span class="co"># Potential outcome treatment</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Tpot <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>,  <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">8</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">13</span>, <span class="dv">15</span>)  <span class="co"># Potential outcome control</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># 1 = treatment, 0 = control group</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(group <span class="sc">==</span> <span class="dv">1</span>, Tpot, Cpot)  <span class="co"># Observed outcome</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>single_unit <span class="ot">&lt;-</span> Tpot <span class="sc">-</span> Cpot  <span class="co"># Single unit causal effects</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect data in data frame</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Unit =</span> id, <span class="st">"y0"</span> <span class="ot">=</span> Cpot, <span class="st">"y1"</span> <span class="ot">=</span> Tpot, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">Group =</span> group, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">Observed =</span> Y)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data frame, using knitr::kable()</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table_data, <span class="at">align =</span> <span class="st">"l"</span>, </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Hypothetical causal inference data from randomized experiment"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Hypothetical causal inference data from randomized experiment</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">y0</th>
+<th style="text-align: left;">y1</th>
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Observed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">J</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">H</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">G</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9E4.</strong> Below is another table similar to those in Chapter 18 of <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>.</p>
+<p>Calculate:</p>
+<ol type="a">
+<li>Observed values (eight values listed in order from Audrey to Doug)</li>
+<li>Single-unit causal effects (eight values listed in order from Audrey to Doug)</li>
+<li>The Sample average treatment effect (SATE)</li>
+<li>The <em>Prima-facie</em> causal-effect estimate (Gelman <em>et al.</em> call it “naive estimated treatment effect”)</li>
+</ol>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>unit <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Audrey"</span>, <span class="st">"Anna"</span>, <span class="st">"Bob"</span>, <span class="st">"Bill"</span>, <span class="st">"Caitlin"</span>, <span class="st">"Cara"</span>, <span class="st">"Dave"</span>, <span class="st">"Doug"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">70</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>treat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">1</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">125</span>, <span class="dv">130</span>, <span class="dv">130</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">160</span>, <span class="dv">160</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">125</span>, <span class="dv">120</span>, <span class="dv">120</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">150</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Collect data in data frame</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Unit =</span> unit, <span class="at">Female =</span> female, <span class="at">Age =</span> age, <span class="at">Treatment =</span> treat, </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">y0 =</span> y0, <span class="at">y1 =</span> y1)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data frame, using knitr::kable()</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(table_data, <span class="at">align =</span> <span class="st">"l"</span>, </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Hypothetical causal inference data for the effect of a fish oil supplements on systolic blood pressure."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Hypothetical causal inference data for the effect of a fish oil supplements on systolic blood pressure.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Unit</th>
+<th style="text-align: left;">Female</th>
+<th style="text-align: left;">Age</th>
+<th style="text-align: left;">Treatment</th>
+<th style="text-align: left;">y0</th>
+<th style="text-align: left;">y1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Audrey</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">125</td>
+<td style="text-align: left;">125</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Anna</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">40</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">125</td>
+<td style="text-align: left;">125</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bob</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">130</td>
+<td style="text-align: left;">120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bill</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">130</td>
+<td style="text-align: left;">120</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Caitlin</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">150</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cara</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">150</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dave</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">160</td>
+<td style="text-align: left;">150</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Doug</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">70</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">160</td>
+<td style="text-align: left;">150</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9E5.</strong> The assignment to treatments in the table of 9E3 was random. Make a new random assignment where you first match the participants on sex and age and then randomly assign them to treatments (matched pair experiment).</p>
+<ol type="a">
+<li>Calculate the <em>prima-facie</em> causal-effect estimate based on your new random assignment.</li>
+<li>Briefly comment on this estimate in relation to SATE and the single unit causal effects.</li>
+</ol>
+</div>
+<p><br></p>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>9M1.</strong> <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> define <em>the sample average treatment effect</em> (SATE) and <em>the population average treatment effect</em> (PATE). These are typically estimated by the <em>prima facie treatment effect</em>, i.e., the contrast between the average of the treatment group and the average of the control group.</p>
+<ol type="a">
+<li>Explain why SATE and PATE are unobservable.</li>
+<li>Relate SATE and PATE to the concepts “internal validity” and “external validity”.</li>
+<li>Is it possible for the <em>prima facie</em> estimate to be close to SATE but far from PATE? Motivate your answer with an example.</li>
+<li>Is it possible for the <em>prima facie</em> estimate to be close to PATE but far from SATE? Motivate your answer with an example.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9M2.</strong> What is a <em>randomization distribution</em>? Refer to SATE and <em>prima-facie</em> causal-effect estimates in your explanation.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9M3.</strong> In education research, random assignment sometimes refer to schools or classes rather than pupils, and the unit of analyzes is schools (or classes). There might be different arguments for this, list as many as you can think of.</p>
+</div>
+<p><br></p>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>9H1.</strong><br>
+(a) The the table in 9E3 show one random assignment of participants (column Group). How many different such randomization could you do with with the constraint of equal group sizes? (b) Do them all, and illustrate the corresponding <em>prima-facie</em> effect sizes in a histogram.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9H2.</strong> Think of an experiment with 300 men randomly assigned to one of two groups. You have background information on age (continuous from 18 to 60 years), which is believed to influence the outcome variable (continuous variable).</p>
+<p>Compare these two design strategies:</p>
+<ul>
+<li>A completely randomized design, where you control for age in the statistical analyses using multiple linear regression (syntax: outcome ~ group + age).</li>
+<li>A matched pair design (pairs of equal age).</li>
+</ul>
+<ol type="a">
+<li>Discuss circumstances under which these design strategies would lead to similar causal effect estimates and when they may differ.</li>
+<li>Simulate data where the two designs would yield about the same point estimates, but the matched pair design would give higher precision (tighter confidence intervals)</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>9H3.</strong> Think of a scenario where the first design in 9H2 may lead to a biased estimate of the causal effect. Explain in terms of the potential outcome model.</p>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dagitty_0.3-4
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     fastmap_1.2.0     xfun_0.52         knitr_1.50       
+ [5] htmltools_0.5.8.1 rmarkdown_2.29    cli_3.6.5         compiler_4.4.2   
+ [9] boot_1.3-31       rstudioapi_0.17.1 tools_4.4.2       curl_6.4.0       
+[13] evaluate_1.0.3    Rcpp_1.0.14       yaml_2.3.10       rlang_1.1.6      
+[17] jsonlite_2.0.0    V8_6.0.4          htmlwidgets_1.6.4 MASS_7.3-61      </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-christensen2023randomized" class="csl-entry" role="listitem">
+Christensen, L., Turner, L. A., &amp; Johnson, R. B. (2023). <em>Randomized designs in psychological research.</em>
+</div>
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-holland1986statistics" class="csl-entry" role="listitem">
+Holland, P. W. (1986). Statistics and causal inference. <em>Journal of the American Statistical Association</em>, <em>81</em>(396), 945–960.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08-stat25.html" class="pagination-link" aria-label="S: Linear Regression: Basics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./10-stat25.html" class="pagination-link" aria-label="S: Linear Regression: Single Predictor">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

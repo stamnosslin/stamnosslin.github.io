@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mats E. Nilsson">
+<meta name="dcterms.date" content="2023-04-14">
 
-<title>RMS notes</title>
+<title>My notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,7 +32,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-method25.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,29 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
-
-<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
-<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-
-<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
-
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-
-<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-
-<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-
-<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-
-<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-
-<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
-
-<link rel="stylesheet" href="mnstyle.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -151,7 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">RMS notes</a> 
+      <a href="./">My notes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -167,108 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -279,11 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#welcome-to-research-methods-1-and-stat-1" id="toc-welcome-to-research-methods-1-and-stat-1" class="nav-link" data-scroll-target="#welcome-to-research-methods-1-and-stat-1">Welcome to Research Methods 1 and Stat 1</a></li>
-  <li><a href="#important-concepts" id="toc-important-concepts" class="nav-link" data-scroll-target="#important-concepts">Important concepts</a></li>
-  </ul></li>
+  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
   </ul>
 </nav>
     </div>
@@ -292,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">RMS notes</h1>
+<h1 class="title">My notes</h1>
 </div>
 
 
@@ -309,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Monday, September 8, 2025</p>
+      <p class="date">April 14, 2023</p>
     </div>
   </div>
   
@@ -323,32 +162,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
-<section id="welcome-to-research-methods-1-and-stat-1" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="welcome-to-research-methods-1-and-stat-1">Welcome to Research Methods 1 and Stat 1</h2>
-<p>In this book I collect my notes to the courses Research Methods 1 and Statistics 1, both part of the Master program in psychology, at Department of Psychology, Stockholm University. Lecture notes for Method 1 are in odd numbered chapters, notes for Stat 1 are in even numbered chapters. I will update the notes as we go along.</p>
-<p><br><br><br><br><br></p>
-</section>
-<section id="important-concepts" class="level2">
-<h2 class="anchored" data-anchor-id="important-concepts">Important concepts</h2>
-<p>This is a test</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rms_concepts25.xlsx"</span>, <span class="at">range =</span> <span class="st">"Method!A1:F108"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(g)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(g, <span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-a64f4c0feeffe84cec7a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a64f4c0feeffe84cec7a">{"x":{"filter":"none","vertical":false,"data":[["Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Causality","Design","Design","Design","Design","Design","Design","Design","Design","Design","Design","Design","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Design element","Measurement","Measurement","Measurement","Measurement","Measurement","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threat to validity","Threat to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Threats to validity","Validity","Validity","Validity","Validity","Validity","Variable","Variable","Variable","Variable","Variable","Variable","Variable","Variable","Variable","Variable","Variable","Variable"],["Causal effect","Causal effect","Causal effect","Causal effect","Causal effect","Causal effect","Causal effect","Causal effect","Causal effect","Causal graph","Causal graph","Causal graph","Causal inference","Causal inference","Causal inference","Causal inference","Experiment","Experiment","Experiment","Experiment","Experiment","Experiment","Observational","Observational","Observational","Observational","Observational","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Analytic strategy","Comparison","Comparison","Comparison","Masking","Masking","Masking","Sampling","Sampling","Sequence effect","Sequence effect","Sequence effect","Sequence effect","Comparison","Causal effect","Quality","Quality","Quality","Systematic error","Confounding","Confounding","Confounding","Confounding","Confounding","Cross-level bias","Cross-level bias","Measurement","Measurement","Random error","Random error","Random error","Random error","Random error","Random error","Reversed causation","Reversed causation","Reversed causation","Selection bias","Selection bias","Selection bias","Selection bias","Selection bias","Selection bias","Unintended effect","Unintended effect","Unintended effect","Unintended effect","Unintended effect","Unintended effect","Unintended effect","Within participant","Within participant","Within participant","Within participant","Within participant","Campbell's typology","Campbell's typology","Campbell's typology","Campbell's typology","Campbell's typology","Causal graph","Causal graph","Causal graph","Causal graph","Causal graph","Causal graph","Causal graph","Causal graph","Causal graph","Interaction","Measurement","Measurement"],["Average causal effect","Sample average causal effect (SATE)","Popualtion average causal effect (PATE)","Causal effect","Direct effect","Effect size","Indirect effect","Single-unit causal effect","Total causal effect","Causal path","Directed Acyclical Graph","Non-causal path","Causal inference","Ceteris paribus","Fundamental problem of causal inference","Potential outcome model of causality","Between-participant design","Factorial design","Mixed within-between-participant design","Randomized experiment","Single-N design","Within-participant design","Case-control study","Cohort study","Cross-sectional study","Longitudinal design","Natural experiment","As-treated analysis","Imputation of missing data","Intention-to-treat analysis","Last value carried forward","Matching on covariates","Per-protocol analysis","Statistical control of covariates","Stratification on covariates","Treatment effect bounding","Control group","Negative controls","Random assignment to treatment conditions","Blinding","Filler items","Masked purpose","Random sample from population","Restriction on covariates","Training sessions","Latin-square design","Random (or irregular) stimulus order","Wash-out period","Contrast","Effect-size measure","Scale level","Test reliability","Test validity","Systematic error = bias","Confounding","Negative confounding","Non-compliance","Omitted variable bias","Residual confounding","Cross-level bias (aggregation bias)","Ecological fallacy","Differential misclassification","Non-differential misclassification","Power","Random error","Randomization error","Regression fallacy","Sampling error","Small-sample fallacy","Ambiguous temporal order","Recall bias","Reversed causation","Attrition bias","Collider bias","Obesity paradox","Overadjustment bias","Selection bias","Survivorship bias","Mono-method bias","Demand characteristics","Experimenter effect","Hawthorne effect","Placebo effect","Response bias","Unintended effect","Carry-over effect","History effects","Maturation","Order effect","Sequencing effect","Construct validity","External validity","Internal validity","Statistical conclusion validity","Threats to validity","Collider","Confounder","Covariate","Dependent variable = Outcome variable","Descendant variable","Independent variable = Exposure variable","Mediator","Post-treatment variable","Pre-treatment variable","Moderator","Latent variable","Manifest variable"],["3.2","9.3-9.4","9.3-9.4","3.2; 5.2; 6.1","3.2; 15.4","5.2; 6.1","3.2; 15.4","3.2","3.2","3.3","3.3","3.3","3.1-3.4","3.2","3.2","3.2","9.1","14.2","7.1","9.2-9.4","7.2","7.1","13.1-13.2","13.1-13.2","13.1-13.2","13.1-13.2","13.1-13.2","11.3","11.4","11.3","11.4","13.3","11.3","13.3","13.3","11.3","9.1","5.4","9.1999999999999993","5.4","7.3","5.4; 7.3","1.4","13.3","7.3","7.3","7.3","7.3","5.2","5.2","5.0999999999999996","5.3","5.3","1.3","13.4; 15.3","13.4","11.2","13.4","13.4","7.4","7.4; 15.4","5.3","5.3","5.5","1.3; 5.5","9.3000000000000007","5.5; 8.3","1.3","5.5","15.2","15.2","13.4; 15.2","11.4","13.4","13.4; 15.4","13.4","15.4","11.4","5.4; 15.3","5.4","5.4","5.4","5.4","5.4","5.4","7.3","7.3","7.3","7.3","7.3","1.4","1.4","1.4","1.4","1.4","3.3; 13.4; 15.4","3.3; 13.4; 15.3","13.3","3.3","13.4","3.3","3.3; 13.4; 15.4","13.5","13.5","14.2","5.0999999999999996","5.0999999999999996"],[null,null,null,"Rohrer; Steiner; Textor; Wilkinson","Rohrer; Steiner; Textor","Wilkinson","Rohrer; Steiner; Textor","Steiner (ICE); Smith (indiviual-level)","Steiner","Rohrer; Steiner; Textor","Rohrer; Steiner; Textor","Rohrer; Steiner; Textor","Rohrer; Steiner; Textor; Hernán",null,"Steiner","Steiner","Christensen","Christensen","Christensen","Christensen","Smith","Christensen; Smith",null,null,null,null,null,"Sagarin",null,"Sagarin",null,null,"Sagarin",null,null,"Sagarin","Christensen",null,"Christensen; Wilkinson","Wilkinson",null,null,"Wilkinson",null,null,"Christensen","Christensen","Christensen","Wilkinson","Wilkinson",null,"Wilkinson","Wilkinson",null,"Rohrer; Steiner; Textor",null,"Sagarin","Rohrer; Steiner; Textor","Rohrer","Smith",null,null,null,"Wilkinson",null,null,null,"Wilkinson",null,"Steiner",null,"Steiner","Rohrer","Banak","Banak","Rohrer (overcontrol bias)","Banak",null,null,null,"Wilkinson",null,null,null,null,"Christensen","Steiner","Steiner","Christensen","Christensen","Steiner","Steiner","Steiner","Steiner","Steiner","Banak; Steiner","Steiner",null,null,"Steiner",null,"Rohrer","Rohrer",null,"Christensen",null,null],["18.2","18.2","18.2","18.1-18.2",null,null,null,"18.2 (individual-level causal effect)","18.2",null,null,null,"18.1-18.6","18.1  (close substitues)",null,"18.100000000000001",null,null,null,"18.3",null,null,null,null,null,null,null,null,"17.399999999999999",null,"17.399999999999999",null,null,"10.1-10.2",null,null,"18.1-18.2",null,"18.3",null,null,null,"18.2",null,null,null,null,null,null,null,null,"2.2000000000000002","2.2000000000000002",null,null,null,"18.600000000000001",null,null,null,null,null,null,"16.1; 16.6",null,"18.600000000000001","6.5",null,null,null,null,null,"18.600000000000001",null,null,null,null,null,null,null,null,"18.600000000000001",null,null,null,null,null,null,null,null,null,"2.1; 18.6","18.600000000000001",null,"18.600000000000001",null,null,null,null,null,null,null,null,null,"10.3",null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Category<\/th>\n      <th>Sub-category<\/th>\n      <th>Concepts to Grasp<\/th>\n      <th>MN notes<\/th>\n      <th>Articles<\/th>\n      <th>ROS<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"name":"Category","targets":0},{"name":"Sub-category","targets":1},{"name":"Concepts to Grasp","targets":2},{"name":"MN notes","targets":3},{"name":"Articles","targets":4},{"name":"ROS","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+<p>This is a book with only one page, this one! It contains links to my notes for various course that I teach here at the Department of Psychology, Stockholm University.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Course</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://matni.bitbucket.io/rex/docs/" target="_blank">REX</a></td>
+<td>learn R by EXample: Intro to R , satellite course to Method 1 and Stat 1</td>
+</tr>
+<tr class="even">
+<td><a href="https://matni.bitbucket.io/rmsnotes/docs/" target="_blank">RMS notes</a></td>
+<td>Notes for the master courses Method 1 and Stat 1</td>
+</tr>
+<tr class="odd">
+<td><a href="https://matni.bitbucket.io/stat2notes/docs/" target="_blank">Stat 2 notes</a></td>
+<td>Notes doctoral course Stat 2 and Stat 2.5</td>
+</tr>
+<tr class="even">
+<td><a href="https://matni.bitbucket.io/stat2solutions/docs/" target="_blank">Stat 2 solutions</a></td>
+<td>My solutions to problems discussed at Stat 2 and Stat 2.5</td>
+</tr>
+<tr class="odd">
+<td><a href="https://matni.bitbucket.io/stan_notes/_book/" target="_blank">Stan notes</a></td>
+<td>My personal notes on Stan, a “Stan for complete dummies”, work in progress …</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -772,15 +618,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="./01-method25.html" class="pagination-link" aria-label="M: Research Questions and Claims">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 
 

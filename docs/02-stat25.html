@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; S: Data Management and Screening – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-method25.html" rel="next">
+<link href="./01-method25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-stat25.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">2.1</span> Data management</a>
+  <ul class="collapse">
+  <li><a href="#open-science" id="toc-open-science" class="nav-link" data-scroll-target="#open-science">Open Science</a></li>
+  <li><a href="#reproducibility-and-replicability" id="toc-reproducibility-and-replicability" class="nav-link" data-scroll-target="#reproducibility-and-replicability">Reproducibility and Replicability</a></li>
+  <li><a href="#raw-data-files" id="toc-raw-data-files" class="nav-link" data-scroll-target="#raw-data-files">Raw data files</a></li>
+  <li><a href="#data-analysis-scripts" id="toc-data-analysis-scripts" class="nav-link" data-scroll-target="#data-analysis-scripts">Data analysis script(s)</a></li>
+  <li><a href="#write-nice-code" id="toc-write-nice-code" class="nav-link" data-scroll-target="#write-nice-code">Write nice code</a></li>
+  <li><a href="#literate-programming" id="toc-literate-programming" class="nav-link" data-scroll-target="#literate-programming">Literate programming</a></li>
+  </ul></li>
+  <li><a href="#initial-data-screening" id="toc-initial-data-screening" class="nav-link" data-scroll-target="#initial-data-screening"><span class="header-section-number">2.2</span> Initial data screening</a>
+  <ul class="collapse">
+  <li><a href="#import-raw-data-from-text-file" id="toc-import-raw-data-from-text-file" class="nav-link" data-scroll-target="#import-raw-data-from-text-file">Import raw data from text file</a></li>
+  <li><a href="#import-text-file" id="toc-import-text-file" class="nav-link" data-scroll-target="#import-text-file">Import text-file</a></li>
+  <li><a href="#initial-screening" id="toc-initial-screening" class="nav-link" data-scroll-target="#initial-screening">Initial screening</a></li>
+  <li><a href="#look-at-data-per-stimulus-condition" id="toc-look-at-data-per-stimulus-condition" class="nav-link" data-scroll-target="#look-at-data-per-stimulus-condition">Look at data per stimulus condition</a></li>
+  </ul></li>
+  <li><a href="#probability-1-basics" id="toc-probability-1-basics" class="nav-link" data-scroll-target="#probability-1-basics"><span class="header-section-number">2.3</span> Probability 1: Basics</a>
+  <ul class="collapse">
+  <li><a href="#probability-concepts" id="toc-probability-concepts" class="nav-link" data-scroll-target="#probability-concepts">Probability concepts</a></li>
+  <li><a href="#base-rate-neglect-and-the-prosecutors-fallacy" id="toc-base-rate-neglect-and-the-prosecutors-fallacy" class="nav-link" data-scroll-target="#base-rate-neglect-and-the-prosecutors-fallacy">Base rate neglect and the Prosecutor’s fallacy</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R implementation of http://www.dagitty.net</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Reproducibility and Replicability</li>
+<li>Data management
+<ul>
+<li>Raw data file(s)</li>
+<li>Code book</li>
+<li>Data analysis script(s)</li>
+</ul></li>
+<li>Initial data screening, to find errors in raw data. Helpful R functions:
+<ul>
+<li><code>head()</code>, <code>tail()</code></li>
+<li><code>str()</code></li>
+<li><code>summary()</code></li>
+<li><code>hist()</code>, <code>boxplot()</code></li>
+</ul></li>
+<li>Probability (basics)
+<ul>
+<li>Joint probability</li>
+<li>Conditional probability</li>
+<li>Independence (not the same as disjoint!)</li>
+<li>Bayes rule</li>
+</ul></li>
+</ul>
+<p>Readings:</p>
+<ul>
+<li>Do not forget to read <span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>! Although a bit old it is still an excellent guide to data analysis. For their view on initial data screening, see “Results: Complications” (pp.&nbsp;597-598).</li>
+<li><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, ch.&nbsp;3 on probability</li>
+</ul>
+</div>
+<p><br></p>
+</section>
+<section id="data-management" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="data-management"><span class="header-section-number">2.1</span> Data management</h2>
+<section id="open-science" class="level3">
+<h3 class="anchored" data-anchor-id="open-science">Open Science</h3>
+<p><em>Open science</em> is an umbrella term for a collection of values, practices and movements. The two main principles of <em>Open Science</em> ” are</p>
+<ul>
+<li><ol type="1">
+<li><em>Transparency</em>, Open science aims at making the scientific processes more transparent.</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li><em>Accessibility</em>, Open science aims at making research results more <em>accessible.</em></li>
+</ol></li>
+</ul>
+<p><br></p>
+</section>
+<section id="reproducibility-and-replicability" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="reproducibility-and-replicability">Reproducibility and Replicability</h3>
+<p>American Statistical Association endorse the following definitions (<span class="citation" data-cites="broman2017recommendations">Broman et al. (<a href="references.html#ref-broman2017recommendations" role="doc-biblioref">2017</a>)</span>):</p>
+<ol type="1">
+<li><strong>Reproducibility</strong>: A study is reproducible if you can take the original data and the computer code used to analyze the data and reproduce all of the numerical findings from the study. This may initially sound like a trivial task but experience has shown that it’s not always easy to achieve this seemingly minimal standard.</li>
+<li><strong>Replicability</strong>: This is the act of repeating an entire study, independently of the original investigator without the use of original data (but generally using the same methods).</li>
+</ol>
+<p><br></p>
+</section>
+<section id="raw-data-files" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="raw-data-files">Raw data files</h3>
+<p><strong>Management</strong></p>
+<ul>
+<li>There should only be one version of the raw data files(s). If several people are involved in the analysis, one should be assigned as data host, and be responsible for keeping the raw data.</li>
+<li>The raw data file(s) should be consider as read-only files. Once the raw data files is finalized (obvious errors fixed), the raw data file should not be touched. Do never include created variables in the raw data file, and never remove outliers or impute new data in the raw data file.</li>
+<li>Every new data-analysis sessions should start with importing the raw data into your statistical software (i.e., R). New variables, removal of outliers, etc. are coded in your analysis script, and repeated each time you start a new analysis session.</li>
+<li>Only change the raw data file if obvious errors are discovered. If someone in an analysis team discovers an error, then he or she reports it to the data host who is the only one allowed to make changes to the raw data file.</li>
+</ul>
+<p><strong>Code book</strong></p>
+<p>A detailed description of the data set, with information on how to interpret column names. The more information the better (within reason), for example regarding measurement units and codes for missing data (e.g., -999, or NA).</p>
+<p>The code book may be given in …</p>
+<ul>
+<li>a separate document,</li>
+<li>the script file,<br>
+</li>
+<li>the raw data file. The first lines may be devoted to code book. For example, lines starting with special character, such as #, may be ignored when reading data into R. <a href="https://bitbucket.org/matni/matni.bitbucket.org/src/master/rmsnotes/datasets/rt_howell.txt" target="blank">Example</a></li>
+</ul>
+<p><br></p>
+</section>
+<section id="data-analysis-scripts" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="data-analysis-scripts">Data analysis script(s)</h3>
+<ul>
+<li><p>Outlier exclusions, imputation of missing data (never in raw data file)</p></li>
+<li><p>Definitions of created variables</p></li>
+<li><p>Data analyses</p></li>
+<li><p>Figures and tables</p></li>
+<li><p>DON’T Do things by hand</p>
+<ul>
+<li>don’t manually clean spreadsheet data</li>
+<li>don’t move files around your computer (splitting/reformatting data files, …)</li>
+<li>don’t edit tables or figures by hand</li>
+</ul></li>
+<li><p>DON’T Use point-and-click software. Ease of use can lead to non-reproducible analyses</p></li>
+<li><p>DON’T Save outputs during analysis work. Figures and tables should be defined in scripts and redrawn each analysis session. Save figures and tables only when it is time to publish your work.</p></li>
+</ul>
+<p><br></p>
+</section>
+<section id="write-nice-code" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="write-nice-code">Write nice code</h3>
+<p>To be reproducible in practice (and not only in theory), data files and code scripts have to be easy to understand for everyone, without background knowledge of your study and data. Note: This one may the future you. Therefore, spend time to write nice code:</p>
+<ul>
+<li>Meaningful variable names (prefer “anxiety_score” over “x”)</li>
+<li>Annotate a lot!</li>
+<li>Follow coding guidelines, for example, <a href="http://adv-r.had.co.nz/Style.html" target="blank">Wickham’s</a></li>
+</ul>
+<p><br></p>
+</section>
+<section id="literate-programming" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="literate-programming">Literate programming</h3>
+<p>Popular tools:</p>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com/" data-targett="blank">Rmarkdown</a> was my first experience with literate programming. I have moved on to:</li>
+<li><a href="https://quarto.org/" data-targett="blank">Quarto</a> The new Rmarkdown, try it out in Rstudio.</li>
+<li><a href="https://jupyter.org/" data-targett="blank">Jupyter</a> is another tool.</li>
+</ul>
+<p><br><br></p>
+</section>
+</section>
+<section id="initial-data-screening" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="initial-data-screening"><span class="header-section-number">2.2</span> Initial data screening</h2>
+<p>I will say this many times: Know your data! Or, as a professor once told me years ago, “You need to be on top of your data.” The very first step to a comprehensive understanding of your data is to screen the data to detect errors.</p>
+<p>Let’s create some fake data, with known errors to be detected. It is about hearing status in a sample of industrial workers aged between 20 and 65 years old.</p>
+<p><strong>Code book</strong>:</p>
+<ul>
+<li><strong>id</strong> Id-number unique to each participant</li>
+<li><strong>age</strong> Age of participant, between 20 and 65 years</li>
+<li><strong>pta4</strong> Hearing status measured in dB (average absolute tone threshold) with possible values between -10 and 80 dB (lower means better hearing).</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to make the following reproducible!</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of participants in the study</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">760</span>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ID-number unique for each participants</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n  </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sampling age from normal distributions</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">45</span>, <span class="at">sd =</span> <span class="dv">5</span>) </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Sampling hearing status (pta4 [dB], low values is better) from normal</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># and making hearing gets worse with age, about 2 dB per 10 years </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>pta4 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>age  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Round to integers to make numbers more realistic</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>age <span class="ot">&lt;-</span> <span class="fu">round</span>(age)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>pta4 <span class="ot">&lt;-</span> <span class="fu">round</span>(pta4)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Add some errors</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>age[<span class="dv">126</span>]  <span class="ot">&lt;-</span> <span class="dv">999</span>  <span class="co"># ID 126 has age = 999 years</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>age[<span class="dv">231</span>]  <span class="ot">&lt;-</span> <span class="dv">87</span>   <span class="co"># ID 231 has age = 87 years</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pta4[<span class="dv">5</span>]   <span class="ot">&lt;-</span> <span class="dv">227</span>  <span class="co"># ID 5 has pta4 =  227 dB</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>pta4[<span class="dv">543</span>] <span class="ot">&lt;-</span> <span class="dv">999</span>  <span class="co"># ID 543 has pta4 = 999 dB</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Make data frame</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> id, <span class="at">age =</span> age, <span class="at">pta4 =</span> pta4)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove variables to just keep the data frame</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(n, id, age, pta4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+<p>I stored the fake data in a data frame called <code>d</code>. Please copy the code above,<br>
+run it in R and pretend that it’s a real data set imported to R. Let’s start with initial screening of the data frame.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial data screening of our data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)  <span class="co"># Shows the first few lines of the data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id age pta4
+1  1  42   21
+2  2  44   22
+3  3  53   24
+4  4  45   11
+5  5  46  227
+6  6  54   26</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(d)  <span class="co"># Shows the last few lines of the data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     id age pta4
+755 755  44   17
+756 756  44   22
+757 757  50   19
+758 758  44   22
+759 759  35   16
+760 760  44   17</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)   <span class="co"># R description of data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   760 obs. of  3 variables:
+ $ id  : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ age : num  42 44 53 45 46 54 47 39 42 43 ...
+ $ pta4: num  21 22 24 11 227 26 26 17 17 26 ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(d) <span class="co"># Some basic stats, including information on missing data = NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id             age              pta4       
+ Min.   :  1.0   Min.   : 31.00   Min.   :  6.00  
+ 1st Qu.:190.8   1st Qu.: 42.00   1st Qu.: 16.00  
+ Median :380.5   Median : 45.00   Median : 19.00  
+ Mean   :380.5   Mean   : 46.38   Mean   : 20.73  
+ 3rd Qu.:570.2   3rd Qu.: 48.00   3rd Qu.: 23.00  
+ Max.   :760.0   Max.   :999.00   Max.   :999.00  </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Plots may discover suspicious observations not shown by the screening above:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots next to each other</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>age, <span class="at">ylab =</span> <span class="st">"Age [years]"</span>) </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>pta4, <span class="at">ylab =</span> <span class="st">"Hearing status, PTA4 [dB]"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Find data outside the specified age interval [20, 65], and hearing ability interval [-10, 80]:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finding ids with age and hearing status that should not be in the sample</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>age_out  <span class="ot">&lt;-</span> d<span class="sc">$</span>id[d<span class="sc">$</span>age <span class="sc">&lt;</span> <span class="dv">20</span> <span class="sc">|</span> d<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">65</span> ]  </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pta4_out <span class="ot">&lt;-</span> d<span class="sc">$</span>id[d<span class="sc">$</span>pta4  <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span> <span class="sc">|</span> d<span class="sc">$</span>pta4  <span class="sc">&gt;</span>  <span class="dv">80</span>] </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print data frame rows with</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>outrows <span class="ot">&lt;-</span> d<span class="sc">$</span>id <span class="sc">%in%</span> <span class="fu">c</span>(age_out, pta4_out)  <span class="co"># Find rows with outlier data</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>d[outrows, ]  <span class="co"># Look at data frame for these rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     id age pta4
+5     5  46  227
+126 126 999   21
+231 231  87   24
+543 543  49  999</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Fix data (in script, not in raw data file!). You would put code like this at the top of your data analysis script. Note: Advanced users may put it in a separate script that is called by the main analysis script(s).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> d  <span class="co"># new data frame called g</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>g<span class="sc">$</span>age[age_out] <span class="ot">&lt;-</span> <span class="cn">NA</span>  <span class="co"># Make impossible ages missing data, NA</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>g<span class="sc">$</span>pta4[pta4_out] <span class="ot">&lt;-</span> <span class="cn">NA</span>  <span class="co"># Make impossible hearing-status missing data, NA</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Screen data frame g</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   760 obs. of  3 variables:
+ $ id  : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ age : num  42 44 53 45 46 54 47 39 42 43 ...
+ $ pta4: num  21 22 24 11 NA 26 26 17 17 26 ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       id             age             pta4      
+ Min.   :  1.0   Min.   :31.00   Min.   : 6.00  
+ 1st Qu.:190.8   1st Qu.:42.00   1st Qu.:16.00  
+ Median :380.5   Median :45.00   Median :19.00  
+ Mean   :380.5   Mean   :45.07   Mean   :19.17  
+ 3rd Qu.:570.2   3rd Qu.:48.00   3rd Qu.:22.75  
+ Max.   :760.0   Max.   :61.00   Max.   :37.00  
+                 NA's   :2       NA's   :2      </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplots again, now without outliers</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots next to each other</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(g<span class="sc">$</span>age, <span class="at">ylab =</span> <span class="st">"Age [years]"</span>) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(g<span class="sc">$</span>pta4, <span class="at">ylab =</span> <span class="st">"Hearing status, PTA4 [dB]"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br><br></p>
+<p>And just for fun, some analysis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize result: sScatter plot</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(g<span class="sc">$</span>age, g<span class="sc">$</span>pta4, <span class="at">xlab =</span> <span class="st">"Age [years]"</span>, <span class="at">ylab =</span> <span class="st">"Hearing status, PTA4 [dB]"</span>) </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear regression, stored in object mfit, I am using lm() here, later on we</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># will use stan_glm() in the rstanarm package</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>mfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(pta4 <span class="sc">~</span> age, <span class="at">data =</span> g)  </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mfit)   <span class="co"># Draw regression line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.7-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mfit  <span class="co"># Regression equation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pta4 ~ age, data = g)
+
+Coefficients:
+(Intercept)          age  
+    10.4119       0.1942  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mfit) <span class="co"># Confidence intervals around estimates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5 %     97.5 %
+(Intercept) 7.1094563 13.7142545
+age         0.1213409  0.2670488</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="import-raw-data-from-text-file" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="import-raw-data-from-text-file">Import raw data from text file</h3>
+<p>Here is data from Table 2.1 in <span class="citation" data-cites="howell2012statistical">Howell (<a href="references.html#ref-howell2012statistical" role="doc-biblioref">2012</a>)</span>.</p>
+<p>The data is from a reaction-time experiment with one participant (Howell). The participant was first presented with a list of digits for a few seconds, e.g.,</p>
+<p><code>1, 5, 7</code></p>
+<p>After the list had been removed, Howell was shown a single digit, e.g.,</p>
+<p><code>2</code></p>
+<p>and was asked to determine whether the single digit was on the previously shown list (in the example above, correct answer would be <em>No</em>).</p>
+<p><strong>Code book</strong>:</p>
+<ul>
+<li>trial – Trial number, from 1 to 300 (here ordered according to stimulus condition, but I presume that stimuli were presented in random orders)</li>
+<li>nstim – Number of digits on the list (1, 3, or 5), we expect longer reaction times for longer lists</li>
+<li>yesno – Whether the single digit asked for was on the list (1, correct answer “Yes”) or not (2, correct answer “No”).</li>
+<li>rt – Reaction time in milliseconds</li>
+</ul>
+<p>Note that the data only contain trials in which the answer given was correct,</p>
+<p><a href="https://bitbucket.org/matni/matni.bitbucket.org/raw/2764bd7e58ab2b24b69cdd82dee3102a8e42283b/rmsnotes/datasets/rt_howell.txt" target="blank">Follow this link to find data</a> Save (Ctrl+S on a pc) to download as text file. You may also download it from Athena.</p>
+</section>
+<section id="import-text-file" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="import-text-file">Import text-file</h3>
+<p>Download the file and make sure it is in the same folder as your current R-session. To check from where R is working, run <code>getwd()</code> in the Console. Use <code>setwd(dir)</code> to change the directory of the current session, where <code>dir</code> is a character string. Example <code>setwd("C:/Users/MATNI/Documents/Stat1")</code> would set R to work in folder <code>Stat1</code> on my computer. You may also store your raw data file in a subfolder (generally a good idea), and then import the file from this subfolder. This is what I did in the code below.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I have chosen to store the data in a subfolder called </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "datasets" located in the directory from which R is working</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data file rt_howell.txt, located in subfolder .datasets/  </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./datasets/rt_howell.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+<section id="initial-screening" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="initial-screening">Initial screening</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  trial nstim yesno  rt
+1     1     1     1 400
+2     2     1     1 410
+3     3     1     1 470
+4     4     1     1 380
+5     5     1     1 400
+6     6     1     1 370</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   300 obs. of  4 variables:
+ $ trial: int  1 2 3 4 5 6 7 8 9 10 ...
+ $ nstim: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ yesno: int  1 1 1 1 1 1 1 1 1 1 ...
+ $ rt   : int  400 410 470 380 400 370 380 470 450 610 ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     trial            nstim       yesno           rt        
+ Min.   :  1.00   Min.   :1   Min.   :1.0   Min.   : 360.0  
+ 1st Qu.: 75.75   1st Qu.:1   1st Qu.:1.0   1st Qu.: 510.0  
+ Median :150.50   Median :3   Median :1.5   Median : 595.0  
+ Mean   :150.50   Mean   :3   Mean   :1.5   Mean   : 602.6  
+ 3rd Qu.:225.25   3rd Qu.:5   3rd Qu.:2.0   3rd Qu.: 670.0  
+ Max.   :300.00   Max.   :5   Max.   :2.0   Max.   :1250.0  </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Check number of trials per condition, this should be a balanced design. Here a cross-tabualtion of number of stimuli (nstim) and whether target was present or not (yesno).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(d<span class="sc">$</span>nstim, d<span class="sc">$</span>yesno)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+     1  2
+  1 50 50
+  3 50 50
+  5 50 50</code></pre>
+</div>
+</div>
+</section>
+<section id="look-at-data-per-stimulus-condition" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="look-at-data-per-stimulus-condition">Look at data per stimulus condition</h3>
+<p><strong>Box plots</strong></p>
+<p>Use box plots to inspect data</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot (there are many ways to make nicer boxplots)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># Two plots next to each other</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reaction time, all data</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>rt, <span class="at">xlab =</span> <span class="st">"All trials"</span>, <span class="at">ylab =</span> <span class="st">"Reaction time (ms)"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reaction time, per condition</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>rt <span class="sc">~</span> d<span class="sc">$</span>yesno <span class="sc">+</span> d<span class="sc">$</span>nstim, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'green'</span>, <span class="st">'red'</span>),</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Stimulus condition"</span>, <span class="at">ylab =</span> <span class="st">"Reaction time (ms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that there are less boxplot-defined outliers in the figure with all data (left) than in the one with boxplots per stimulus condition (right). In general, if you plan to do grouped analyses, then you should inspect the data per group (condition).</p>
+<p><br></p>
+</section>
+</section>
+<section id="probability-1-basics" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="probability-1-basics"><span class="header-section-number">2.3</span> Probability 1: Basics</h2>
+<p>Let’s start with this old exam question:</p>
+<div class="citations">
+<p>A women is pregnant with twins, and her doctor tells her that about one third of twin births are identical and the remaining two thirds are fraternal. On the next visit to the doctor, the sonogram shows that she is pregnant with twin boys. Her doctor tells her that about half identical twins are twin boys and the other half are twin girls, whereas for fraternal twins about one quarter are twin boys, one quarter are twin girls, and the rest are one of each sex. <em>How should she update her belief in identical versus fraternal twins given</em> <em>this information?</em></p>
+<p><font size="2"> Old Stat1 exam question </font></p>
+</div>
+<p><br></p>
+<p>Whenever possible, drawing a probability tree can effectively summarize the information provided in the question</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to draw probability tree (my apologize for clumsy code)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>ptree <span class="ot">&lt;-</span> <span class="cf">function</span>(edgevalues) {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">95</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  xpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">75</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  ypoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">80</span>, <span class="dv">20</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">10</span>) </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  cex <span class="ot">=</span> <span class="fl">0.8</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">80</span>))</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>))</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">70</span>))</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">20</span>))</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>))</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">20</span>))</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">y =</span> <span class="dv">50</span>, <span class="st">"Twins"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="st">"Identical"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"Fraternal"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">90</span>, <span class="st">"BB"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">70</span>, <span class="st">"GG"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">30</span>, <span class="st">"BB"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"Mix"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">10</span>, <span class="st">"GG"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">32.5</span>, <span class="at">y =</span> <span class="dv">65</span>, edgevalues[<span class="dv">1</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">32.5</span>, <span class="at">y =</span> <span class="dv">35</span>, edgevalues[<span class="dv">2</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">90</span>, edgevalues[<span class="dv">3</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">70</span>, edgevalues[<span class="dv">4</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">30</span>, edgevalues[<span class="dv">5</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">23</span>, edgevalues[<span class="dv">6</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">10</span>, edgevalues[<span class="dv">7</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xpoints, ypoints, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"grey"</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>edgeprob <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1/3"</span>, <span class="st">"2/3"</span>, <span class="st">"1/2"</span>, <span class="st">"1/2"</span>, <span class="st">"1/4"</span>, <span class="st">"1/2"</span>, <span class="st">"1/4"</span>)</span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a><span class="fu">ptree</span>(<span class="at">edgevalues =</span> edgeprob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>BB – Twin boys</li>
+<li>Mix – Twins of different sex</li>
+<li>GG – Twin girls</li>
+</ul>
+<p><br></p>
+<p>It is often easier to think clearly by replacing probabilities with frequencies. So, let’s consider a large number, such as 600 twin births:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>edgefreq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">400</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">100</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ptree</span>(<span class="at">edgevalues =</span> edgefreq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>or in table format:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">BB</th>
+<th style="text-align: center;">Mix</th>
+<th style="text-align: center;">GG</th>
+<th style="text-align: center;"><em>Marginal</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Identical</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;"><em>200</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fraternal</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;"><em>400</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><em>Marginal</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>600</em></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Now it is clear that the initial belief of fraternal twins being twice as likely as identical twins (2/3 versus 1/3 probability, that is, an odds of 2:1 in favor of fraternal twins) should be revised in view of the data. Among twin boys (BB), half are identical and half fraternal, so both outcomes are equally likely (an odds of 1:1). This is simple logic, made transparent by transforming the problem to frequencies and summarizing the result in a probability tree or a table as above. It also follows from <em>Bayes’ rule</em> (discussed in more detail in chapter 6 of these notes).</p>
+<p><br></p>
+<section id="probability-concepts" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="probability-concepts">Probability concepts</h3>
+<p><strong>Probability</strong></p>
+<p>There are different perspectives on the meaning of “probability”. Frequentists view probability as a long-run frequency, whereas Bayesians view it as a measure of uncertainty. Luckily, the math is the same no matter how probability is defined, so pragmatically we may leave it to the philosophers of probability to sort out what they really mean. We may avoid the whole problem by just stating that probability is a function that takes an outcome as input and spits out a value between 0 (impossible) and 1 (certain) in accordance with the <em>sum rule</em> described below (these conditions, stated much more rigorously, are known as the axioms of probability).</p>
+<p>The Bayesian view fits nicely with the example above: The woman’s initial (prior) belief is 2/3 to 1/3 in favor of fraternal over identical twins. Objectively, she either has identical or fraternal twins, it is just that she is uncertain of which. Once she has given birth, she will know for certain, with probability 1 for fraternal and 0 for identical, or vice versa.</p>
+<p><br></p>
+<p><strong>Probability notation</strong></p>
+<ul>
+<li>Probability: <span class="math inline">\(Pr(A)\)</span>, also known as marginal probability, see below</li>
+<li>Joint probability: <span class="math inline">\(Pr(A, B)\)</span>, <span class="math inline">\(Pr(A \ and \ B)\)</span>, <span class="math inline">\(Pr(A\cap B)\)</span></li>
+<li>Union probability, <span class="math inline">\(Pr(A \ or \ B)\)</span>, <span class="math inline">\(Pr(A\cup B)\)</span></li>
+<li>Conditional probability, <span class="math inline">\(Pr(A|B)\)</span>, defined below.</li>
+</ul>
+<p>See Probability 2 (ch.&nbsp;4), for the distinction between <em>probability</em> and <em>density</em>. We will use <span class="math inline">\(p()\)</span> for density, and <span class="math inline">\(Pr()\)</span> for probabilities.</p>
+<p><br></p>
+<p><strong>Conditional probability</strong></p>
+<p>Definition: <span class="math inline">\(Pr(B|A) = Pr(A \ and \ B)/Pr(A), \ \ \ \ Pr(A) &gt; 0\)</span></p>
+<p>In words, the probability that B will happen if A has happened. Example, the probability that someone will be diagnosed with lung cancer in the next 10 years (B), given that he or she is a heavy smoker (A).</p>
+<p><br></p>
+<p><strong>The Product rule</strong></p>
+<p><span class="math inline">\(Pr(A \ and \ B) = Pr(A)Pr(B|A) = Pr(B)Pr(A|B), \ \ \ \ Pr(A) &gt; 0, \ Pr(B) &gt; 0\)</span></p>
+<p><br></p>
+<p><strong>Independence</strong></p>
+<p>If A and B are <em>independent</em>, then:</p>
+<ul>
+<li><span class="math inline">\(Pr(B|A) = Pr(B),  \ \ \ Pr(A) &gt; 0\)</span></li>
+<li><span class="math inline">\(Pr(A|B) = Pr(A),  \ \ \ Pr(B) &gt; 0\)</span></li>
+<li><span class="math inline">\(Pr(A \ and \ B) = Pr(A)Pr(B)\)</span> (from the product rule above)</li>
+</ul>
+<p>The latter equation is often taken as the definition of <em>independence</em>.</p>
+<p><br></p>
+<p><strong>The Sum rule</strong></p>
+<p><span class="math inline">\(Pr(A \ or \ B) = Pr(A) + Pr(B) - Pr(A \ and \ B)\)</span></p>
+<p>Special case, A and B are <em>disjoint</em>, i.e., <span class="math inline">\(Pr(A \ and \ B) = 0\)</span>:</p>
+<p><span class="math inline">\(Pr(A \ or \ B) = Pr(A) + Pr(B)\)</span></p>
+<p><br></p>
+<p><strong>Marginal probability</strong></p>
+<p>The term marginal probability might sound complex, but it’s actually straightforward. It’s simply the probability of a particular event, without considering the level of other variables. This concept follows from the sum rule: for discrete variables, the marginal probability is the sum of relevant joint probabilities,<br>
+and it’s often displayed in the “margins” of probability tables, as seen below.</p>
+<p>Twin births and sex. Note that entries are joint probabilities, for example the upper left is <span class="math inline">\(Pr(BB \ \&amp; \ Identical) = 1/6\)</span>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">BB</th>
+<th style="text-align: center;">Mix</th>
+<th style="text-align: center;">GG</th>
+<th style="text-align: center;"><em>Marginal</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Identical</td>
+<td style="text-align: center;">1/6</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1/6</td>
+<td style="text-align: center;"><em>1/3</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fraternal</td>
+<td style="text-align: center;">1/6</td>
+<td style="text-align: center;">2/6</td>
+<td style="text-align: center;">1/6</td>
+<td style="text-align: center;"><em>2/3</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><em>Marginal</em></td>
+<td style="text-align: center;"><em>1/3</em></td>
+<td style="text-align: center;"><em>1/3</em></td>
+<td style="text-align: center;"><em>1/3</em></td>
+<td style="text-align: center;"><em>1</em></td>
+</tr>
+</tbody>
+</table>
+<p>H: Type of twin birth (Identical, Fraternal); D: Sex composition (BB, Mix, GG)</p>
+<p><span class="math inline">\(Pr(H = Fraternal) = 1/6 + 2/6 + 1/6 = 2/3\)</span></p>
+<p><span class="math inline">\(Pr(D = BB) = 1/6 + 1/6 = 1/3\)</span></p>
+<p><br></p>
+</section>
+<section id="base-rate-neglect-and-the-prosecutors-fallacy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="base-rate-neglect-and-the-prosecutors-fallacy">Base rate neglect and the Prosecutor’s fallacy</h3>
+<p><br></p>
+<ul>
+<li><p><strong>Base-rate neglect</strong>: Ignoring or undervaluing the prior probability of an event (the base rate) when evaluating the probability of an event in light of data.</p></li>
+<li><p><strong>Prosecutor’s fallacy</strong>: A logical error that occurs when the probability of hypothesis given the data, <span class="math inline">\(Pr(H|D)\)</span>, is confused with the probability of data given hypothesis , <span class="math inline">\(Pr(D|H)\)</span>.</p></li>
+</ul>
+<p>This old exam question will illustrate both phenomena:</p>
+<div class="citations">
+<p>For symptom-free women age 40 to 50 who participate in screening using mammography, the following information is available:</p>
+<ul>
+<li>1 % has breast cancer,</li>
+<li>If a women has breast cancer, the probability is 99 % that she will have a positive mammogram,</li>
+<li>If a women does not have breast cancer, the probability is 97 % that she will have a negative mammogram.</li>
+</ul>
+<p>Imagine a woman (40-50 years with no symptoms) who has a positive mammogram. What is the probability that she actually has breast cancer?</p>
+<p><font size="2"> Old Stat1 exam question </font></p>
+</div>
+<p><br></p>
+<p>The test (mammography) is very accurate:</p>
+<ul>
+<li><strong>Sensitivity</strong> is 99 % (“sensitivity” also known as true-positive rate or hit rate) ,</li>
+<li><strong>Specificity</strong> is 97 % (“specificity” also known as true-negative rate or correct-rejection rate)</li>
+</ul>
+<p>Given the high accuracy of test, it seem natural to interpret a positive test as disease with high probability. And indeed, most people will answer the question above with a high probability, well above 50 %. But high test accuracy (high sensitivity and specificity) is not enough, we should also consider the prior probability (or base rate or prevalence) of diseases, in this example it is low (1 %). <em>Base rate neglect</em> is the tendency to ignore the prior probability when updating beliefs in light of data (in this example, the data is a positive test).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to draw probability tree (my apologize for clumsy code)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ptree2 <span class="ot">&lt;-</span> <span class="cf">function</span>(edgevalues) {</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">95</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  xpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">75</span>, <span class="dv">75</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  ypoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">80</span>, <span class="dv">20</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">30</span>, <span class="dv">10</span>) </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  cex <span class="ot">=</span> <span class="fl">0.8</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">80</span>))</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>))</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">70</span>))</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">50</span>), <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">20</span>))</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>))</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">y =</span> <span class="dv">50</span>, <span class="st">"Symtom free</span><span class="sc">\n</span><span class="st">test taker"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="st">"Disease"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">50</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"Not disease"</span>, <span class="at">pos =</span> <span class="dv">2</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">90</span>, <span class="st">"Positive test"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">70</span>, <span class="st">"Negative test"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">30</span>, <span class="st">"Positive test"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="dv">75</span>, <span class="at">y =</span> <span class="dv">10</span>, <span class="st">"Negative test"</span>, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> cex)</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">32.5</span>, <span class="at">y =</span> <span class="dv">65</span>, edgevalues[<span class="dv">1</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">32.5</span>, <span class="at">y =</span> <span class="dv">35</span>, edgevalues[<span class="dv">2</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">90</span>, edgevalues[<span class="dv">3</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">70</span>, edgevalues[<span class="dv">4</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">30</span>, edgevalues[<span class="dv">5</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">67.5</span>, <span class="at">y =</span> <span class="dv">10</span>, edgevalues[<span class="dv">6</span>], <span class="at">cex =</span> cex)</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xpoints, ypoints, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"grey"</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>edgeprob <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1 %"</span>, <span class="st">"99 %"</span>, <span class="st">"99 %"</span>, <span class="st">"1 %"</span>, <span class="st">"3 %"</span>, <span class="st">"97 %"</span>)</span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ptree2</span>(<span class="at">edgevalues =</span> edgeprob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/code02.14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Again, it is much easier to think clearly if we replace probabilities with frequencies, so let’s think of a large number, say 10,000 test takers:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>edgefreq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">9900</span>, <span class="dv">99</span>, <span class="dv">1</span>, <span class="dv">9900</span><span class="sc">*</span>.<span class="dv">03</span>, <span class="dv">9900</span><span class="sc">*</span>.<span class="dv">97</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ptree2</span>(<span class="at">edgevalues =</span> edgefreq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-stat25_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>or in table format:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">Positive test</th>
+<th style="text-align: center;">Negative test</th>
+<th style="text-align: center;"><em>Marginal</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Cancer</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><em>100</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Not cancer</td>
+<td style="text-align: center;">297</td>
+<td style="text-align: center;">9603</td>
+<td style="text-align: center;"><em>9900</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><em>Marginal</em></td>
+<td style="text-align: center;"><em>396</em></td>
+<td style="text-align: center;"><em>9604</em></td>
+<td style="text-align: center;"><em>10000</em></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>From the frequencies above, we see that among the 396 with a positive test, only 99 have cancer, corresponding to a 25 % probability of disease given the positive test.</p>
+<p>This is an informal application of Bayes’ rule, to be discussed in greater detail in chapter 6 of these notes.</p>
+<p><br></p>
+<p><strong>Dichotomous significance testing encourages base-rate neglect and the prosecutor’s fallacy!</strong> This is a psychological argument against using it (for more reasons, see <span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span> and <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>). Let’s walk through a null-hypothesis significance test (NHST) with <span class="math inline">\(\alpha = 0.05\)</span>:</p>
+<ul>
+<li><span class="math inline">\(H_1\)</span>: The test taker has cancer.</li>
+<li><span class="math inline">\(H_0\)</span>: The test taker does not have cancer.</li>
+<li><span class="math inline">\(D\)</span>: The test taker tests positive.</li>
+<li><span class="math inline">\(p = Pr(D | H_0) = 0.03\)</span>, which is <span class="math inline">\(&lt;\alpha\)</span>, so we reject <span class="math inline">\(H_0\)</span>. (Note that <em>p</em> is defined as the probability of the obtained data <em>or more extreme</em> data; in this example, no data is more extreme than <span class="math inline">\(D\)</span>, a positive test.)</li>
+</ul>
+<p>It is very tempting to go from a small p-value to the conclusion that “<span class="math inline">\(H_0\)</span> is probably false”, but this is a logical fallacy induced by the human tendency to neglect the prior probability, <em>base rate neglect</em>, and confuse what we want to assess, <span class="math inline">\(Pr(D|H)\)</span>, with what we have <span class="math inline">\(Pr(H|D)\)</span>, <em>prosecutor’s fallacy</em>. In this example, even with a significant p-value, <span class="math inline">\(H_0\)</span> remains three times more probable than <span class="math inline">\(H_1\)</span>: <span class="math inline">\(Pr(H_0|D) = 0.75\)</span> vs.<span class="math inline">\(Pr(H_1|D) = 0.25\)</span>.</p>
+<p><br></p>
+</section>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are categorized as Easy (E), Medium (M), and Hard (H). Credit goes to Richard McElreath and his excellent book, “Statistical Rethinking” <span class="citation" data-cites="McElreath2020">(<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>, from which I adapted this layout of practice problems.</p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>2E1.</strong> Describe the two main principles of <em>Open Science</em>.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2E2.</strong> What is a code book?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2E3.</strong> ometimes the code book is included in the raw data file, often in the first few lines. Why might this be a good practice?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2E4.</strong> When we create new variables from those in the raw data file, should these new variables be added to the raw data file? Why or why not?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2E5.</strong> Given the information on the twin birth problem stated above: Think of a random twin birth, and estimate these probabilities:</p>
+<ol type="1">
+<li><span class="math inline">\(Pr(BB)\)</span></li>
+<li><span class="math inline">\(Pr(BB \ or \ GG)\)</span></li>
+<li><span class="math inline">\(Pr(BB \ and \ GG)\)</span></li>
+<li><span class="math inline">\(Pr(Fraternal \ and \ BB)\)</span></li>
+<li><span class="math inline">\(Pr(Identical \ and \ BB)\)</span></li>
+<li><span class="math inline">\(Pr(Fraternal \ or \ BB)\)</span></li>
+<li><span class="math inline">\(Pr(Identical \ or \ BB)\)</span></li>
+<li><span class="math inline">\(Pr(BB | Fraternal)\)</span></li>
+<li><span class="math inline">\(Pr(Fraternal | BB)\)</span></li>
+<li><span class="math inline">\(Pr(Identical | BB)\)</span></li>
+</ol>
+<p><font size="2">Footnote: We are assuming twin births, so we don’t need to specify that we are conditioning on twin births. Thus, <span class="math inline">\(Pr(BB)\)</span> is a short cut for <span class="math inline">\(Pr(BB|twins)\)</span> which is short cut for <span class="math inline">\(Pr(BB|twins, human \ birth)\)</span>, etc. Probabilities are always conditional on the implicit assumptions we make when estimating them.</font></p>
+</div>
+<p><br></p>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>2M1.</strong> What is the definition of an outlier according to a boxplot?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2M2.</strong> (a) Describe a scenario where it would be appropriate to exclude an observation classified as an outlier based on the boxplot rule.<br>
+(b) Describe a scenario where you would choose not to exclude such an observation.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2M3.</strong> When analyzing data from distinct groups (e.g., experimental conditions), why may it be beneficial to perform data screening for each group separately rather than on the combined data?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2M4.</strong> Here is a medical-test problem similar in structure to the example discussed above, but involving a much rarer disease and a more accurate screening test.</p>
+<p>For a symptom-free individual who participate in screening for a rare disease, the following information is available:</p>
+<ul>
+<li><em>Prevalence</em>: One in a million</li>
+<li><em>Sensitivity</em> of test: 100 % (everyone with the disease test positive)</li>
+<li><em>Specificity</em> of test: 99.9 % (of individuals with no disease, 999 of 1000 will test negative).</li>
+</ul>
+<p>Mr X is a symptom-free individual and has tested positive.</p>
+<p>Calculate:</p>
+<ul>
+<li><span class="math inline">\(P(H_0|D)\)</span>,</li>
+<li><span class="math inline">\(P(H_1|D)\)</span>,</li>
+</ul>
+<p>where <span class="math inline">\(H_0\)</span>: “Mr X does not have the disease” and <span class="math inline">\(H_1\)</span>: “Mr X has the disease”, and <span class="math inline">\(D\)</span> is the data = a positive test.</p>
+<p><font size="2"> Of course, in this problem, you don’t need to calculate both probabilities, since <span class="math inline">\(P(H_1|D) = 1 - P(H_0|D)\)</span> and <span class="math inline">\(P(H_0|D) = 1-P(H_1|D)\)</span>. However, it’s always a good practice to compute both as a sanity check.</font></p>
+</div>
+<p><br></p>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>2H1.</strong> Revisit the reaction time data from Howell and create boxplots using both ungrouped and grouped data. This time, use the logarithm of the reaction time instead of the untransformed reaction time. Comment on boxplot-defined outliers in your plots compared to those with untransformed reaction times.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2H2.</strong> Extract the five summary statistics from the ungrouped boxplot in 2H1, representing log-transformed reaction times. Take the anti-log of each statistic, then compare these values with the summary statistics of the boxplot for untransformed reaction times. All but one statistic match-identify which one differs and explain why.</p>
+<p><font size="2">Hint: When drawing a boxplot, save it as an R object, e.g., <code>mybox &lt;- boxplot(x)</code>, and then check it’s content <code>str(mybox)</code>.</font></p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>2H3.</strong> Your friend rolls a fair six-sided die and secretly records the outcome; this number becomes the target <em>T</em>. You then put on a blindfold and roll the same six-sided die five times. You’re unable to see how it lands so, each time, your friend (under the watchful eye of a judge, to prevent any cheating) tells you <em>only</em> whether the number you just rolled was greater than, equal to, or less than <em>T</em>. Here is the results, with G, E, L representing a greater, equal or lesser roll:</p>
+<p>G, G, L, E, G</p>
+<p>Estimate the probability of each of the possible values of <em>T</em> (1, 2, …, 6) given this data, and explain the logic behind your estimation strategy.</p>
+<p><font size="2">Footnote: The problem is taken from the book “Bernoulli’s fallacy” (<span class="citation" data-cites="clayton2021bernoulli">Clayton (<a href="references.html#ref-clayton2021bernoulli" role="doc-biblioref">2021</a>)</span>) as a simplified version of the problem that Thomas Bayes used for illustrating the application of his rule. </font></p>
+</div>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dagitty_0.3-4
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     fastmap_1.2.0     xfun_0.52         knitr_1.50       
+ [5] htmltools_0.5.8.1 rmarkdown_2.29    cli_3.6.5         compiler_4.4.2   
+ [9] boot_1.3-31       rstudioapi_0.17.1 tools_4.4.2       curl_6.4.0       
+[13] evaluate_1.0.3    Rcpp_1.0.14       rlang_1.1.6       jsonlite_2.0.0   
+[17] V8_6.0.4          htmlwidgets_1.6.4 MASS_7.3-61      </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-Amrhein2019" class="csl-entry" role="listitem">
+Amrhein, V., Greenland, S., &amp; McShane, B. (2019). Retire statisticial significance. <em>Nature</em>, <em>567</em>, 305–307.
+</div>
+<div id="ref-broman2017recommendations" class="csl-entry" role="listitem">
+Broman, K., Cetinkaya-Rundel, M., Nussbaum, A., Paciorek, C., Peng, R., Turek, D., &amp; Wickham, H. (2017). Recommendations to funding agencies for supporting reproducible research. <em>American Statistical Association</em>, <em>2</em>, 1–4.
+</div>
+<div id="ref-clayton2021bernoulli" class="csl-entry" role="listitem">
+Clayton, A. (2021). <em>Bernoulli’s fallacy: Statistical illogic and the crisis of modern science</em>. Columbia University Press.
+</div>
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-howell2012statistical" class="csl-entry" role="listitem">
+Howell, D. C. (2012). <em>Statistical methods for psychology</em>. Cengage Learning.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-wilkinson99apa" class="csl-entry" role="listitem">
+Wilkinson, L. (1999). APA task force on statistical inference. Statistical methods in psychology journals: Guidelines and explanations. <em>American Psychologist</em>, <em>54</em>(8), 594–604.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-method25.html" class="pagination-link" aria-label="M: Research Questions and Claims">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-method25.html" class="pagination-link" aria-label="M: Tools for Thinking About Causality">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

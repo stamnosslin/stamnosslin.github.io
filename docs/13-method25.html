@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>13&nbsp; M: Observational studies – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./14-stat25.html" rel="next">
+<link href="./12-stat25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13-method25.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#experiment-or-observation" id="toc-experiment-or-observation" class="nav-link" data-scroll-target="#experiment-or-observation"><span class="header-section-number">13.1</span> Experiment or Observation?</a></li>
+  <li><a href="#types-of-observational-studies" id="toc-types-of-observational-studies" class="nav-link" data-scroll-target="#types-of-observational-studies"><span class="header-section-number">13.2</span> Types of observational studies</a>
+  <ul class="collapse">
+  <li><a href="#natural-experiments" id="toc-natural-experiments" class="nav-link" data-scroll-target="#natural-experiments">Natural experiments</a></li>
+  <li><a href="#longitudinal-studies" id="toc-longitudinal-studies" class="nav-link" data-scroll-target="#longitudinal-studies">Longitudinal studies</a></li>
+  <li><a href="#cross-sectional-studies" id="toc-cross-sectional-studies" class="nav-link" data-scroll-target="#cross-sectional-studies">Cross-sectional studies</a></li>
+  </ul></li>
+  <li><a href="#control-for-adjust-for-conditioning-on" id="toc-control-for-adjust-for-conditioning-on" class="nav-link" data-scroll-target="#control-for-adjust-for-conditioning-on"><span class="header-section-number">13.3</span> Control for, adjust for, conditioning on, …</a>
+  <ul class="collapse">
+  <li><a href="#matching" id="toc-matching" class="nav-link" data-scroll-target="#matching">Matching</a></li>
+  <li><a href="#restriction-or-stratification-on-background-variables" id="toc-restriction-or-stratification-on-background-variables" class="nav-link" data-scroll-target="#restriction-or-stratification-on-background-variables">Restriction or stratification on background variables</a></li>
+  <li><a href="#statistical-control" id="toc-statistical-control" class="nav-link" data-scroll-target="#statistical-control">Statistical control</a></li>
+  </ul></li>
+  <li><a href="#bias-in-observational-studies" id="toc-bias-in-observational-studies" class="nav-link" data-scroll-target="#bias-in-observational-studies"><span class="header-section-number">13.4</span> Bias in observational studies</a>
+  <ul class="collapse">
+  <li><a href="#confounding-bias" id="toc-confounding-bias" class="nav-link" data-scroll-target="#confounding-bias">Confounding bias</a></li>
+  <li><a href="#why-not-control-for-all-my-covariats-how-can-i-loose" id="toc-why-not-control-for-all-my-covariats-how-can-i-loose" class="nav-link" data-scroll-target="#why-not-control-for-all-my-covariats-how-can-i-loose">Why not control for all my covariats, how can I loose?</a></li>
+  <li><a href="#overadjustment-bias" id="toc-overadjustment-bias" class="nav-link" data-scroll-target="#overadjustment-bias">Overadjustment bias</a></li>
+  <li><a href="#collider-bias" id="toc-collider-bias" class="nav-link" data-scroll-target="#collider-bias">Collider bias</a></li>
+  <li><a href="#bias-summary" id="toc-bias-summary" class="nav-link" data-scroll-target="#bias-summary">Bias summary</a></li>
+  </ul></li>
+  <li><a href="#why-experiments-are-superior-to-observational-studies-for-causal-inference" id="toc-why-experiments-are-superior-to-observational-studies-for-causal-inference" class="nav-link" data-scroll-target="#why-experiments-are-superior-to-observational-studies-for-causal-inference"><span class="header-section-number">13.5</span> Why experiments are superior to observational studies for causal inference</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty) <span class="co"># R implementation of http://www.dagitty.net</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dagitty' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Experiment versus observation</li>
+<li>Assumptions needed: Different DAGs may be consistent with the same data</li>
+<li>Control for, adjust for, conditioning on (same thing) to achieve <em>other things equal</em> (<em>ceteris paribus</em>)
+<ul>
+<li>Restriction, Stratification</li>
+<li>Matching</li>
+<li>Random assignment</li>
+<li>Statistical control</li>
+</ul></li>
+<li>Types of observational studies
+<ul>
+<li>Natural experiment</li>
+<li>Cohort study</li>
+<li>Case-control study</li>
+<li>Cross-sectional study</li>
+</ul></li>
+<li>Bias in observational studies
+<ul>
+<li>Conditioning on a confounder may reduce bias (“confounding bias”, also known as “omitted variable bias”): <span class="math inline">\(X \leftarrow \boxed{Z} \rightarrow Y\)</span>
+<ul>
+<li>Negative confounding</li>
+<li>Residual confounding</li>
+</ul></li>
+<li>Conditioning on a mediator may introduce bias (“overadjustment bias”): <span class="math inline">\(X \rightarrow \boxed{Z} \rightarrow Y\)</span></li>
+<li>Conditioning on a collider may introduce bias (“collider bias”, also known as “selection bias”, or “Berkson error”): <span class="math inline">\(X \rightarrow \boxed{Z} \leftarrow Y\)</span></li>
+</ul></li>
+</ul>
+<p>Theoretical articles to read:</p>
+<ul>
+<li><span class="citation" data-cites="rohrer2018thinking">Rohrer (<a href="references.html#ref-rohrer2018thinking" role="doc-biblioref">2018</a>)</span> on causal inference in observational studies, several points made using directed acyclical graphs (DAGs)</li>
+<li><span class="citation" data-cites="elwert2014endogenous">Elwert &amp; Winship (<a href="references.html#ref-elwert2014endogenous" role="doc-biblioref">2014</a>)</span> on bias that may arise from conditioning on colliders</li>
+<li>And do not forget the material on <a href="http://dagitty.net/l" target="blank">Dagitty homepage</a>, please <a href="http://dagitty.net/learn/index.html" target="blank">do the exercises</a> to get a feel for DAGs and how hard it is to assess causation from observations only.</li>
+</ul>
+</div>
+<p><br></p>
+<ul>
+<li>We all know that: “Correlation does not imply causation”</li>
+<li>But DAGs reminds us that “Wherever there is correlational smoke there is causal fire”</li>
+</ul>
+</section>
+<section id="experiment-or-observation" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="experiment-or-observation"><span class="header-section-number">13.1</span> Experiment or Observation?</h2>
+<p>Observational studies, sometimes called correlational studies, involve measurement of study units on exposure and outcome variables and, typically, a set of variables that potenitally may confound the exposure-outcome relationship.</p>
+<p>Note that observational versus experimental is not a crisp distinction, there is a grey zone (as always).</p>
+<ul>
+<li><strong>Manipulation</strong> in experiments, not in observational studies.
+<ul>
+<li>But how about natural experiments? For example, <span class="citation" data-cites="snow1855mode">Snow (<a href="references.html#ref-snow1855mode" role="doc-biblioref">1855</a>)</span> “On the Mode of Communication of Cholera …” (discussed below)</li>
+</ul></li>
+<li><strong>Randomization</strong> in experiments, not in observational studies.
+<ul>
+<li>But how about non-randomized experiments (a.k.a quasi-experiments)</li>
+<li>And how about within-subject experiments without random assignment?</li>
+</ul></li>
+<li><strong>Selection mechanism known (ignorable)</strong> in experiments not in observational studies.
+<ul>
+<li>This criterion would classify within-subject experiments as experiments, and non-randomized between-subject experiments as observational studies.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>The key challenge for observational studies is that it is hard to separate effects of exposure (“treatment effects”) from systematic errors (bias) induced by uncontrolled variables as selection mechanisms are partly or fully unknown.</p>
+<p><span class="citation" data-cites="rohrer2018thinking">Rohrer (<a href="references.html#ref-rohrer2018thinking" role="doc-biblioref">2018</a>)</span> <strong>Conclusion: Making Causal Inferences on the Basis of Correlational Data is Very Hard</strong></p>
+<p>Causal inference solely from observations require additional assumptions about sources of bias. Key assumptions may concisely be summarized in a Directed acyclical graph (DAG). Note: That the same data may be consistent with several DAGs that may be mutually inconsistent. Causal estimates only unbiased if your assumptions are correct (and it is very hard to know if they are).</p>
+<p><br></p>
+</section>
+<section id="types-of-observational-studies" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="types-of-observational-studies"><span class="header-section-number">13.2</span> Types of observational studies</h2>
+<ul>
+<li>Natural experiments</li>
+<li>Longitudinal studies
+<ul>
+<li>Cohort studies (often prospective, starting at exposure waiting for outcome)</li>
+<li>Case-control studies (often retrospective, starting at outcome looking back for exposure)</li>
+</ul></li>
+<li>Cross-sectional studies</li>
+</ul>
+<p><br></p>
+<section id="natural-experiments" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="natural-experiments">Natural experiments</h3>
+<p><strong>Cholera outbreak in London 1854, transmitted by air or water?</strong></p>
+<p><img src="figs/snow1855.PNG" class="img-fluid" style="width:60.0%"></p>
+<p><br></p>
+<p>Snow (1855):</p>
+<p>“… Each company supplies both rich and poor, both large houses and small; there is no difference in the condition or occupation of the persons receiving the water of the different companies… As there is no difference whatever either in the houses or the people receiving the supply of the two Water Companies, or in any of the physical conditions with which they are surrounded, it is obvious that no experiment could have been devised which would more thoroughly test the effect of water supply on the progress of Cholera than this, which circumstances placed ready made before the observer…”</p>
+<p><br></p>
+<p><strong>Regression discontinuity design</strong>, in theory a design with ignorable assignment mechanisms (under the strong assumption that its relationship to the outcome is modelled correctly, below assuming a linear relationship.)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="longitudinal-studies" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="longitudinal-studies">Longitudinal studies</h3>
+<ul>
+<li><strong>Cohort studies</strong>: A group of people (cohort) who share characteristics, e.g., birth year, road-traffic noise exposure, work place, etc. are followed over time, and incidence of outcome (e.g., heart attack) is registered during the study period.
+<ul>
+<li>In terms of internal validity: Commonly consider the best observational-study design for causal inference</li>
+<li>May be costly both in terms of sample size (if rare outcomes) and time (if outcomes take time to develop).</li>
+</ul></li>
+<li><strong>Case-control studies</strong>: Select a group of people with the disease (outcome) and a comparison group without, and assess and compare their exsposures to the potential causal factor back in time.
+<ul>
+<li>Cost-efficient for rare outcomes</li>
+<li><strong>Recall bias</strong> may be a threat</li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+<section id="cross-sectional-studies" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="cross-sectional-studies">Cross-sectional studies</h3>
+<p>Measuring both independent variables (exposure, covariates) and dependent variable (outcome) at the same time in a population (or sample) at one point in time.</p>
+<ul>
+<li>Easy to conduct in short time</li>
+<li><strong>Reversed causation</strong> a major threat (apart from confounding and selection bias)</li>
+<li><strong>Mono-method</strong> bias a major threat in studies using a single measuring instrument (e.g., a single questionnaire, as all too often seen in social science research).</li>
+</ul>
+<p><br></p>
+</section>
+</section>
+<section id="control-for-adjust-for-conditioning-on" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="control-for-adjust-for-conditioning-on"><span class="header-section-number">13.3</span> Control for, adjust for, conditioning on, …</h2>
+<p>With the purpose to achieve <em>other things equal</em> (<em>ceteris paribus</em>).</p>
+<ul>
+<li>Repeated measures of single unit</li>
+<li>Matching on background variables</li>
+<li>Random assignment to treatment groups</li>
+<li>Restriction or stratification on background variables</li>
+<li>Statistical control</li>
+</ul>
+<section id="matching" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="matching">Matching</h3>
+<p>Goal: Unit homogeneity = exchangeable units</p>
+<ul>
+<li>As part of design (before data collection)</li>
+<li>May be used together with random assignment</li>
+<li>After data has been collected: Data pruning</li>
+<li>Strength: Model independent</li>
+</ul>
+</section>
+<section id="restriction-or-stratification-on-background-variables" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="restriction-or-stratification-on-background-variables">Restriction or stratification on background variables</h3>
+<p>Restriction may increase internal validity, at the expense of external validity</p>
+<ul>
+<li>As part of design (before data collection), restrict data collection to a specific group, or make focus on several subgroups (e.g., age groups) and make sure to have enough data in each group for separate analysis.</li>
+<li>After data has been collected: Analysis restricted to a specific subgroup, or separate analysis of data from subgroups (of enough observations within subgroup)</li>
+<li>Strength: Model independent</li>
+</ul>
+</section>
+<section id="statistical-control" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="statistical-control">Statistical control</h3>
+<p>Add covariates in a regression model.</p>
+<p>Weakness: Model dependent, i.e., based on assumptions of, for example, linear relationships between variables (as assumed in multiple linear regression). If critical relationships are non-linear, for example, between confounders and the exposure, then confounding may still bias the causal effect estimate although the confounding variables have been included in the linear regression model (so called “residual confounding”)</p>
+</section>
+</section>
+<section id="bias-in-observational-studies" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="bias-in-observational-studies"><span class="header-section-number">13.4</span> Bias in observational studies</h2>
+<p><br></p>
+<section id="confounding-bias" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="confounding-bias">Confounding bias</h3>
+<p>Confounding, also known as “omitted variable bias” is maybe the most obvious alternative explanation to causal explanations. A third variable, not controlled for, may have influenced both exposure and outcome, leading to biased estimates of the causal effect.</p>
+<p>A simple example: Hearing impairment is more common among construction workers than office workers. A potential causal factor is occupational noise exposure; after all, construction sites tend to be noisier than offices. But socioeconomic status is a potential confounder. Individuals from low socioeconomic background may be more likely to become construction workers than individuals from high socioeconomic background, and we know that socioeconomic status is related to most health outcomes, probably also risk for hearing impairment. Here is a simple DAG:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>confound <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">"dag {</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Hearing_Impairment</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise &lt;- Socioeconomic_Status-&gt; Hearing_Impairment</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(confound) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">1</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">2</span>, <span class="at">Hearing_Impairment =</span> <span class="dv">3</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">2</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">1</span>, <span class="at">Hearing_Impairment =</span> <span class="dv">2</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(confound)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that according to this DAG, occupational noise do indeed cause hearing impairment, but the size of the causal effect may be biased unless variation in socioeconomic status is taken into account.</p>
+<p><strong>Negative confounding</strong></p>
+<p>A confounder may hide or mask a casual relationship between two variables. Consider this DAG:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>confound2 <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">"dag {</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; Y</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">   X &lt;- Z -&gt; Y</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(confound2) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">X =</span> <span class="dv">1</span>, <span class="at">Z =</span> <span class="dv">2</span>, <span class="at">Y =</span> <span class="dv">3</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">X =</span> <span class="dv">2</span>, <span class="at">Z =</span> <span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">2</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(confound2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="288"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here a simple simulation, assuming that the average causal effect of X on Y is 0.5, that is, increasing X with one unit would on average increase Y with 0.5 units.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define causal effects</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>b_zx <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># Causal effect of z on x</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>b_zy <span class="ot">&lt;-</span>  <span class="dv">1</span>   <span class="co"># Causal effect of z on y</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>b_xy <span class="ot">&lt;-</span> <span class="fl">0.5</span>  <span class="co"># Causal effect of x on y</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define variables (structural equations)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> b_zx<span class="sc">*</span>z</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> b_zy<span class="sc">*</span>z <span class="sc">+</span> b_xy<span class="sc">*</span>x</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Try this if you prefer random effects:</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># x &lt;- rnorm(n) + rnorm(n, mean = b_zx, sd = 0.2) * z</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># y &lt;- rnorm(n) + rnorm(n, mean = b_zy, sd = 0.2) * z + </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#       rnorm(n, mean = b_xy, sd = 0.2) *x</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate total average causal effect of x on y</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>lm_crude    <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)  <span class="co"># Crude model</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>lm_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z)  <span class="co"># Model adjusted for z</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>lm_crude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x)
+
+Coefficients:
+(Intercept)            x  
+   0.002486     0.003130  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_adjusted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x + z)
+
+Coefficients:
+(Intercept)            x            z  
+ -0.0005948    0.5000543    0.9979861  </code></pre>
+</div>
+</div>
+<p>… and it may also reverse the causal effect estimate (type S error):</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">1e5</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define causal effects</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>b_zx <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span> <span class="co"># Causal effect of z on x</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>b_zy <span class="ot">&lt;-</span>  <span class="fl">1.5</span>   <span class="co"># Causal effect of z on y</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>b_xy <span class="ot">&lt;-</span> <span class="fl">0.5</span>  <span class="co"># Causal effect of x on y</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define variables (structural equations)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> b_zx<span class="sc">*</span>z</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> b_zy<span class="sc">*</span>z <span class="sc">+</span> b_xy<span class="sc">*</span>x</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate total average causal effect of x on y</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>lm_crude    <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)  <span class="co"># Crude model</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>lm_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z)  <span class="co"># Model adjusted for z</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>lm_crude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x)
+
+Coefficients:
+(Intercept)            x  
+    0.00403     -0.24583  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lm_adjusted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ x + z)
+
+Coefficients:
+(Intercept)            x            z  
+ -0.0005948    0.5000543    1.4979861  </code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>Residual confounding</strong></p>
+<p>Residual confounding is bias that remains despite our attempt to adjust for a confounder. This could happen for several reasons, for example:</p>
+<ul>
+<li>Our measure may not cover important aspects of the construct. Socioeconomic status measured by income may not capture aspects related to education, parents income, or socioeconomic status at the neighborhood level (living in an wealthy area of town may have beneficial consequences on health independent of socioeconomic status at the individual level).</li>
+<li>Adding a confounder to a regression model may not be enough because the relationship assumed by the model (e.g., linear) may not be a good approximation of the true relationship. Methods like matching or restriction are less vulnerable in this regard as they are model independent (make no assumptions about functional relationships between covariate and outcome).</li>
+<li>Restriction not tight enough, for instance, if analysis are restricted to adults younger than 40 years old, this may not be enough to adjust for age as there may still be an effect of age on exposure and outcome in this age span.</li>
+</ul>
+<p><br></p>
+</section>
+<section id="why-not-control-for-all-my-covariats-how-can-i-loose" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="why-not-control-for-all-my-covariats-how-can-i-loose">Why not control for all my covariats, how can I loose?</h3>
+<p>A key insight from learning about Directed Acyclic Graphs (DAGs) is that controlling for covariates can sometimes introduce bias. This can occur in two main ways: by controlling for a mediating variable, leading to overadjustment bias, or by controlling for a collider variable, resulting in collider bias. It’s also important to note that controlling for a <em>descendant</em> of such variables can similarly introduce bias, though typically to a lesser degree.</p>
+</section>
+<section id="overadjustment-bias" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="overadjustment-bias">Overadjustment bias</h3>
+<p>“Overadjustment bias” or “overcontrol bias” refer to bias that is introduced by controlling for a mediating variable. In the example discussed above, controlling for hearing protection at work may lead to bias. Possibly overestimating the total average causal effect by eliminating a mediator that might reduce the adverse effect.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>overadj <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">"dag {</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Hearing_Impairment &lt;- Hearing_Protection</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Hearing_Protection</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise &lt;- Socioeconomic_Status-&gt; Hearing_Impairment</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(overadj) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">1</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">2</span>, <span class="at">Hearing_Protection =</span> <span class="dv">2</span>, </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">Hearing_Impairment =</span> <span class="dv">3</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">2</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">1</span>, <span class="at">Hearing_Protection =</span> <span class="fl">1.5</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">Hearing_Impairment =</span> <span class="dv">2</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(overadj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="collider-bias" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="collider-bias">Collider bias</h3>
+<p>Conditioning on a variable that is a collider may introduce bias. In this DAG, Stress (physiological reactivity to stressors) is a collider on the path</p>
+<p><span class="math inline">\(Occupational \ Noise \rightarrow Stress \leftarrow Genetic \rightarrow Hearing \ Impariment\)</span>,</p>
+<p>where Genetic may be some unmeasured biological vulnerability linked to both physiological stress reactions and hearing impairment. Adjusting for Stress may introduce collider bias by opening up a backdoor path between exposure and outcome.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>collide <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">"dag {</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Hearing_Impairment &lt;- Hearing_Protection</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Hearing_Protection</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise &lt;- Socioeconomic_Status-&gt; Hearing_Impairment</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">   Occupational_Noise -&gt; Stress &lt;- Genetic -&gt; Hearing_Impairment</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(collide) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">1</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">2</span>, <span class="at">Hearing_Protection =</span> <span class="dv">2</span>, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">Hearing_Impairment =</span> <span class="dv">3</span>, <span class="at">Stress =</span> <span class="dv">2</span>, <span class="at">Genetic =</span> <span class="fl">2.5</span>),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">Occupational_Noise =</span> <span class="dv">2</span>, <span class="at">Socioeconomic_Status =</span> <span class="dv">1</span>, <span class="at">Hearing_Protection =</span> <span class="fl">1.5</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">Hearing_Impairment =</span> <span class="dv">2</span>, <span class="at">Stress =</span> <span class="fl">2.75</span>, <span class="at">Genetic =</span> <span class="fl">2.5</span>))</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(collide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Here a simple example of collider bias:</p>
+<p><span class="math inline">\(Intelligence \rightarrow Income \leftarrow Social \ skills\)</span></p>
+<p>Assume that intelligence is independent of social skills in the general population, and that both have a positive influence on income. Assume we found a negative association between IQ scores and scores on a social skill test in a sample of chief executive officers (CEOs) of large companies. A causal interpretation of this could be that: “Maybe people with high IQ spend a lot of time reading books, and therefore do not develop their social skills.” An alternative explanation would be that the observed association was spurious, an example of collider bias. Here a simulation:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">431</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fl">3e3</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>iq <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="co"># IQ scores, standardized to mean = 0, sd = 1</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)  <span class="co"># Social skill scale, standardized to mean = 0, sd = 1</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="fl">0.4</span>, <span class="fl">0.2</span>) <span class="sc">*</span> iq  <span class="sc">+</span><span class="fu">rnorm</span>(n, <span class="fl">0.4</span>, <span class="fl">0.2</span>) <span class="sc">*</span> ss</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot full popualtion</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iq, ss, <span class="at">xlab =</span> <span class="st">"Intelligence (z-score)"</span>, <span class="at">ylab =</span> <span class="st">"Social skills (z-score)"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(ss <span class="sc">~</span>iq))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line for sample restricted to high income people</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(iq[income <span class="sc">&gt;</span> <span class="dv">2</span>], ss[income <span class="sc">&gt;</span> <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"blue"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(ss[income <span class="sc">&gt;</span> <span class="dv">2</span>] <span class="sc">~</span>iq[income <span class="sc">&gt;</span> <span class="dv">2</span>]), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Open symbols and black regression line refer to the full population; blue points and blue regression line refer to a sample restricted to high income people.</p>
+<p><br></p>
+</section>
+<section id="bias-summary" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bias-summary">Bias summary</h3>
+<p>Assume that we observed that X and Y were associated in our sample. “X cause Y” (H1) is certainly not the only possibility, here is my list of potential explanations (I am sure you can find more examples):</p>
+<ul>
+<li>H0: <strong>Sampling error</strong>: X and Y are not causally related, or otherwise associated in the population.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow Z, \ \ Y \leftarrow W\)</span></li>
+</ul></li>
+<li>H1: <strong>Causation</strong>: X causes Y.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow Z \rightarrow Y\)</span></li>
+</ul></li>
+<li>H2: <strong>Reversed causation</strong>: Y causes X.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow Z \leftarrow Y\)</span></li>
+</ul></li>
+<li>H3: <strong>Confounding</strong>: Z causes both X and Y
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow Z \rightarrow Y\)</span></li>
+</ul></li>
+<li>H4: <strong>Collider bias</strong>: X and Y both causes Z and we have conditioned on Z (e.g., if Z is income and our sampel only included individuals with high income).
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow \boxed{Z} \leftarrow Y\)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Assume that we observed that X and Y were <strong>not</strong> associated in our sample. “X does not cause Y” (H0) is certainly not the only possibility, here is my list of potential explanations (I am sure you can find more examples):</p>
+<ul>
+<li>H0: <strong>Independence</strong>: X and Y are not causally related, or otherwise associated in the population.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow Z, \ \ Y \leftarrow W\)</span></li>
+</ul></li>
+<li>H1: <strong>Causation masked by sampling error</strong>: X causes Y
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow Z \rightarrow Y\)</span> (Note that DAGs assume error free variables.)</li>
+</ul></li>
+<li>H2: <strong>Reversed causation masked by sampling error</strong>: Y causes X
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow Z \leftarrow Y\)</span> (Note that DAGs assume error free variables.)</li>
+</ul></li>
+<li>H3: <strong>Causation masked by conditioning on a mediator</strong>: X causes Y
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow \boxed{Z} \rightarrow Y\)</span></li>
+</ul></li>
+<li>H4: <strong>Reversed causation masked by conditioning on a mediator</strong>: Y causes X
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow \boxed{Z} \leftarrow Y\)</span></li>
+</ul></li>
+<li>H5: <strong>Negative confounding</strong>: X causes Y, masked by negative confounding of Z
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow Z \rightarrow Y, \ \ X \rightarrow Y\)</span> (Note that DAGs assume that perfect cancellation is not the case. Still, the observed association may be very weak suggesting a negligable association despite a sizebale causal relationship between X and Y).</li>
+</ul></li>
+<li>H6: <strong>Negative confounding and reversed causation</strong>: Y causes X, masked by negative confounding of Z (Note comment on H5)
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \leftarrow Z \rightarrow Y, \ \ X \leftarrow Y\)</span></li>
+</ul></li>
+<li>H7: <strong>Collider bias</strong> X causes Y, masked by collider bias due to conditioning on common effect Z.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow \boxed{Z} \leftarrow Y, \ \ X \rightarrow Y\)</span></li>
+</ul></li>
+<li>H8: <strong>Collider bias and reversed causation</strong> Y causes X, masked by collider bias due to conditioning on common effect Z.
+<ul>
+<li>Possible DAG: <span class="math inline">\(X \rightarrow \boxed{Z} \leftarrow Y, \ \ X \leftarrow Y\)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+</section>
+<section id="why-experiments-are-superior-to-observational-studies-for-causal-inference" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="why-experiments-are-superior-to-observational-studies-for-causal-inference"><span class="header-section-number">13.5</span> Why experiments are superior to observational studies for causal inference</h2>
+<p>The simple DAG answer: Experiments disconnect the exposure variable (X) from other variables in the causal diagram, that is, the manipulation changes X from being an endogenous variable to an exogenous variable. Assuming of course that assignment mechanism, non-compliance and missing data are “ignorable”.</p>
+<p><strong>Short-cut DAG:</strong></p>
+<p>The full DAG may be hard to conceptualize, for example if the research field is not well-developed with little theory to guide the construction of the full DAG. A short-cut is then to conceptualize all casual paths leading in to X and then try to close these by conditioning on relevant variables, mimicking an experiment where X is manipulated.</p>
+<p>Closing all paths going in to X is, in theory, analogous to manipulating X.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>shortcut <span class="ot">&lt;-</span> <span class="fu">dagitty</span>( <span class="st">"dag {</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">   W -&gt; Z1 -&gt; X</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">   Y &lt;- V &lt;- Z2 -&gt; X &lt;- W</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">   X -&gt; M -&gt; Y</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">   Y &lt;- Z3 -&gt; X</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">   Z2 &lt;- Z4 -&gt; X</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">   Z4 -&gt; M</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">}"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">coordinates</span>(shortcut) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="at">W =</span> <span class="dv">1</span>, <span class="at">Z1 =</span> <span class="dv">2</span>, <span class="at">X =</span> <span class="dv">3</span>, <span class="at">V =</span> <span class="dv">5</span>, <span class="at">Z2 =</span> <span class="dv">4</span>, <span class="at">M =</span> <span class="dv">4</span>, <span class="at">Y =</span> <span class="dv">5</span>, <span class="at">Z3 =</span> <span class="dv">4</span>, <span class="at">Z4 =</span> <span class="fl">2.5</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="at">W =</span> <span class="dv">2</span>, <span class="at">Z1 =</span> <span class="dv">1</span>, <span class="at">X =</span> <span class="dv">1</span>, <span class="at">V =</span> <span class="dv">2</span>, <span class="at">Z2 =</span> <span class="dv">2</span>, <span class="at">M =</span> <span class="dv">1</span>, <span class="at">Y =</span> <span class="dv">1</span>, <span class="at">Z3 =</span> <span class="fl">1.5</span>, <span class="at">Z4 =</span> <span class="fl">1.5</span>))</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shortcut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-method25_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>These are two helpful suggestions:</p>
+<ul>
+<li><p><strong>Adjust for all pre-treatment variables</strong>. Doing so theoretically blocks all causal paths to the exposure variable, effectively eliminating confounding.</p></li>
+<li><p><strong>Avoid adjusting for any post-treatment variables</strong>. As doing so can introduce overadjustment bias or collider bias.</p></li>
+</ul>
+<p><br></p>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>13E1.</strong><br>
+Suppose that in the population of college applicants, being good at baseball is independent of having a good math score on a certain standardized test (with respect to some measure of ‘good’). A certain college has a simple admission procedure: admit an applicant if and only if the applicant is good at baseball or has a good math score or both. Give an intuitive explanation of why it makes sense that among students that this college admits, having a good math score is negatively associated with being good at baseball, i.e., conditioning on having a good math score decreases the chance of being good at baseball.</p>
+<p><strong>Old exam question</strong> <span class="citation" data-cites="blitzstein2019introduction">(stolen from <a href="references.html#ref-blitzstein2019introduction" role="doc-biblioref">Blitzstein &amp; Hwang, 2019</a>, an excellent introduction to probability)</span></p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13E2.</strong> Adjustment of a mediator may lead to overadjustment bias or collider bias or both when estimating the total average causal effect of exposure on outcome. Explain.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13E3.</strong> Many observational studies on violent video gaming and aggression only include boys. Why may this be a good idea?</p>
+</div>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>13M1.</strong> Draw a simple DAG illustrating confounding, and discuss how the sign of the relationships may lead to negative confounding.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13M2.</strong> Residual confounding is bias that remains despite our attempt to control for a confounder. Explain why residual confounding may be more of a problem if the covariate is controlled for by statistical control (adding it to a regression model) then by matching on the covariate.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13M3.</strong> When estimating causal effects in experiments or observational studies, including variables in a regression model is a way of adjusting for covariates. Two simple rules when estimating total causal effects:</p>
+<p><strong>Rule 1</strong>. Adjust for all measured pre-treatment covariates.<br>
+<strong>Rule 2</strong>. Don’t adjust for any post-treatment covariates.</p>
+<ol type="a">
+<li>Explain why Rule 1 is a good idea.</li>
+<li>Explain why Rule 2 is a good idea.</li>
+</ol>
+</div>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>13H1.</strong> Assume that X is a dichotomous variable that causes Y, and that Z causes both X and Y. Furthermore, assume that <span class="math inline">\(Z \rightarrow Y\)</span> is non-linear (e.g., quadratic). Simulate data and estimate the total average causal effect of X on Y in two ways:</p>
+<ol type="1">
+<li>Statistical control: Add Z as covariate to the linear model: <span class="math inline">\(Y = b_0 + b_1X + b_2Z\)</span>.</li>
+<li>Matching: Only include pairs of X = 0 and X = 1 with similar values on Z (matching as data pruning).</li>
+</ol>
+<p>Discuss the two methods ability to recover the true casual effect for your simulated scenario.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13H2.</strong> Matching is an adjustment strategy that can be applied both at the design stage of a study and after data collection. When implemented after data collection, it is sometimes referred to as “data pruning.” Explain the rationale behind this terminology and discuss how matching differs when applied at the design stage versus after data collection.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13H3.</strong> Two rules were mentioned above (13M3):</p>
+<p><strong>Rule 1</strong>: Adjust for all measured pre-treatment covariates. <strong>Rule 2</strong>: Avoid adjusting for any post-treatment covariates.</p>
+<p>These are excellent general guidelines. However, like most rules, they come with exceptions!</p>
+<ol type="a">
+<li><p>Draw a Directed Acyclic Graph (DAG) that represents a scenario where it would be beneficial to violate Rule 1.</p></li>
+<li><p>Draw a Directed Acyclic Graph (DAG) that represents a scenario where it would be beneficial to violate Rule 2.</p></li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>13H4.</strong> Researchers wanted to compare kids from a low and a high socioeconomic area on their response to a new pedagogic method for teaching math. They first administered a short math test to all kids in each area and noted the the average score among the kids from the high socioeconomic area was much higher than the average score among the kids from the low socioeconomic area. To achieve balanced groups, they took a random sample of 50 kids from the low socioeconomic area and then matched each kid with a kid from the high socioeconomic area with a similar score on the math test. Both groups were then subjected to the new pedagogic method, after which they were tested again on a similar test. The 50 low socioeconomic kids had about the same average result as before, whereas the 50 high socioeconomic kids had a higher average score after than before. The conclusion was that the method seems to work, but only for kids with a high socioeconomic background.</p>
+<p>Give an alternative explanation.</p>
+</div>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dagitty_0.3-4
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     fastmap_1.2.0     xfun_0.52         knitr_1.50       
+ [5] htmltools_0.5.8.1 rmarkdown_2.29    cli_3.6.5         compiler_4.4.2   
+ [9] boot_1.3-31       rstudioapi_0.17.1 tools_4.4.2       curl_6.4.0       
+[13] evaluate_1.0.3    Rcpp_1.0.14       yaml_2.3.10       rlang_1.1.6      
+[17] jsonlite_2.0.0    V8_6.0.4          htmlwidgets_1.6.4 MASS_7.3-61      </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-blitzstein2019introduction" class="csl-entry" role="listitem">
+Blitzstein, J. K., &amp; Hwang, J. (2019). <em>Introduction to probability</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-elwert2014endogenous" class="csl-entry" role="listitem">
+Elwert, F., &amp; Winship, C. (2014). Endogenous selection bias: The problem of conditioning on a collider variable. <em>Annual Review of Sociology</em>, <em>40</em>, 31–53.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-rohrer2018thinking" class="csl-entry" role="listitem">
+Rohrer, J. M. (2018). Thinking clearly about correlations and causation: Graphical causal models for observational data. <em>Advances in Methods and Practices in Psychological Science</em>, <em>1</em>(1), 27–42.
+</div>
+<div id="ref-snow1855mode" class="csl-entry" role="listitem">
+Snow, J. (1855). <em>On the mode of communication of cholera</em>. John Churchill.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./12-stat25.html" class="pagination-link" aria-label="S: Linear Regression: Multiple Predictors">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./14-stat25.html" class="pagination-link" aria-label="S: Linear Regression: Non-linear Transformations and Interactions">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,70 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+div.concepts {
+  background-color: #f6ffe6;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: normal;
+  font-style: normal;
+  color: black;
+}
+
+.small-cite { font-size: 0.8em; }  /* Reference to citation in smaller font */
+
+div.citations {
+  background-color: #d5ffff;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: normal;
+  font-style: normal;
+  color: black;
+}
+
+div.advanced {
+  background-color: #ffc0cb;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: normal;
+  font-style: normal;
+  color: black;
+}
+
+
+div.practice {
+  background-color: #ffc0cb;
+  border-radius: 5px;
+  padding: 20px;
+  font-weight: normal;
+  font-style: normal;
+  color: black;
+}
+
+/* Below is to adjust the spacing around the Fold symbol */
+/* Target the code-fold wrapper and details elements */
+.cell-output-display > details.code-fold,
+.cell > details.code-fold,
+details.code-fold {
+  margin-bottom: 0.1em !important;
+}
+/* Optional: Tighten the details/summary gap further */
+details.code-fold summary {
+  margin-bottom: 0.1em !important;
+}
+/* You may need to tweak .cell or .cell-code for your theme */
+.cell {
+  margin-bottom: 0.1em !important;
+}
+

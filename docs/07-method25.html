@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; M: Within-participant Experiments – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-stat25.html" rel="next">
+<link href="./06-stat25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-method25.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#within-subject-experiments-targeting-average-causal-effects" id="toc-within-subject-experiments-targeting-average-causal-effects" class="nav-link" data-scroll-target="#within-subject-experiments-targeting-average-causal-effects"><span class="header-section-number">7.1</span> Within-subject experiments targeting average causal effects</a>
+  <ul class="collapse">
+  <li><a href="#mixed-within-between-participant-designs" id="toc-mixed-within-between-participant-designs" class="nav-link" data-scroll-target="#mixed-within-between-participant-designs">Mixed within-between participant designs</a></li>
+  <li><a href="#indiviual-variation-or-random-error-or-both" id="toc-indiviual-variation-or-random-error-or-both" class="nav-link" data-scroll-target="#indiviual-variation-or-random-error-or-both">Indiviual variation or random error or both?</a></li>
+  </ul></li>
+  <li><a href="#single-n-design" id="toc-single-n-design" class="nav-link" data-scroll-target="#single-n-design"><span class="header-section-number">7.2</span> Single-N design</a>
+  <ul class="collapse">
+  <li><a href="#single-n-design-and-still-the-single-unit-causal-effect-is-unobserved" id="toc-single-n-design-and-still-the-single-unit-causal-effect-is-unobserved" class="nav-link" data-scroll-target="#single-n-design-and-still-the-single-unit-causal-effect-is-unobserved">Single-N design and still the single-unit causal effect is unobserved</a></li>
+  </ul></li>
+  <li><a href="#threats-and-tricks" id="toc-threats-and-tricks" class="nav-link" data-scroll-target="#threats-and-tricks"><span class="header-section-number">7.3</span> Threats and tricks</a></li>
+  <li><a href="#are-group-level-analysis-meaningful" id="toc-are-group-level-analysis-meaningful" class="nav-link" data-scroll-target="#are-group-level-analysis-meaningful"><span class="header-section-number">7.4</span> Are group-level analysis meaningful?</a>
+  <ul class="collapse">
+  <li><a href="#cross-level-bias" id="toc-cross-level-bias" class="nav-link" data-scroll-target="#cross-level-bias">Cross-level bias</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty) <span class="co"># R implementation of http://www.dagitty.net</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dagitty' was built under R version 4.4.3</code></pre>
+</div>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Two categories of within-participant designs:
+<ul>
+<li>Within-participant Experiments: These designs aim to estimate average causal effects by using within-participant measurements. By comparing participants against themselves, individual differences in baseline performance are controlled, thereby increasing statistical power.</li>
+<li>Single-N Designs: These designs focus on identifying causal effects within a single unit or participant, targeting the causal relationship at the individual level rather than averaging across a group.</li>
+</ul></li>
+<li>Threats to the validity of within-subject designs
+<ul>
+<li>Sequencing effects:
+<ul>
+<li>Order effects</li>
+<li>Carry-over effects</li>
+</ul></li>
+<li>Maturation effects</li>
+<li>History effects</li>
+</ul></li>
+<li>Design elements, examples:
+<ul>
+<li>Treatment orders counterbalanced (e.g., Latin square design)</li>
+<li>Treatment orders random within participants across sessions</li>
+<li>ABAB designs, where treatment and control conditions are alternated (“light-switch design”).</li>
+<li>Training of participants to minimize learning effects, experiment starts when participant performance has reached an asymptote.</li>
+<li>Many pauses between testing session, testing on several days</li>
+<li>Filler items to limit carry over effects (and mask purpose)</li>
+</ul></li>
+<li>Individual level versus group level analysis</li>
+<li>Designs for assessing single-unit causal effects
+<ul>
+<li>Repeated measures of single unit(s).</li>
+<li>Measures of equivalent units: <em>“Identical twin” design</em></li>
+</ul></li>
+<li>Cross-level bias. Examples:
+<ul>
+<li>“No effect on group level imply no effects at the individual level”. Maybe<br>
+single-unit causal effects in different directions cancel out</li>
+<li>“Small effect on group level imply small effects at the individual level”. Maybe large effect in some individuals, and no effect in most individuals.</li>
+<li>“Equal effect of two treatments at group level imply that it doesn’t matter what treatment I take”. Could still be that some treatments work better for some individuals and other treatments work better for other individuals.</li>
+<li>“A positive relationship at the group level imply positive relationships at the individual level”. No, it may even be the fact that all single-unit relationships are negative, whereas the group level relationship is positive, or vice versa (Simpson’s paradox)</li>
+<li>“Gradual slow increase in group performance with training imply that individuals learn slowly”. No, maybe individuals learn suddenly (“I go it”!), not gradually, but some need more time than others to get it.</li>
+</ul></li>
+</ul>
+<p>Theoretical articles to read:</p>
+<ul>
+<li><span class="citation" data-cites="smith2018small">Smith &amp; Little (<a href="references.html#ref-smith2018small" role="doc-biblioref">2018</a>)</span> as an argument for targeting single-unit casual effects.</li>
+<li><span class="citation" data-cites="christensen2023randomized">Christensen et al. (<a href="references.html#ref-christensen2023randomized" role="doc-biblioref">2023</a>)</span>, sections on within-participant and mixed designs</li>
+</ul>
+<p>Other sources: - <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, chapter 18, briefly discuss issues related to within subject designs, see section “Close substitutes”, p.&nbsp;341.</p>
+</div>
+<p><br></p>
+<p>Within-subject designs are experimental designs where all participant take part in every condition of the experiment. These designs are therefor also called Repeated-measures designs.</p>
+<p>One may distinguish between two reason for such designs:</p>
+<ol type="1">
+<li>To efficiently estimate <em>average causal effects</em> by removing variability due to individual differences, for instance differences in baseline performance. It is common that these experiments involve several (+10) participants, each of which is tested one or a few times per condition. Main results are presented as group average, although individual data may also be presented.</li>
+<li>To estimate <em>single-unit casual effects</em> by extensive measurement in one (or a few) individuals. Below, I will call such experiments Single-N designs, but they are also known as Small-N designs, or Case-study designs. Extensive measurements, maybe several hundreds per condition, assure reliable measures at the individual level. Results are presented at the individual level, even if more than one participant is tested.</li>
+</ol>
+</section>
+<section id="within-subject-experiments-targeting-average-causal-effects" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="within-subject-experiments-targeting-average-causal-effects"><span class="header-section-number">7.1</span> Within-subject experiments targeting average causal effects</h2>
+<p>Within-participant designs are a cost-effective method for estimating average causal effects because they allow researchers to separate out variation in overall performance during statistical analyses. This contrasts with between-participant experiments, where analyses must be conducted on averages from separate groups of individuals. Therefor, within-participant experiments typicality involve fewer participants than in between-participant designs.</p>
+<section id="mixed-within-between-participant-designs" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="mixed-within-between-participant-designs">Mixed within-between participant designs</h3>
+<p>A mixed design incorporates both within-participant and between-participant variables, often structured as a factorial design where all possible combinations of the variable levels are included.</p>
+<p>For instance, consider a study comparing two treatments, A and B, using a within-participant design. The order of administering these treatments varies across two groups if participants: one group receives treatment A followed by B, whereas the other group receives them in the reverse order (a setup often referred to as a cross-over design). This variation in treatment order across participants illustrates the between-participant element in the mixed design.</p>
+<p>In this example, the between-participant variable is not the primary focus; it is included mainly to assess potential effects of treatment orders. The researcher typically hopes there will be no substantial order effects, allowing the between-participant variable to be safely disregarded. There are of course mixed designs where the between-participant variable is the main focus, and these will be discussed later when we explore between-participant experiments.</p>
+</section>
+<section id="indiviual-variation-or-random-error-or-both" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="indiviual-variation-or-random-error-or-both">Indiviual variation or random error or both?</h3>
+<p>The figure below is a nice example of a profile plot, illustrating the performance of a single individual tested across three conditions. This study aimed to compare groups of individuals based on their self-reported inner speech. The group averages reveal a clear trend: reaction times were faster in the ‘Orthographic rhyme’ condition compared to the other two conditions. However, was this trend consistent at the individual level? It’s difficult to say. The variability in individual profiles could be attributed to measurement errors, or it may reflect substantial individual differences. The profiles show average reaction times over 20 trials for each condition. This is far too few to obtain reliable reaction time estimates at the individual level, as typically, several hundred trials would be required.</p>
+<p><img src="figs/nedergaard2024_fig7.png" class="img-fluid" style="width:70.0%" alt="Fig. 7 in"> <br></p>
+</section>
+</section>
+<section id="single-n-design" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="single-n-design"><span class="header-section-number">7.2</span> Single-N design</h2>
+<div class="citations">
+<p>One basic fact of all psychological research is that subjects differ greatly in their abilities to perform almost any task (on almost any dependent variable).</p>
+<p><font size="2"> From a textbook on experimental psychology, (<span class="citation" data-cites="kantowitz2014experimental">Kantowitz et al. (<a href="references.html#ref-kantowitz2014experimental" role="doc-biblioref">2014</a>)</span>.</font></p>
+</div>
+<p><br></p>
+<div class="citations">
+<p>It is more useful to study one animal for 1000 hours than to study 1000 animals for one hour.</p>
+<p><font size="2">B.F. Skinner, cited in <span class="citation" data-cites="smith2018small">Smith &amp; Little (<a href="references.html#ref-smith2018small" role="doc-biblioref">2018</a>)</span>.</font></p>
+</div>
+<p><br></p>
+<p>A single-N design is a study aimed at estimating causal effects in a single individual. Although multiple participants are typically tested, the focus is always on presenting data at the individual level. Notably, <span class="citation" data-cites="smith2018small">Smith &amp; Little (<a href="references.html#ref-smith2018small" role="doc-biblioref">2018</a>)</span> refers to these as small-N designs, describing them as studies where ‘a large number of observations are made on a relatively small number of experimental participants’ (p.&nbsp;2084). I prefer the term <em>single-N design</em> because ‘a relatively small number’ can often be just one.</p>
+<p>In psychology, single-N studies are commonly used in fields such as psychophysics and behavioral intervention research, where they are often referred to as Single-Case Experimental Designs (SCED), see examples below.</p>
+<p><br></p>
+<p><strong>Example: Psychophysical experiment</strong></p>
+<p>This is data from a psychoacoustic experiment involving 13 listeners. The details are less important, but focus on comparing thresholds (y-axis, low values are better) for the tasks involving detection of sounds (filled circles) versus localization of sounds (open squares). Some listeners had similar localization as detection thresholds (e.g., IDs 4, 6, and, 7), suggesting that if they could detect the sound they could also localize it. For others, this was not the case, most notably for the listeners in the upper row of panels. For details, see <span class="citation" data-cites="tirado2021individual">Tirado et al. (<a href="references.html#ref-tirado2021individual" role="doc-biblioref">2021</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/tirado2021_fig2.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Fig. 2 in <span class="citation" data-cites="tirado2021individual">Tirado et al. (<a href="references.html#ref-tirado2021individual" role="doc-biblioref">2021</a>)</span></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p><strong>Example: Single-case Experimental Design (SCED)</strong></p>
+<p>This is data from an educational experiment involving measurement of four children’s disruptive behaviors in class (y-axis) over time (x-axis), while alternating between conditions A (SSR) and B (RC), in a <em>ABAB-design</em>. Details are not important, but it is clear that method B led to a decrease in disruptive behaviors compared to method A for all four children (each row refer to data from one child). For details, see <span class="citation" data-cites="lambert2006effects">Lambert et al. (<a href="references.html#ref-lambert2006effects" role="doc-biblioref">2006</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/lambert2006_fig1.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption>Fig. 1 in <span class="citation" data-cites="lambert2006effects">Lambert et al. (<a href="references.html#ref-lambert2006effects" role="doc-biblioref">2006</a>)</span></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Here’s another SCED, this one using an ABA design. The figure serves as an excellent example of a design illustration, particularly highlighting data for <em>manipulation checks</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/newbold2020_fig1.PNG" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Fig. 1 in <span class="citation" data-cites="newbold2020plasticity">Newbold et al. (<a href="references.html#ref-newbold2020plasticity" role="doc-biblioref">2020</a>)</span></figcaption>
+</figure>
+</div>
+<p><br></p>
+<section id="single-n-design-and-still-the-single-unit-causal-effect-is-unobserved" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="single-n-design-and-still-the-single-unit-causal-effect-is-unobserved">Single-N design and still the single-unit causal effect is unobserved</h3>
+<p>A single-unit is defined as a specific study-unit at a specific moment in time. For example, consider a participant, <span class="math inline">\(P\)</span>, in a psychophysical experiment at the moment <span class="math inline">\(i\)</span>, exposed to a stimulus <span class="math inline">\(s_i\)</span>. When the next stimulus, <span class="math inline">\(s_{i+1}\)</span>, is presented, technically, this constitutes a new study unit because time has passed and <span class="math inline">\(P\)</span> is slightly older and have gained new experiences, specifically those related to exposure to <span class="math inline">\(s_i\)</span>. Consequently, <em>the single-unit causal effect is always unobserved</em>.</p>
+<p>However, in many cases, we may have strong reasons to assume that the two single units are sufficiently similar to be treated as the same unit measured twice. If this assumption holds, we can reasonably interpret the difference between <span class="math inline">\(response(s_{i+1})\)</span> and <span class="math inline">\(response(s_{i})\)</span> as an estimate of the causal effect. It is crucial, though, to justify the assumptions that allow us to treat repeated measures on a single individual as a proxy for the unobservable repeated testing of the same unit.</p>
+<p>Strategies for making such assumptions plausible include repeated measures on a single study unit (<em>Single-N designs</em>) and measures on equivalent units, which could be referred to as an <em>“Identical-twin” design</em>, assuming homogeneity of effects across these equivalent units.</p>
+<p>As noted by <span class="citation" data-cites="holland1986statistics">Holland (<a href="references.html#ref-holland1986statistics" role="doc-biblioref">1986</a>)</span>, who coined the phrase <em>The fundamental problem of causal inference</em>, Single-N designs and Identical-twin designs are considered <em>scientific solutions</em> to this fundamental problem. In contrast, between-subject designs, such as randomized experiments, are referred to as <em>statistical solutions</em>.</p>
+<p><br></p>
+</section>
+</section>
+<section id="threats-and-tricks" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="threats-and-tricks"><span class="header-section-number">7.3</span> Threats and tricks</h2>
+<p>Three main categories of threats to the internal validity of within-participant experiments (also known as repeated measures design) are:</p>
+<ol type="1">
+<li><p><strong>Sequencing effects</strong> can be categorized into two types (<span class="citation" data-cites="christensen2023randomized">Christensen et al. (<a href="references.html#ref-christensen2023randomized" role="doc-biblioref">2023</a>)</span>):</p>
+<ul>
+<li><strong>Order effects</strong>. Factors like fatigue or boredom may affect performance in a within-participant experiment. For instance, responses to the final stimulus in a session may be more influenced by fatigue than responses to the first stimulus in a testing session.</li>
+<li><strong>Carry-over effects</strong>. The influence of a previous stimulus may affect responses in subsequent conditions. For example, in a listening experiment, exposure to a loud sound might cause a following sound to be perceived as quieter than it would have been if it had been preceded by a softer sound.</li>
+</ul></li>
+<li><p><strong>Maturation</strong>. The natural changes that occur in participants over time, independent of the experimental conditions. These changes can include physical, psychological, or cognitive developments that may confound the interpretation of experimental results.</p></li>
+<li><p><strong>History</strong>. External events that occur between the measurements of different § conditions and that can influence participants’ responses. These events are unrelated to the experiment but can introduce confounding variables that affect the outcomes.</p></li>
+</ol>
+<p>And here a few examples of design elements to counteract these threats:</p>
+<ul>
+<li><strong>Counterbalanced</strong> stimulus (or treatment) orders across participants.
+<ul>
+<li><strong>Randomized counterbalanzing</strong>. Unique order for each participant, hoping that order and carry-over effects average out across participants.</li>
+<li><strong>Complete counterbalancing</strong>. Every possible order used.</li>
+<li><strong>Incomplete counterbalancing</strong>, for example using a balanced Latin square design.</li>
+</ul></li>
+<li><strong>Random stimuli orders</strong> within participants across sessions. Different random orders may be used for each participnat (if focus is on average causal effects) or the same orders may be used for every participant (if single-unit causal effects<br>
+are evaluated).</li>
+<li><strong>Baseline condition</strong> to express each individual’s performance relative to their own performance on a baseline (reference) condition.</li>
+<li><strong>Individualized stimuli</strong>. To define stimuli at the individual level, so all participants have the same performance at specified reference conditions.</li>
+<li><strong>Practice</strong> of participants to minimize learning effects, start experiment after many training trials, when the individual has reached his or her limit and no longer improves with repeated testing.</li>
+<li><strong>Many pauses</strong> between testing session, and consider testing on several days, to minimize effects of fatigue and boredom. May also provide protection against short lived carry over effects (pauses providing a <em>wash-out</em> period)</li>
+<li><strong>Filler items</strong> to limit carry over effects (and mask purpose)</li>
+</ul>
+</section>
+<section id="are-group-level-analysis-meaningful" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="are-group-level-analysis-meaningful"><span class="header-section-number">7.4</span> Are group-level analysis meaningful?</h2>
+<p>Many psychology studies focus on truly intra-individual phenomena, such as an individual’s ability to perceive, remember, or attend to something. Perception, memory, and attention exist at the individual level – the group has no perception, memories, or attention span (at least not in the same way as individual’s have)</p>
+<p>Before calculating group averages or conducting statistical analyses that imply a group average (e.g., regression analysis), it’s crucial to ask yourself:</p>
+<p><em>Are group-level analyses meaningful for my data?</em></p>
+<p>In many cases, especially in psychology, the answer may be no. However, there are important exceptions where group-level analysis is appropriate and meaningful:</p>
+<ol type="1">
+<li><p>The Group Level Is the Focus: Sometimes, the primary interest is in understanding the effect of an intervention or phenomenon at the population level rather than the individual level. For instance, if you want to estimate the societal benefit of promoting a certain diet, you might express the outcome as the average weight loss in the target population. While some individuals may lose weight and others may gain, the overall effect is what matters for policy decisions. Similarly, if estimating the risk associated with an exposure, the focus is on relative risk across groups (e.g., exposed vs.&nbsp;unexposed individuals), which is inherently a group-level analysis. Risk, for instance, is calculated as the mean value of an indicator variable coded as 1 for diseased and 0 for healthy within a specified population.</p></li>
+<li><p>The Group Average Represents a Typical Individual: If the group average accurately reflects the experience of a typical individual, then a group-level analysis may be meaningful. In such cases, interpreting the results at the individual level could be valid, assuming that individual differences are small or irrelevant.</p></li>
+<li><p>Minimal or Negligible Individual Differences:If variability among individuals is so small that it can be considered mere measurement error, which cancels out when averaged, then a group-level analysis is justified. This scenario assumes that all individuals react similarly to the treatment or condition. If this assumption holds true, in principle, you could obtain reliable results from testing just one person.</p></li>
+</ol>
+<p>In summary, while psychology often focuses on individual-level phenomena, there are circumstances where group-level analyses are both meaningful and necessary. Always critically evaluate whether the assumptions underlying your analysis are appropriate for your data.</p>
+<p>Remember that group level analysis can not answer questions about single-unit causal effects:</p>
+<ul>
+<li><strong>No effect at group level</strong>, consistent with at least two incompatible hypothesis:
+<ul>
+<li>No or negligible single-unit causal effects, or</li>
+<li>Substantial positive and negative single-unit causal effects, cancelling each other out at the group level.</li>
+</ul></li>
+<li><strong>Moderate effect at group level</strong>, consistent with:
+<ul>
+<li>Moderate single-unit causal effects in the same direction for all individuals, or</li>
+<li>Large single-unit causal effects in some individuals, no or negligible or even reversed single-unit causal effects in other individuals</li>
+</ul></li>
+<li><strong>Large effect at group level</strong>, consistent with:
+<ul>
+<li>Large single-unit causal effects in the same direction for all individuals, or</li>
+<li>Large single-unit causal effects in most individuals, moderate, no or negligible or even reversed single-unit causal effects in a few individuals.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<section id="cross-level-bias" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="cross-level-bias">Cross-level bias</h3>
+<p>Cross-level bias, also known as <em>cross-level fallacy</em>, <em>aggregation bias</em> or the <em>ecological fallacy</em> (terms I will use interchangeably), refers to the logical error of inferring that a trend observed at one level of analysis applies uniformly to all units at a lower level of analysis.</p>
+<p>For example, if there is little or no difference between group averages in performance between a control group and a treatment group, this could indicate that:</p>
+<ol type="1">
+<li><p>The treatment had no or negligible effect on every individual.</p></li>
+<li><p>The treatment had varying effects on individuals—some performed better, while others performed worse—resulting in the effects canceling out in the group average.</p></li>
+</ol>
+<p>If scenario 2 is true, then it would be incorrect to conclude that the “treatment has no or negligible effect on individual performance”. This would be an example of aggregation bias.</p>
+<p>Similarly, suppose the treatment group, on average, performed slightly better than the control group. This outcome could suggest that:</p>
+<ol type="1">
+<li><p>The treatment had a moderate effect on every individual.</p></li>
+<li><p>The treatment had a significant effect on some individuals but no or negligible effect on others, leading to a moderate effect on average.</p></li>
+</ol>
+<p>If scenario 2 is true, then it would be incorrect to conclude that the “treatment has a moderate effect on individual performance”. This would be an example of aggregation bias.</p>
+<p>It is quite common for research papers in psychology to conclude, “Our results suggest that treatment A has a moderate effect on performance,” based solely on group-level analysis. However, if the study focuses on truly intra-individual phenomena, such as memory, attention, or perception, this conclusion assumes that the group-level result represents the treatment effects at the individual level—an assumption that is vulnerable to aggregation bias.</p>
+<p>This risk is rarely discussed as an alternative explanation for the results. Authors often implicitly assume that the group-level result is representative of the treatment effects at the individual level. This assumption may or may not be accurate, and it should be explicitly addressed. Ideally, researchers should collect data that allows for individual-level analysis to avoid this bias.</p>
+<p><br></p>
+</section>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<p><br></p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>7E1.</strong> Threats to the validity of within-subject designs (also called repeated measure designs) include <em>maturation</em>, <em>history effects</em>, and <em>carry-over effects</em>. Explain each of these in your own words. Try to exemplify with reference to made-up scenarios.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E2.</strong> According to my notes above, single-N designs are within subject designs, but not all within-subject designs are single-N designs. The difference being in the targeted causal effect. Explain.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E3.</strong> Think of an experiment measuring responses under two treatments, A and B, and two groups of participants, one doing A before B, and the other doing B before A.</p>
+<p>For each of the scenarios below, provide an example that would make it clear why the stated analytic strategy make sense.</p>
+<ol type="a">
+<li>A scenario where you could safely ignore the between-subject factor and analyze this as a within-subject experiment.</li>
+<li>A scenario in which you would analyze this as a mixed design, with a focus on the interaction between treatment and treatment order.</li>
+<li>A scenario where you would prefer to analyze this as a between-participant experiment, ignoring the second measurement.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E4.</strong> Discuss the challenges in distinguishing between individual differences and measurement error in a within-participant experiment. Under what circumstances might it be difficult to determine whether observed variability is due to true individual differences or simply measurement error?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E5.</strong> Remember B.F. Skinner: <strong>“It is more useful to study one animal for 1000 hours<strong> </strong>than to study 1000 animals for one hour”</strong> (cited in <span class="citation" data-cites="smith2018small">Smith &amp; Little (<a href="references.html#ref-smith2018small" role="doc-biblioref">2018</a>)</span>)</p>
+<p>In what situations is Skinner’s perspective valid, and when might it not be? Discuss the advantages and limitations of intensive study of a single subject compared to brief studies of multiple subjects. Consider factors such as the nature of the research question, the goals of the study, and the generalizability of the findings. Provide examples to illustrate your points.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E6.</strong></p>
+<ol type="a">
+<li><p>What is a mixed between-within-participant design?</p></li>
+<li><p>Describe a study where the primary focus of a mixed design is the within-participant variation, with between-participant variation serving as a control condition.</p></li>
+<li><p>Describe a study where the primary focus of a mixed design is the between-participant variation, with within-participant variation serving as a control condition.</p></li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7E7.</strong> Here a brief description of two emotion recognition experiments, both using a mixed design:</p>
+<ol type="1">
+<li><p>Eighty participants were randomly assigned to two different stimulus orders.</p></li>
+<li><p>Participants were divided into two groups: 40 young adults (aged 20-35) and 40 older adults (aged 65-80), each group presented with the same set of stimuli.</p></li>
+</ol>
+<p>Compare the extent to which the between-participant results can be given a causal interpretation.</p>
+</div>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>7M1.</strong> This is from Wikipedia: “For each of the 48 US states Robinson computed the illiteracy rate and the proportion of the population born outside the US. He showed that these two figures were associated with a negative correlation of -0.53; in other words, the greater the proportion of immigrants in a state, the lower its average illiteracy. However, when individuals are considered, the correlation was +0.12 (immigrants were on average more illiterate than native citizens).”</p>
+<ol type="a">
+<li>How is it possible to get both a positive and a negative correlation for the association between literacy and immigrant status? Draw a DAG and explain in words</li>
+<li>Guess the topic of the Wikipedia article from which the quote originates.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7M2.</strong> In a within-subject experiment, you present 9 stimuli to each of 15 participants. The stimuli are repeated 11 times each, in total 99 stimuli presented in a random order. Discuss pros and cons of using:</p>
+<ol type="a">
+<li>The same random order for each participant,</li>
+<li>Different random orders for each participant.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7M3.</strong> Consider the following three methods for generating random orders of the 99 stimuli described in 7M2:</p>
+<ol type="1">
+<li><p>Generate a completely random order of the 99 stimuli.</p></li>
+<li><p>Generate a random order of the 99 stimuli, with the constraint that each stimulus type (A, B, …, I) can only be repeated after all other stimuli have been repeated an equal number of times.</p></li>
+<li><p>Generate a random order of the 99 stimuli, with the constraint that no stimulus is repeated consecutively in the sequence.</p></li>
+</ol>
+<p>Evaluate the advantages and disadvantages of each method with respect to threats to validity of repeated-measure experiments.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7M5.</strong> You are interested in exploring how people learn to recognize emotional expressions. You have access to a large data set of videos in which individuals display eight specific emotions through facial expressions and vocal tones. Your objective is to train participants to accurately identify these emotions by showing them the videos and having them select the correct emotion from a list of eight options.</p>
+<p>In this experiment, you aim to investigate how feedback (indicating whether their response was correct or incorrect) influences the improvement of emotion recognition over time through repeated testing.</p>
+<p>Task: Design an experiment that examines the impact of feedback on the performance of individual participants using a single-subject (single-N) design. Assume you will be testing five participants. Your response should address the following components:</p>
+<ul>
+<li><p>Specify the number of training sessions you will conduct, indicating which sessions will include feedback and which will not. Justify your choices and explain the reasoning behind the sequence and structure of these sessions.</p></li>
+<li><p>Describe how you will distinguish the effects of feedback from other factors, such as practice effects or increased familiarity with the task, ensuring that any observed improvements can be attributed to feedback.</p></li>
+<li><p>Detail your plan for data analysis, including the methods you will use to assess the impact of feedback on emotion recognition performance at the individual level.</p></li>
+</ul>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7M6.</strong> A recent large and well-conducted randomized controlled trial compared weight loss in two groups: one following a low-calorie diet and the other a low-carbohydrate diet. Both groups lost an average of 3 kg over the 6-month study period (between-group difference = 0.0 kg, 95 CI [-0.4, 0.4]). Based on this study, I conclude:</p>
+<p>“Since both diets resulted in similar weight loss, it doesn’t matter which one I follow—either a low-calorie or low-carbohydrate diet will have the same effect for me.”</p>
+<p>Critically assess this conclusion.</p>
+</div>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>7H1.</strong> The figure below is data from a classical study on suicide rate and religious affiliation (data from 1880-1890). Suicide rate seem to increase with the proportion of protestants in four provinces (each data point refer to one province). The conclusion was that their religion make Protestants more likely to commit suicide than non-Protestants (primarily Catholics in this data). Find an alternative explanation.</p>
+<p>Example from <span class="citation" data-cites="morgenstern2021ecologic">Morgenstern et al. (<a href="references.html#ref-morgenstern2021ecologic" role="doc-biblioref">2021</a>)</span>, data originally presented by the sociologist Emile Durkheim.</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.45</span>, <span class="fl">0.785</span>, <span class="fl">0.95</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">9.56</span>, <span class="fl">16.36</span>, <span class="fl">22.0</span>, <span class="fl">26.46</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>), <span class="at">xlab =</span> <span class="st">"Proportion protestant"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Suicide rate (per 100,000)"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.95</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>yy <span class="ot">&lt;-</span> cf[<span class="dv">1</span>] <span class="sc">+</span> cf[<span class="dv">2</span>]<span class="sc">*</span>xx</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xx, yy, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-method25_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>7H2.</strong> Below is a schematic representation of a classic experimental design known as the Solomon four-group design. This design involves a treatment condition (X) with outcome (O) measured before and/or after the treatment. Participants are randomly assigned to one of the four groups, and the aim is to estimate the causal effect of treatment on outcome.</p>
+<p>Discuss the purpose of each group in this design with respect to reducing potential threats to internal validity.</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Group</th>
+<th style="text-align: center;">Pre-treatment</th>
+<th style="text-align: center;">Treatment</th>
+<th style="text-align: center;">Post-treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">O</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">O</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">O</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">O</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">O</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="practice">
+<p><strong>7H3.</strong> Here stimulus orders for four participants (1-4), each tested on four conditions (A, B, C, D). Is this a balanced Latin square design? Motivate why or why not.</p>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                 
+1 "A" "B" "D" "C"
+2 "B" "C" "A" "D"
+3 "C" "D" "B" "A"
+4 "D" "A" "C" "B"</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] dagitty_0.3-4
+
+loaded via a namespace (and not attached):
+ [1] digest_0.6.37     fastmap_1.2.0     xfun_0.52         knitr_1.50       
+ [5] htmltools_0.5.8.1 rmarkdown_2.29    cli_3.6.5         compiler_4.4.2   
+ [9] boot_1.3-31       rstudioapi_0.17.1 tools_4.4.2       curl_6.4.0       
+[13] evaluate_1.0.3    Rcpp_1.0.14       yaml_2.3.10       rlang_1.1.6      
+[17] jsonlite_2.0.0    V8_6.0.4          htmlwidgets_1.6.4 MASS_7.3-61      </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-christensen2023randomized" class="csl-entry" role="listitem">
+Christensen, L., Turner, L. A., &amp; Johnson, R. B. (2023). <em>Randomized designs in psychological research.</em>
+</div>
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-holland1986statistics" class="csl-entry" role="listitem">
+Holland, P. W. (1986). Statistics and causal inference. <em>Journal of the American Statistical Association</em>, <em>81</em>(396), 945–960.
+</div>
+<div id="ref-kantowitz2014experimental" class="csl-entry" role="listitem">
+Kantowitz, B. H., Roediger III, H. L., &amp; Elmes, D. G. (2014). <em>Experimental psychology</em>. Cengage Learning.
+</div>
+<div id="ref-lambert2006effects" class="csl-entry" role="listitem">
+Lambert, M. C., Cartledge, G., Heward, W. L., &amp; Lo, Y. (2006). Effects of response cards on disruptive behavior and academic responding during math lessons by fourth-grade urban students. <em>Journal of Positive Behavior Interventions</em>, <em>8</em>(2), 88–99.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-morgenstern2021ecologic" class="csl-entry" role="listitem">
+Morgenstern, H., Wakefield, J., et al. (2021). Ecologic studies and analysis. <em>Modern Epidemiology. 4th Ed. Wolters Kluwer</em>.
+</div>
+<div id="ref-newbold2020plasticity" class="csl-entry" role="listitem">
+Newbold, D. J., Laumann, T. O., Hoyt, C. R., Hampton, J. M., Montez, D. F., Raut, R. V., Ortega, M., Mitra, A., Nielsen, A. N., Miller, D. B., et al. (2020). Plasticity and spontaneous activity pulses in disused human brain circuits. <em>Neuron</em>, <em>107</em>(3), 580–589.
+</div>
+<div id="ref-smith2018small" class="csl-entry" role="listitem">
+Smith, P. L., &amp; Little, D. R. (2018). Small is beautiful: In defense of the small-n design. <em>Psychonomic Bulletin &amp; Review</em>, <em>25</em>(6), 2083–2101.
+</div>
+<div id="ref-tirado2021individual" class="csl-entry" role="listitem">
+Tirado, C., Gerdfeldter, B., &amp; Nilsson, M. E. (2021). Individual differences in the ability to access spatial information in lag-clicks. <em>The Journal of the Acoustical Society of America</em>, <em>149</em>(5), 2963–2975.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-stat25.html" class="pagination-link" aria-label="S: Point Estimates and Their Uncertainty">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-stat25.html" class="pagination-link" aria-label="S: Linear Regression: Basics">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

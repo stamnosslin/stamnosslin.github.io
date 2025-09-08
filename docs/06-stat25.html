@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; S: Point Estimates and Their Uncertainty – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-method25.html" rel="next">
+<link href="./05-method25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-stat25.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">6.1</span> Estimation</a>
+  <ul class="collapse">
+  <li><a href="#what-is-estimated" id="toc-what-is-estimated" class="nav-link" data-scroll-target="#what-is-estimated">What is estimated?</a></li>
+  <li><a href="#point-and-interval-estimate" id="toc-point-and-interval-estimate" class="nav-link" data-scroll-target="#point-and-interval-estimate">Point and interval estimate</a></li>
+  <li><a href="#type-m-magnitude-and-type-s-sign-errors" id="toc-type-m-magnitude-and-type-s-sign-errors" class="nav-link" data-scroll-target="#type-m-magnitude-and-type-s-sign-errors">Type M (magnitude) and Type S (sign) errors</a></li>
+  <li><a href="#variability-versus-compatibility" id="toc-variability-versus-compatibility" class="nav-link" data-scroll-target="#variability-versus-compatibility">Variability versus Compatibility</a></li>
+  </ul></li>
+  <li><a href="#interpretation-of-compatibility-interval" id="toc-interpretation-of-compatibility-interval" class="nav-link" data-scroll-target="#interpretation-of-compatibility-interval"><span class="header-section-number">6.2</span> Interpretation of compatibility interval</a></li>
+  <li><a href="#sampling-distribution-and-standard-error" id="toc-sampling-distribution-and-standard-error" class="nav-link" data-scroll-target="#sampling-distribution-and-standard-error"><span class="header-section-number">6.3</span> Sampling distribution and Standard error</a>
+  <ul class="collapse">
+  <li><a href="#standard-error-of-the-mean" id="toc-standard-error-of-the-mean" class="nav-link" data-scroll-target="#standard-error-of-the-mean">Standard error of the mean</a></li>
+  <li><a href="#simulating-a-sampling-distribution" id="toc-simulating-a-sampling-distribution" class="nav-link" data-scroll-target="#simulating-a-sampling-distribution">Simulating a sampling distribution</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence intervals</a></li>
+  <li><a href="#bootstrapping" id="toc-bootstrapping" class="nav-link" data-scroll-target="#bootstrapping">Bootstrapping</a></li>
+  </ul></li>
+  <li><a href="#likelihood-funcion" id="toc-likelihood-funcion" class="nav-link" data-scroll-target="#likelihood-funcion"><span class="header-section-number">6.4</span> Likelihood funcion</a>
+  <ul class="collapse">
+  <li><a href="#advanced-likelihood-2-parameter-distribution" id="toc-advanced-likelihood-2-parameter-distribution" class="nav-link" data-scroll-target="#advanced-likelihood-2-parameter-distribution">Advanced: Likelihood 2-parameter distribution</a></li>
+  <li><a href="#credible-intervals" id="toc-credible-intervals" class="nav-link" data-scroll-target="#credible-intervals">Credible intervals</a></li>
+  </ul></li>
+  <li><a href="#probability-3-bayesian-inference" id="toc-probability-3-bayesian-inference" class="nav-link" data-scroll-target="#probability-3-bayesian-inference"><span class="header-section-number">6.5</span> Probability 3: Bayesian inference</a>
+  <ul class="collapse">
+  <li><a href="#bayes-rule-for-estimating-a-discrete-parameter" id="toc-bayes-rule-for-estimating-a-discrete-parameter" class="nav-link" data-scroll-target="#bayes-rule-for-estimating-a-discrete-parameter">Bayes rule for estimating a discrete parameter</a></li>
+  <li><a href="#bayes-rule-for-estimating-a-continous-parameter" id="toc-bayes-rule-for-estimating-a-continous-parameter" class="nav-link" data-scroll-target="#bayes-rule-for-estimating-a-continous-parameter">Bayes rule for estimating a continous parameter</a></li>
+  <li><a href="#advanced-sampling-from-the-posterior" id="toc-advanced-sampling-from-the-posterior" class="nav-link" data-scroll-target="#advanced-sampling-from-the-posterior">Advanced: Sampling from the posterior</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the library "rstanarm" to fit Bayesian linear models using the function </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stan_glm() </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstanarm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Point estimates</li>
+<li>Interval estimates
+<ul>
+<li>Compatibility interval. A range of parameter values compatible with the observed data and the assumptions of the chosen statistical model. The term “compatibility interval” serves as an umbrella for intervals such as “confidence intervals” and “credible intervals.”</li>
+<li><em>Resist dichotomous thinking!</em> Whether “… intervals include or exclude zero should play no role in their interpretation, …”, <span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span>; “Forget about <em>p</em>-values, and forget about whether your confidence intervals exclude zero.” <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> (p.&nbsp;493)</li>
+</ul></li>
+<li>Type M and Type S errors.</li>
+<li>Sampling distribution and standard error
+<ul>
+<li>Confidence intervals. The classical (frequentist) compatibility interval, derived analytically or using simulation (bootstrapping).</li>
+</ul></li>
+<li>Likelihood function
+<ul>
+<li>Credible intervals. The Bayesian compatibility interval, it is the likelihood function weighted by prior probability.</li>
+</ul></li>
+<li>Bayesian inference
+<ul>
+<li>General idea: Method for updating beliefs in light of new data using Bayes’ rule</li>
+<li>Prior distribution</li>
+<li>Likelihood function</li>
+<li>Posterior distribution</li>
+</ul></li>
+</ul>
+<p>Readings.</p>
+<ul>
+<li><span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span></li>
+<li><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>
+<ul>
+<li>Ch 3: Section 3.5, focus on normal distribution, linear transformation, and binomial distribution. See also “comparing distributions”, for use of percentiles</li>
+<li>Ch 4: You may skip section 4.6</li>
+<li>Ch 5: Section 5.1, for a simulation involving the binomial distribution,</li>
+<li>Ch 5, section 5.4 on bootstrapping.</li>
+<li>Appendix B “Forget about statistical significance”</li>
+</ul></li>
+<li><span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>, in particular section on hypothesis tests, sizes and interval estimates.</li>
+</ul>
+</div>
+</section>
+<section id="estimation" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="estimation"><span class="header-section-number">6.1</span> Estimation</h2>
+<p><strong>Read Wilkinson et al.&nbsp;!</strong></p>
+<div class="citations">
+<p><strong>Hypothesis tests.</strong> <em>It is hard to imagine a situation in which a dichotomous accept-reject decision is better than reporting an actual p value or, better still, a confidence interval. Never use the unfortunate expression “accept the null hypothesis.” Always provide some effect size estimate when reporting a p value.</em></p>
+<p><strong>Effect sizes.</strong> <em>Always present effect sizes for primary outcomes. If the units of measurement are meaningful on a practical level (e.g., number of cigarettes smoked per day), then we usually prefer an unstandardized measure (regression coefficient or mean difference) to a standardized measure (r or d). It helps to add brief comments that place these effect sizes in a practical and theoretical context.</em></p>
+<p><strong>Interval estimates.</strong> <em>Interval estimates should be given for any effect sizes involving principal outcomes. Provide intervals for correlations and other coefficients of association or variation whenever possible.</em></p>
+<p><span class="citation" data-cites="wilkinson99apa">Wilkinson (<a href="references.html#ref-wilkinson99apa" role="doc-biblioref">1999</a>)</span>, p.&nbsp;599.</p>
+</div>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/d3_95ci.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Example from <span class="citation" data-cites="eriksson2014long">Eriksson et al. (<a href="references.html#ref-eriksson2014long" role="doc-biblioref">2014</a>)</span></figcaption>
+</figure>
+</div>
+<p>From the inspirational article for Data set 3. The table show regression coefficients (point estimates) with 95 % confidence intervals.</p>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/d1_standard_error_plot.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Example from <span class="citation" data-cites="van2019cricket">Van Hedger et al. (<a href="references.html#ref-van2019cricket" role="doc-biblioref">2019</a>)</span></figcaption>
+</figure>
+</div>
+<p>This is the inspirational article for Data set 1. The figure show mean z-scores (point estimates) with standard errors of the mean (i.e., 68 % confidence intervals).</p>
+<p><br><br></p>
+<section id="what-is-estimated" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="what-is-estimated">What is estimated?</h3>
+<p><strong>Unknown</strong> and typically unobservable <strong>parameter</strong> value to be estimated:</p>
+<ul>
+<li><strong>Single parameter value</strong>, Population proportion, mean, median, mode, … For example, the median income in a population.</li>
+<li><strong>Contrast</strong>: Difference, ratio or some other comparison of two parameter values that may not be related to a causal research question. For example, estimating the difference in income between males and females.</li>
+<li><strong>Measure of association</strong>: Degree of association between variables in the population. For example, the population coefficient of correlation between age and income in a population.</li>
+<li><strong>Effect size</strong>: A population contrast or measure of association (in population) related to a specific <em>causal</em> research question. Note: The term “effect size” is typically used in a broader sense than this, including contrasts between variables that we do not believe to be causally related (see also notes on measurement, ch.5). In this course, we will restrict our use of the term “effect size” to estimates of causal effect sizes (which makes a lot of sense given that “effect” is a causal term). The Population average treatment effect <span class="citation" data-cites="gelman2020regression">(PATE, see <a href="references.html#ref-gelman2020regression" role="doc-biblioref">Gelman et al., 2021, p. 343</a>)</span> is an example of a population effect size defined as a contrast between unknown parameters.The Sample average treatment effect <span class="citation" data-cites="gelman2020regression">(SATE, see <a href="references.html#ref-gelman2020regression" role="doc-biblioref">Gelman et al., 2021, p. 343</a>)</span> may also be included here. Although it is about properties of a sample, it is defined as a contrast between unknown parameters: unobserved single-unit casual effects among sample units.</li>
+</ul>
+<p><br></p>
+</section>
+<section id="point-and-interval-estimate" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="point-and-interval-estimate">Point and interval estimate</h3>
+<p><strong>Point Estimate</strong></p>
+<ul>
+<li>Sample statistic: proportion, mean, median, mode, …</li>
+<li>Sample contrast or association:
+<ul>
+<li>Unstandardized contrast: Difference between means (or medians), regression coefficient, …</li>
+<li>Relative proportions: Relative risk, Risk difference, Odds ratio …</li>
+<li>Standardized contrast: Cohen’s d, Glass’ <span class="math inline">\(\delta\)</span>, Hedge’s g, …</li>
+<li>Standardized association: Pearson’s r, Spearman’s <span class="math inline">\(\rho\)</span>, <span class="math inline">\(R^2\)</span>, <span class="math inline">\(\eta^2\)</span>, …</li>
+<li>(Case-wise proportions: Probability of superiority, … not part of the course)</li>
+</ul></li>
+<li>Sample effect size: Sample contrast or association related to a specific causal research question. Again: The term sample “effect size” is typically used in a broader sense than this, including measures of contrasts between variables that we do not believe to be causally related. But I will try to restrict the use of “effect” to statements about causal effects.</li>
+</ul>
+<p><br></p>
+<p><strong>Interval</strong></p>
+<p>Point estimates should be accompanied by interval estimates. Three general types of intervals are</p>
+<ol type="1">
+<li><strong>Confidence intervals</strong>, from the Frequentist statistic perspective, derived from sampling distribution, e.g., <span class="math inline">\(95\%\;CI \approx \bar{X} \pm 2 * SE_{\bar{X}}\)</span>, or by simulation (bootstrapping).</li>
+<li><strong>Credible interval</strong>, from the Bayesian perspective, derived from the posterior distribution (often using simulation methods) estimated from prior distribution and likelihood function.</li>
+<li><strong>Likelihood intervals</strong>, similar to credible interval, but without incorporating prior beliefs (i.e., assuming “flat priors”).</li>
+</ol>
+<p><em>The good news</em>: For the same data, confidence intervals, credible intervals, and likelihood intervals tend to be quite similar, especially when derived from large datasets.</p>
+<p><br></p>
+<p><em>Compatibility interval</em>: a generic term that recently has become popular:</p>
+<div class="citations">
+<p>” .. we can think of the confidence interval as a “compatibility interval” …, showing effect sizes most compatible with the data according to their P-values, under the model used to compute the interval. Likewise, we can think of a … Bayesian “credible interval,” as a compatibility interval showing effect sizes most compatible with the data, under the model and prior distribution used to compute the interval … ” <span class="citation" data-cites="Amrhein2019">(from <a href="references.html#ref-Amrhein2019" role="doc-biblioref">Amrhein et al., 2019</a>)</span></p>
+</div>
+<p><br></p>
+<p><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> discusses the term on pp.&nbsp;110-111 (Gelman seem to prefer the term “uncertainty interval”, but I prefer “compatibility interval” as it makes no claims about our state of certainty; “compatibility” only refer to the relation between, on the one hand, possible parameter values, and, on the other, our data and statistical model).</p>
+<p><br></p>
+</section>
+<section id="type-m-magnitude-and-type-s-sign-errors" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="type-m-magnitude-and-type-s-sign-errors">Type M (magnitude) and Type S (sign) errors</h3>
+<p><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.&nbsp;59, defines:</p>
+<ul>
+<li><strong>Type S error</strong> occurs when the sign of the estimated effect is of the opposite direction to the true effect.</li>
+<li><strong>Type M error</strong> occurs when the magnitude of the estimated effect is much different from the true effect.</li>
+</ul>
+<p>This classification of errors seem more relevant than the old Type I and Type II error classification which was based on null hypothesis significance testing and its dichotomization of results as either statistically significant or non-significant.</p>
+<div class="citations">
+<p>“We do not generally use null hypotheses significance testing in our work. In the field in which we work, we do not generally think null hypotheses can be true: in social science and public health, just about every treatment one might consider will have <em>some</em> effect, and no comparison or regression coefficient of interest will be <em>exactly</em> zero. We do not find it particular helpful to formulate and test null hypotheses that we know ahead of time cannot be true. Testing null hypothesis is just a matter of data collection: with sufficient sample size, any hypothesis can be rejected and there is no real point in gathering a mountain of data just to reject a hypothesis that we did not believe in the first place.”</p>
+<p><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.&nbsp;59.</p>
+</div>
+</section>
+<section id="variability-versus-compatibility" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="variability-versus-compatibility">Variability versus Compatibility</h3>
+<p>It is important to distinguish between intervals that refer to the variability in our data (e.g., <span class="math inline">\(\pm 1 SD\)</span>) and to intervals that refer to our parameter estimates (i.e.&nbsp;<span class="math inline">\(\pm 1 SE\)</span>). I will call the former <em>Variability intervals</em> (a new term that I just invented) and the latter <em>compatibility intervals</em> for reasons discussed above.</p>
+<ul>
+<li><strong>Variability intervals</strong>, e.g., <span class="math inline">\(\pm 1 SD\)</span>, <span class="math inline">\(IQR\)</span>, <span class="math inline">\(Max-Min\)</span>, describe the variability (dispersion) of the data, the wider the interval the larger variability in the data. The size of the interval does not depend on sample size (but may vary a lot for small samples due to sampling error).</li>
+<li><strong>Compatibility intervals</strong>, e.g., <span class="math inline">\(\pm 1 SE\)</span>, <span class="math inline">\(95\%\;CI\)</span>, tell us about the compatibility of our estimate with possible parameter values, given our statistical model. The compatibility interval says little about the variability of the data, because the width of the interval depends strongly on sample size.</li>
+</ul>
+<p><br></p>
+<p>Simple simulation of variability of scores and compatibility of mean scores in a small and a large study, sampled from the same population of test takers:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>errbar_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(y){</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot point estimate +/- 1 SD</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">4</span>), <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">xlab =</span> <span class="st">''</span>, <span class="at">ylab =</span> <span class="st">''</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="dv">1</span>, <span class="at">x1 =</span> <span class="dv">1</span>, <span class="at">y0 =</span> <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">sd</span>(y), <span class="at">y1 =</span> <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="fu">sd</span>(y),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.01</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fu">mean</span>(y), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">'grey'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">0.8</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">2.0</span>, <span class="st">"+/- 1 SD"</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add point estimate with 95 % CI</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(<span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="dv">2</span>, <span class="at">x1 =</span> <span class="dv">2</span>, <span class="at">y0 =</span> ci[<span class="dv">1</span>], <span class="at">y1 =</span> ci[<span class="dv">2</span>],</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.01</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">2</span>, <span class="fu">mean</span>(y), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">'grey'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.8</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">2.0</span>, <span class="st">"95 % CI"</span>, <span class="at">pos =</span> <span class="dv">4</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add y-axis</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las =</span> <span class="dv">2</span>, <span class="at">pos =</span> <span class="fl">0.5</span>, <span class="at">tck =</span> <span class="fl">0.01</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"outcome variable"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="sc">-</span><span class="fl">2.5</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add text sample size</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  stext <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Sample size ="</span>, <span class="fu">as.character</span>(<span class="fu">length</span>(y)))</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="at">text =</span> stext, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Small sample study</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># Difference score in pre-post experiment</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">errbar_plot</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Large sample study</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">800</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># Difference score in pre-post experiment</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">errbar_plot</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br><br><br></p>
+</section>
+</section>
+<section id="interpretation-of-compatibility-interval" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="interpretation-of-compatibility-interval"><span class="header-section-number">6.2</span> Interpretation of compatibility interval</h2>
+<p><strong>Resist dichotomous thinking!</strong></p>
+<div class="citations">
+<p>“… whether [compatibility] intervals include or exclude zero should play no role in their interpretation, because even with only random variation the intervals from different studies can easily be very different” <span class="citation" data-cites="Amrhein2019">(<a href="references.html#ref-Amrhein2019" role="doc-biblioref">Amrhein et al., 2019</a>)</span></p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/amrhein_interval_fig.PNG" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption><span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span></figcaption>
+</figure>
+</div>
+<p><br></p>
+<p>Example in <span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span>: Result from study on unintended effects of anti-inflammatory drugs: Risk-ratio (RR) of 1.2 [-0.03, 0.48]. This non-significant result (p = 0.091) led the authors to conclude that exposure to the drugs was not associated with the outcome (atrial fibrillation), in contrast to results from an earlier study (RR = 1.2) with a statistically significant outcome.</p>
+<p>Compare this to Amrhein et al’s interpretation of the result:</p>
+<div class="citations">
+<p>“Like a previous study, our results suggest a 20% increase in risk of new-onset atrial fibrillation in patients given the anti-inflammatory drugs. Nonetheless, a risk difference ranging from a 3% decrease, a small negative association, to a 48% increase, a substantial positive association, is also reasonably compatible with our data, given our assumptions.” <span class="citation" data-cites="Amrhein2019">(<a href="references.html#ref-Amrhein2019" role="doc-biblioref">Amrhein et al., 2019</a>)</span></p>
+</div>
+<p>This is a good example of how to interpret point estimates and intervals!</p>
+<p><br><br></p>
+</section>
+<section id="sampling-distribution-and-standard-error" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sampling-distribution-and-standard-error"><span class="header-section-number">6.3</span> Sampling distribution and Standard error</h2>
+<p>A sampling distribution is the distribution of a sample statistic, for example the mean, that would be observed if we could repeat the sampling procedure infinitely many times, and for each time calculate the statistic. The standard error of the statistic is the standard deviation of its sampling distribution.</p>
+<section id="standard-error-of-the-mean" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="standard-error-of-the-mean">Standard error of the mean</h3>
+<p>Here simulation of random draws of samples from a normal distribution with mean = 100 and sd = 15. The figure shows the distribution of sample means for three sample sizes.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function that does what you want to simulate one time</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">25</span>) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat my_sample() many times with the replicate() function</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>n25 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="fl">1e4</span>, <span class="fu">my_sample</span>(<span class="at">n =</span> <span class="dv">25</span>))  <span class="co"># Replicate 100,000 times</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>n100 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="fl">1e4</span>, <span class="fu">my_sample</span>(<span class="at">n =</span> <span class="dv">100</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>n900 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="fl">1e4</span>, <span class="fu">my_sample</span>(<span class="at">n =</span> <span class="dv">900</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n25, <span class="at">breaks =</span> <span class="dv">200</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">115</span>), <span class="at">main =</span> <span class="st">"n = 25"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n100, <span class="at">breaks =</span> <span class="dv">200</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">115</span>), <span class="at">main =</span> <span class="st">"n = 100"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n900, <span class="at">breaks =</span> <span class="dv">200</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">115</span>), <span class="at">main =</span> <span class="st">"n = 900"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>The standard deviation of the sampling distribution of means is the standard error of the mean: <span class="math inline">\(\sigma/\sqrt{n}\)</span>, where <span class="math inline">\(\sigma\)</span> is the standard deviation in the population add <span class="math inline">\(n\)</span> is the sample size.</p>
+<p>The simulations were based on 10,000 random samples, so the standard deviation from the simulations would be a good approximation of the standard deviation (i.e., standard error) of the true sampling distribution (based on infinitely many random draws).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard errors (sd of sampling distributions)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">se_n25_approx =</span> <span class="fu">sd</span>(n25), <span class="at">se_n100_approx =</span> <span class="fu">sd</span>(n100), <span class="at">se_n900_approx =</span> <span class="fu">sd</span>(n900))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(se, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> se_n25_approx se_n100_approx se_n900_approx 
+         2.951          1.495          0.499 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>se_exact <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">900</span>))  <span class="co"># SE = SD/sqrt(n)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(se_exact) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"se_n25"</span>, <span class="st">"se_n1005"</span>, <span class="st">"se_n900"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(se_exact, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  se_n25 se_n1005  se_n900 
+     3.0      1.5      0.5 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Typically, we don’t know <span class="math inline">\(\sigma\)</span>, and therefore use the sample standard deviation to estimate the (true) standard error. In most cases when people, including myself, use the term “standard error” (SE) they refer to an estimate of the true standard error. The estimate of the standard error of the mean, <span class="math inline">\(SE_{\bar{X}}\)</span>, is</p>
+<p><span class="math inline">\(SE_{\bar{X}} = \frac{SD(X)}{\sqrt{n}}\)</span>,</p>
+<p>where <span class="math inline">\(X\)</span> is a sample of observations <span class="math inline">\(x_1, x_2, ..., x_n\)</span>, <span class="math inline">\({\bar{X}}\)</span> is the sample mean, and <span class="math inline">\(SD(X)\)</span> is the sample standard deviation.</p>
+<p><strong>note</strong>: The term “standard error” may also be used with a more general meaning:<br>
+“… in our current practice we usually summarize uncertainty using simulation, and we give the term”standard error” a looser meaning to cover any measure of uncertainty that is compatible to the posterior standard deviation”, <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.&nbsp;51 on the variability of the posterior distribution estimated using Bayesian statistics. Gelman et al.&nbsp;advocate the median absolute deviation (MAD) as measure of standard error (in the lose meaning of the word) as this measure of dispersion is more robust to extreme values.</p>
+<p><br></p>
+</section>
+<section id="simulating-a-sampling-distribution" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="simulating-a-sampling-distribution">Simulating a sampling distribution</h3>
+<p>Here a simulation of a sampling distribution: Samples of 25 observations drawn independently from a normal distribution with <span class="math inline">\(\mu = 100\)</span> and <span class="math inline">\(\sigma = 15\)</span>. The standard deviation of the distribution of sample means, <span class="math inline">\(\sigma_{\bar x}\)</span> is called the standard error:</p>
+<p><span class="math inline">\(\sigma_{\bar x} = \frac{\sigma_x}{\sqrt{n}}\)</span></p>
+<p>So for this simulation with <span class="math inline">\(\sigma = 15\)</span> and <span class="math inline">\(n = 15\)</span>, the estimated standard error from our simulation should be close to its true value:</p>
+<p><span class="math inline">\(\sigma_{\bar x} = \frac{15}{\sqrt{25}} = 3\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function that for one simulation</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">25</span>) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeate my_sample() many times with the replicate() function</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>my_simul <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="fl">1e5</span>, <span class="fu">my_sample</span>())  <span class="co"># Replicate 100,000 times</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrate results and calculate some stats</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(my_simul, <span class="at">breaks =</span> <span class="dv">200</span>, <span class="at">main =</span> <span class="st">"Sample means, n = 25"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>my_stats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(my_simul), <span class="at">se =</span> <span class="fu">sd</span>(my_simul), </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">median =</span> <span class="fu">median</span>(my_simul), <span class="at">mad =</span> <span class="fu">mad</span>(my_simul))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(my_stats, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean     se median    mad 
+   100      3    100      3 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>And here is what happens if you sample from a non-normal distribution, in this example a uniform distribution between 50 and 150:</p>
+<p><span class="math inline">\(X \sim Unif(a = 50, b = 150)\)</span>,</p>
+<p>for which <span class="math inline">\(E(X) = 100\)</span>, <span class="math inline">\(SD(X) = 100/\sqrt{12} \approx 28.9\)</span>. With <span class="math inline">\(n = 25\)</span>, the standard error would be <span class="math inline">\(28.9/5 \approx 5.8\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># As above, but with a uniform distribution between 50 and 150</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>my_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">25</span>) {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">50</span>, <span class="at">max =</span> <span class="dv">150</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot uniform distribution</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">180</span>, <span class="fu">dunif</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">180</span>, <span class="at">min =</span> <span class="dv">50</span>, <span class="at">max =</span> <span class="dv">150</span>), <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.015</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"probability density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat my_sample() many times with the replicate() function</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>my_simul <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="fl">1e5</span>, <span class="fu">my_sample</span>())  <span class="co"># Replicate 100,000 times</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrate results and calculate some stats</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(my_simul, <span class="at">breaks =</span> <span class="dv">200</span>, <span class="at">main =</span> <span class="st">"Sample means, n = 25"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>my_stats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(my_simul), <span class="at">se =</span> <span class="fu">sd</span>(my_simul), </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">median =</span> <span class="fu">median</span>(my_simul), <span class="at">mad =</span> <span class="fu">mad</span>(my_simul))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(my_stats, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean     se median    mad 
+ 100.0    5.8  100.0    5.8 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="confidence-intervals" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="confidence-intervals">Confidence intervals</h3>
+<p>The conventional confidence intervals around the mean are calculated using the T-distribution, with n-1 degrees of freedom, df (<span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, p.&nbsp;53). The T-distribution with few df has heavier tails than the normal distribution, but already at moderate sample sizes, say df = 49, the two distributions are very similar. This is the standard analytic method for calculating the confidence interval:</p>
+<p><span class="math inline">\(CI = \bar{X} \pm t_{\alpha/2}SE_{\bar{X}}\)</span>,</p>
+<p>where <span class="math inline">\(t_{\alpha/2}\)</span> is the critical t-value for a specified <span class="math inline">\(\alpha\)</span> level. For example, if <span class="math inline">\(\alpha = .05\)</span>, then the critical t-value define the two cut-off points between which the middle 95 % of the probability is located. This is roughly -2 and 2 SEs from the mean, and that is why <span class="math inline">\(\pm 2SE\)</span> often is a good approximation of a 95 % confidence interval. For example, the cutoffs would be <span class="math inline">\(-1.96SE\)</span> and <span class="math inline">\(1.96SE\)</span> for the normal distribution, and <span class="math inline">\(-2.01SE\)</span> and <span class="math inline">\(2.01SE\)</span> for a sample size of n = 50 (df = 49).</p>
+<p>Example: Sample mean = 101, sd = 21, sample size = 50.</p>
+<p><span class="math inline">\(95\%CI = mean(x) \pm t_{.05/2}SE_x =\)</span></p>
+<p><span class="math inline">\(=101 \pm 2.01*\frac{21}{\sqrt{50}} =\)</span></p>
+<p>= [95, 107].</p>
+<p>Here is how you may use <code>lm()</code> in R to obtain the interval.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">879</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate sample with mean = 101, sd = 21, and n = 50</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">101</span>  <span class="co"># sample mean</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">=</span> <span class="dv">21</span>  <span class="co"># sample sd</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span>  <span class="co"># sample size</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)  <span class="co"># 50 observations</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)  <span class="co"># transform to z-scores: mean = 0, sd = 1</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> (z<span class="sc">*</span>s) <span class="sc">+</span> m  <span class="co"># transform the z-scores to get mean = 101, sd = 21</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use lm() to derive 95 % confidence interval, i.e., do</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># linear regression without predictor, only the intercept = mean is estimated.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>mfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>               2.5 %   97.5 %
+(Intercept) 95.03187 106.9681</code></pre>
+</div>
+</div>
+<p><strong>Note</strong>: Please try <code>t.test(y)</code>, it is the same thing!</p>
+<p><br></p>
+</section>
+<section id="bootstrapping" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bootstrapping">Bootstrapping</h3>
+<p>Another common method for estimating the confidence intervals is to do bootstrapping. This is a very powerful and general method that may be used to derive confidence intervals when no analytic solution exists or when assumptions behind analytic solutions seem hard to accept. See <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> chapter 5, on how bootstrapping is used to simulate a sampling distribution. Here is code to do it for the data simulated in the previous section.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Random draw from the sample with replacement, same n</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="fu">sample</span>(y, <span class="at">size =</span> <span class="fu">length</span>(y), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  meanb <span class="ot">&lt;-</span> <span class="fu">mean</span>(b)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  meanb</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw 10,000 bootstraps</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="fl">1e4</span>, <span class="fu">bootstrap</span>(y))</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(bb, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">84.5</span>, <span class="fl">115.5</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">main =</span> <span class="st">"10k bootstraps"</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mean of bootstrapped sample"</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>bootstrap_summary <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(bb), </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">quantile</span>(bb, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)))</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(bootstrap_summary[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)], <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">40</span>), <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(bootstrap_summary[<span class="dv">1</span>], <span class="dv">40</span>, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(bootstrap_summary, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> mean  2.5% 97.5% 
+101.0  95.0 106.7 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="likelihood-funcion" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="likelihood-funcion"><span class="header-section-number">6.4</span> Likelihood funcion</h2>
+<p>The likelihood is the probability of the observed data considered as a function of unknown model parameter(s) <span class="math inline">\(\theta\)</span></p>
+<p>Example: Likelihood function of the success probability <span class="math inline">\(\theta\)</span> (theta) in a binomial experiment (“coin tosses”) with <span class="math inline">\(s = 6\)</span> successes in <span class="math inline">\(n = 9\)</span> trials. To make it more realistic, you may think of a sample of 9 students from a specific student population, 6 of which answered correctly on a given exam question. Your goal is to use this data to estimate the proportion of correct answers had the full population been tested.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function that derives the likelihood function using brute force</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>binom_likelihood <span class="ot">&lt;-</span> <span class="cf">function</span>(n, s) {</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grid approximation</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">300</span>) <span class="co"># Grid of parameters</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> s, <span class="at">size =</span> n, <span class="at">prob =</span> theta) <span class="co"># Likelihood</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  ylab <span class="ot">=</span> <span class="st">'likelihood'</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot likelihood function</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(theta, likelihood, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">ylab =</span> ylab)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">pos =</span> <span class="dv">0</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">pos =</span> <span class="dv">0</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot likelihood</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">binom_likelihood</span>(<span class="at">n =</span> n, <span class="at">s =</span> s)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"Data fixed: 6 successes in 9 trials"</span>, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">/</span><span class="dv">9</span>,<span class="dv">6</span><span class="sc">/</span><span class="dv">9</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">size =</span> <span class="dv">9</span>, <span class="at">prob =</span> <span class="dv">6</span><span class="sc">/</span><span class="dv">9</span>)),</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The blue line show the maximum of the likelihood function (maximum likelihood) found at <span class="math inline">\(\theta = 6/9\)</span>. So, the data is most compatible with a true proportion of 6/9. But also highly compatible with proportions around 6/9.</p>
+<p><br></p>
+<p>Likelihood function and sampling distribution are different things, yet based on the same probability distribution. But the likelihood function treats data as fixed and parameters as variable, whereas sampling distributions treats the parameter as fixed and the data as variable. Here sampling distributions for <span class="math inline">\(\theta\)</span> of 1/10, 1/2, 9/10</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilities for all possible outcomes, s = 0, 1, ..., n</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">9</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Function for ploting sampling distributions figures</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>sdist <span class="ot">&lt;-</span> <span class="cf">function</span>(prob) {</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span>n, <span class="at">size =</span> n, <span class="at">prob =</span> prob)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span>n, p, <span class="at">type =</span> <span class="st">'h'</span>, <span class="at">xlab =</span> <span class="st">'data'</span>, <span class="at">ylab =</span> <span class="st">'P(data|theta)'</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sdist</span>(<span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"Parameter fixed, theta = 1/10"</span>, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sdist</span>(<span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"Parameter fixed, theta = 1/2"</span>, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sdist</span>(<span class="at">prob =</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">10</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"Parameter fixed, theta = 9/10"</span>, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<section id="advanced-likelihood-2-parameter-distribution" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="advanced-likelihood-2-parameter-distribution">Advanced: Likelihood 2-parameter distribution</h3>
+<p>In the above example, there was only one parameter, <span class="math inline">\(\theta\)</span>, representing the proportion of correct answers to an exam question had the full population of students been tested. Assume instead that we have a sample of exam scores from 16 students, and we want to estimate the mean and standard deviation had we tested the full population of students. We may treat exam scores as a continuous variable and assume that it is normally distribution,<br>
+<span class="math inline">\(scores \sim N(\mu, \sigma)\)</span>. Here are our 16 exam scores.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>score <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">16</span>, <span class="dv">50</span>, <span class="dv">10</span>) <span class="co"># Simulate exam scores from 16 students</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 44 48 66 51 51 67 55 37 43 46 62 54 54 51 44 68</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(score), <span class="at">sd =</span> <span class="fu">sd</span>(score)), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> mean    sd 
+52.55  9.13 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The likelihood function is 2-dimensional, because we have to parameters, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. (Code only for nerds.)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use grid approximation to obtain likelihood function</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define grid</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">20</span>, <span class="at">to =</span> <span class="dv">80</span>, <span class="at">length.out =</span> <span class="dv">500</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">to =</span> <span class="dv">18</span>, <span class="at">length.out =</span> <span class="dv">500</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">mu =</span> mu, <span class="at">sigma =</span> sigma)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate likelihood (some tricks needed here using log = TRUE)</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>grid<span class="sc">$</span>loglike <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(grid), <span class="cf">function</span>(i) <span class="fu">sum</span>(<span class="fu">dnorm</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                                       score, </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">mean =</span> grid<span class="sc">$</span>mu[i],</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">sd =</span> grid<span class="sc">$</span>sigma[i],</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">log =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize to max = 1, and antilog</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>grid<span class="sc">$</span>likelihood <span class="ot">&lt;-</span> <span class="fu">exp</span>((grid<span class="sc">$</span>loglike) <span class="sc">-</span> <span class="fu">max</span>(grid<span class="sc">$</span>loglike))</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot likelihood function, using contour_xyz from library rethinking</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>rethinking<span class="sc">::</span><span class="fu">contour_xyz</span>(grid<span class="sc">$</span>mu, grid<span class="sc">$</span>sigma, grid<span class="sc">$</span>likelihood, </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">60</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>), <span class="at">xlab =</span> <span class="st">'mu'</span>, <span class="at">ylab =</span> <span class="st">'sigma'</span>)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="at">text =</span> <span class="st">"Data fixed: n = 16, mean = 52.5, sd = 9.1"</span>, <span class="at">side =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This contour plot shows the two-dimensional likelihood function. The maximum likelihood estimate is the mode (highest point) of this function.</p>
+</section>
+<section id="credible-intervals" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="credible-intervals">Credible intervals</h3>
+<p>Whereas the previously discussed methods for deriving confidence intervals rely heavily on sampling distributions, Bayesian methods (covered below) use the likelihood function to estimate the corresponding interval, often referred to as a credible interval.</p>
+<p>This code shows how to derive a credible interval in R using <code>rstanarm</code>, using the same simulated data as above, i.e., sample mean = 101, sd = 21, and n = 50.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use library(rstanarm) and function stan_glm() to derive 95 % credible interval. </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable y was created in the previous code block. </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y)  <span class="co"># stan_glm wants data in a data frame</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>sfit <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> y, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>stan_glm
+ family:       gaussian [identity]
+ formula:      y ~ 1
+ observations: 50
+ predictors:   1
+------
+            Median MAD_SD
+(Intercept) 101.0    3.0 
+
+Auxiliary parameter(s):
+      Median MAD_SD
+sigma 21.2    2.1  
+
+------
+* For help interpreting the printed output see ?print.stanreg
+* For info on the priors used see ?prior_summary.stanreg</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Estimated mean = 101 with a standard error (in the lose meaning of the term) of 3.0. So a rough 95 % interval would be <span class="math inline">\(101 \pm 2*3\)</span>, i.e.&nbsp;<span class="math inline">\([95, 107]\)</span>. We can also ask stan_glm for the 95 % interval of the posterior distribution:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">posterior_interval</span>(sfit, <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                2.5%     97.5%
+(Intercept) 94.90063 107.33378
+sigma       17.54435  26.45381</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>95 % interval around the mean: <span class="math inline">\([94.9, 107.3]\)</span></p>
+<p>Note that stan_glm also provide a confidence interval for the standard deviation (sigma): <span class="math inline">\([17.5, 26.5]\)</span>, point estimate = <span class="math inline">\(21.2\)</span>. Note also that this interval is not symmetrical around the point estimate, because the posterior distribution of sigma is not symmetrical. This is an example of where the simple rule <span class="math inline">\(\pm 2 SE\)</span>, may be misleading.</p>
+<p>Posterior distribution sigma estimated using <code>stan_glm()</code></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract samples from the posterior</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sfit)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> samples<span class="sc">$</span>sigma</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot density curve for sigma</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(sigma), <span class="at">xlab =</span> <span class="st">"Sigma"</span>, </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Posterior probability: sigma, with 95 and 50 % CI"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Derive point estimate and compatibility interval</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>point_estimate <span class="ot">&lt;-</span> <span class="fu">median</span>(sigma)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>ci95 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(sigma, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>ci50 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(sigma, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot point estimate and compatibility interval</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> ci95[<span class="dv">1</span>], <span class="at">x1 =</span> ci95[<span class="dv">2</span>], <span class="at">y0 =</span> <span class="fl">0.01</span>, <span class="at">y1 =</span> <span class="fl">0.01</span>, </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> ci50[<span class="dv">1</span>], <span class="at">x1 =</span> ci50[<span class="dv">2</span>], <span class="at">y0 =</span> <span class="fl">0.01</span>, <span class="at">y1 =</span> <span class="fl">0.01</span>, </span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"darkblue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(point_estimate, <span class="fl">0.01</span>, <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">'lightblue'</span>)  <span class="co"># Add point"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here I also added a 50 % CI (thick line) to the 95 % interval (thin line), to emphasize that the values closer to the point estimate are more compatible with the data than those close to the end of the 95 % interval (as always: given our statistical model). See <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> Fig. 19.4, p.367 for example of how they use combined 50 and 95 % interval.</p>
+<p><br><br></p>
+</section>
+</section>
+<section id="probability-3-bayesian-inference" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="probability-3-bayesian-inference"><span class="header-section-number">6.5</span> Probability 3: Bayesian inference</h2>
+<p>The general goal of Bayesian inference is to update prior beliefs (hypotheses) in light of data to arrive at posterior beliefs (updated hypotheses). The key idea is to think about uncertainty as probabilities and use probability theory to be consistent in the way beliefs in hypotheses are updated.</p>
+<p><br></p>
+<section id="bayes-rule-for-estimating-a-discrete-parameter" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bayes-rule-for-estimating-a-discrete-parameter">Bayes rule for estimating a discrete parameter</h3>
+<p>Remember the twin problem:</p>
+<div class="cell" type="citations">
+<div class="citations">
+<p>
+A women is pregnant with twins, and her doctor tells her that about one third of twin births are identical and the remaining two thirds are fraternal. On the next visit to the doctor, the sonogram shows that she is pregnant with twin boys. Her doctor tells her that about half identical twins are twin boys and the other half are twin girls, whereas for fraternal twins about one quarter are twin boys, one quarter are twin girls, and the rest are one of each sex. <em>How should she update her belief in identical versus fraternal twins given this information?</em> (old Stat1 exam question)
+</p>
+</div>
+</div>
+<p><br></p>
+<p>Here the information in frequency format (think of 600 twin births):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">BB</th>
+<th style="text-align: center;">Mix</th>
+<th style="text-align: center;">GG</th>
+<th style="text-align: center;"><em>Marginal</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Identical</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;"><em>200</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fraternal</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;"><em>400</em></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><em>Marginal</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>200</em></td>
+<td style="text-align: center;"><em>600</em></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Solve using Bayes rule:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Fraternal twins</li>
+<li><span class="math inline">\(H_1\)</span>: Identical twins</li>
+<li><span class="math inline">\(D\)</span>: Twin boys</li>
+<li><span class="math inline">\(Pr(H_0) = 2/3\)</span>, <em>Prior probability fraternal</em></li>
+<li><span class="math inline">\(Pr(H_1) = 1/3\)</span>, <em>Prior probability identical</em></li>
+<li><span class="math inline">\(Pr(D|H_0) = 1/4\)</span>, <em>Likelihood fraternal</em></li>
+<li><span class="math inline">\(Pr(D|H_§) = 1/2\)</span>, <em>Likelihood identical</em></li>
+<li><span class="math inline">\(Pr(D) = 1/3\)</span>, <em>Probability of data</em></li>
+<li>Bayes’ rule: <span class="math inline">\(Pr(H_i|D) = \frac{Pr(H_i)Pr(D|H_i)}{Pr(D)}\)</span></li>
+<li><span class="math inline">\(Pr(H_0|D) = (2/3 * 1/4)/(1/3) = 1/2\)</span>, <em>Posterior probability fraternal</em></li>
+<li><span class="math inline">\(Pr(H_1|D) = (1/3 * 1/2)/(1/3) = 1/2\)</span>, <em>Posterior probability identical</em></li>
+</ul>
+<p><br></p>
+<p>Solve with relative version of Bayes rule:</p>
+<ul>
+<li>Bayes’ rule: <span class="math inline">\(Pr(H_i|D) \propto Pr(H_i)Pr(D|H_i)\)</span></li>
+<li><span class="math inline">\(Pr(H_0|D) \propto (2/3 * 1/4) = 1/6\)</span>, <em>Relative posterior fraternal</em></li>
+<li><span class="math inline">\(Pr(H_1|D) \propto (1/3 * 1/2) = 1/6\)</span>, <em>Relative posterior identical</em></li>
+</ul>
+<p>So we can see that the posterior probability is equal for the two alternatives, although we know that the absolute posterior probability is not 1/6.</p>
+<p>Here is a graphical illustration of the result:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot posterior, prior, likelihood</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>relposterior <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Make plot</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>mybar <span class="ot">&lt;-</span> <span class="cf">function</span>(x, main, ylab) {</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">1.3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Parameter"</span>, <span class="at">ylab =</span> ylab, <span class="at">main =</span> main)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), x, <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">1.2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"Fraternal"</span>, <span class="st">"Identical"</span>, <span class="st">""</span>),</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex.axis =</span> <span class="fl">0.8</span>, <span class="at">pos =</span> <span class="dv">0</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las =</span> <span class="dv">2</span>, <span class="at">pos =</span> <span class="sc">-</span><span class="fl">0.3</span>)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw plot</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mybar</span>(relposterior, <span class="at">main =</span> <span class="st">"Relative posterior"</span>, <span class="at">ylab =</span> <span class="st">"Relative posterior probaility"</span>)</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="fu">mybar</span>(prior, <span class="at">main =</span> <span class="st">"Prior"</span>, <span class="at">ylab =</span> <span class="st">"Prior probaility"</span>)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="fu">mybar</span>(likelihood, <span class="at">main =</span> <span class="st">"Likelihood"</span>, <span class="at">ylab =</span> <span class="st">"Likelihood"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note: The shape of the posterior is all we need, the absolute heights of the bars in the left-hand panel is not used for inference, only their relative height. In this case, the two bars have the same height, meaning that the two outcomes have the same posterior probability.</p>
+<p>In this example, it was fairly easy to derive the absolute posterior because we could calculate <span class="math inline">\(Pr(D)\)</span>. But for most problems, <span class="math inline">\(Pr(D)\)</span> is very hard or impossible to calculate, and that is why Bayesian inference typically only uses the relative version of Bayes’ rule.</p>
+<p><br></p>
+</section>
+<section id="bayes-rule-for-estimating-a-continous-parameter" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bayes-rule-for-estimating-a-continous-parameter">Bayes rule for estimating a continous parameter</h3>
+<p>In the above example, we updated our beliefs in two discrete outcomes. More often we want to update our belief in a continuous parameter. For example, the probability of success in a binomial experiment with a known number of trials.</p>
+<p>Here is a simple example: A logical problem that can be scored as either correct or incorrect. We have given the test to nine individuals, six of which answered correctly. We want to use this data to estimate the proportion of individuals who would answer correctly in the population from which the individuals were drawn. We will model the problem using the Binomial distribution, with parameters n = 9 (known), and p (unknown, to be estimated): <span class="math inline">\(y \sim Binom(n = 9, p)\)</span></p>
+<p>Bayes rule: posterior <span class="math inline">\(\propto\)</span> prior <span class="math inline">\(\times\)</span> likelihood</p>
+<p>We will first work with a “flat” prior, essentially saying that before we saw the data we would consider every possible value of <span class="math inline">\(p\)</span> as equally likely.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data (fixed)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to draw three plots</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>bayes_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(pgrid, prior) {</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Likelihood</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> s, <span class="at">size =</span> n, <span class="at">prob =</span> pgrid)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Relative posterior</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  relative_posterior <span class="ot">&lt;-</span> prior <span class="sc">*</span> likelihood </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot posterior, prior, likelihood</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(pgrid, relative_posterior, <span class="at">type =</span> <span class="st">'l'</span>, </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Parameter, p"</span>, <span class="at">ylab =</span> <span class="st">"Relative posterior probability"</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Reltive posterior"</span>)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(pgrid, prior, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"Parameter value, p"</span>, <span class="at">ylab =</span> <span class="st">"Prior probability density"</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Prior"</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01</span>, <span class="fl">1.01</span>))</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(pgrid, likelihood, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"Parameter value, p"</span>, <span class="at">ylab =</span> <span class="st">"Likelihood"</span>,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Likelihood"</span>)</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>pgrid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>) <span class="co"># Parameters grid</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>flat <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(pgrid))<span class="co"># Prior (flat)</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_plot</span>(<span class="at">pgrid =</span> pgrid, <span class="at">prior =</span> flat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Here with a weakly informed prior: true proportion probably around 0.5, but values less or greater than this are also plausible, but we know that the true proportion is not zero and not one (maybe because we know of at least one individual in the population who can solve the problem, and at least one who could not).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data (fixed)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior </span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>beta22 <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(pgrid, <span class="at">shape1 =</span> <span class="dv">2</span> , <span class="at">shape2 =</span> <span class="dv">2</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_plot</span>(<span class="at">pgrid =</span> pgrid, <span class="at">prior =</span> beta22) <span class="co"># pgrid defined above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here with a stronger prior: True proportion probably around 0.2 (maybe based on previous test results), but values less or greater than this are also plausible.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data (fixed)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior </span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>beta28 <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(pgrid, <span class="at">shape1 =</span> <span class="dv">2</span> , <span class="at">shape2 =</span> <span class="dv">8</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_plot</span>(<span class="at">pgrid =</span> pgrid, <span class="at">prior =</span> beta28) <span class="co"># pgrid defined above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Here another informed prior: Maybe the test was a multiple-choice question with two alternatives, so proportion correct could not be worse than 50 % correct (assuming that everyone did their best), but we consider every value of <span class="math inline">\(p\)</span> between 0.5 and 1 as equally likely.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data (fixed)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior </span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>lim50 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pgrid <span class="sc">&lt;</span> <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">2</span>)  <span class="co"># pgrid defined above</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_plot</span>(<span class="at">pgrid =</span> pgrid, <span class="at">prior =</span> lim50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="advanced-sampling-from-the-posterior" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="advanced-sampling-from-the-posterior">Advanced: Sampling from the posterior</h3>
+<p>The relative posterior distribution may be hard or impossible to estimate analytically. However, it may be estimated using clever algorithms that draws a large number of random samples from the posterior and then uses these samples to estimate properties of the relative posterior, such as its median, median absolute deviation, and 95 % compatibility interval. <code>stan_glm()</code> uses an algorithm called Hamiltonian Monte Carlo. The code below show how to extract samples and use them to derive statistics of the posterior. The example uses the same simulated data as above, 16 test scores modeled as independent random draws from a normal distribution with unknown mean and standard deviation.</p>
+<p>Test scores, n = 16.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>score <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">16</span>, <span class="dv">50</span>, <span class="dv">10</span>) <span class="co"># Simulate exam scores from 16 students</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 44 48 66 51 51 67 55 37 43 46 62 54 54 51 44 68</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">mean =</span> <span class="fu">mean</span>(score), <span class="at">sd =</span> <span class="fu">sd</span>(score)), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> mean    sd 
+52.55  9.13 </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Fit model:</p>
+<p><span class="math inline">\(y_i \sim Normal(\mu, \sigma)\)</span><br>
+<span class="math inline">\(y_i = b_0\)</span></p>
+<p>using <code>stan_glm()</code>, and print output:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(score)  <span class="co"># stan_glm() likes data in a data frame</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>mfit <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(score <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> dd, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">iter =</span> <span class="fl">1e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Found more than one class "stanfit" in cache; using the first, from namespace 'rstan'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Also defined by 'rethinking'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Found more than one class "stanfit" in cache; using the first, from namespace 'rstan'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Also defined by 'rethinking'</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>stan_glm
+ family:       gaussian [identity]
+ formula:      score ~ 1
+ observations: 16
+ predictors:   1
+------
+            Median MAD_SD
+(Intercept) 52.5    2.3  
+
+Auxiliary parameter(s):
+      Median MAD_SD
+sigma 9.3    1.6   
+
+------
+* For help interpreting the printed output see ?print.stanreg
+* For info on the priors used see ?prior_summary.stanreg</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Extract samples, plot them, and do some stats to estimate properties of the posterior.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save samples in data frame</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mfit)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns, so "(intercept)""is called b0 (not needed)</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(samples) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"b0"</span>, <span class="st">"sigma"</span>)  <span class="co"># Rename columns, not needed</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(samples)  <span class="co"># Show first rows of data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        b0     sigma
+1 52.32408 10.830253
+2 48.21844  8.267484
+3 54.49953 13.032090
+4 55.00462 13.487413
+5 53.30425 14.204507
+6 52.14543 13.041902</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot samples, using transparent colors. stan_glm() point estimates: white circle</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(samples<span class="sc">$</span>b0, samples<span class="sc">$</span>sigma, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>),</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">60</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>))</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">median</span>(samples<span class="sc">$</span>b0), <span class="fu">median</span>(samples<span class="sc">$</span>sigma), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution for b0</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(samples<span class="sc">$</span>b0), <span class="at">main =</span> <span class="st">"Estimated posterior b0"</span>, <span class="at">xlab =</span> <span class="st">"b0"</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Posterior probability"</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution for sigma</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(samples<span class="sc">$</span>sigma), <span class="at">main =</span> <span class="st">"Estimated posterior sigma"</span>, <span class="at">xlab =</span> <span class="st">"sigma"</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Posterior probability"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Calculate median and median absolute deviation (mad) for b0 and sigma, compare to <code>stan_glm()</code> output, and derive 95 % compatibility intervals for the parameters. Note: “(Intercept)” is parameter b0.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median and MAD</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>mdn_b0 <span class="ot">&lt;-</span> <span class="fu">median</span>(samples<span class="sc">$</span>b0)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>mad_b0 <span class="ot">&lt;-</span> <span class="fu">mad</span>(samples<span class="sc">$</span>b0)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>mdn_sigma <span class="ot">&lt;-</span> <span class="fu">median</span>(samples<span class="sc">$</span>sigma)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>mad_sigma <span class="ot">&lt;-</span> <span class="fu">mad</span>(samples<span class="sc">$</span>sigma)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">mdn_b0 =</span> mdn_b0, <span class="at">mad_b0 =</span> mad_b0, </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">mdn_sigma =</span> mdn_sigma, <span class="at">mad_sigma =</span> mad_sigma)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(stats, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   mdn_b0    mad_b0 mdn_sigma mad_sigma 
+     52.5       2.3       9.3       1.6 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare with stan_glm() output</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>stan_glm
+ family:       gaussian [identity]
+ formula:      score ~ 1
+ observations: 16
+ predictors:   1
+------
+            Median MAD_SD
+(Intercept) 52.5    2.3  
+
+Auxiliary parameter(s):
+      Median MAD_SD
+sigma 9.3    1.6   
+
+------
+* For help interpreting the printed output see ?print.stanreg
+* For info on the priors used see ?prior_summary.stanreg</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compatibility intervals, 95 %</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>b0_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(samples<span class="sc">$</span>b0, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>sigma_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(samples<span class="sc">$</span>sigma, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">b0_ci =</span> b0_ci, <span class="at">sigma_ci =</span> sigma_ci), <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    b0_ci.2.5%    b0_ci.97.5%  sigma_ci.2.5% sigma_ci.97.5% 
+          47.7           57.3            6.8           13.8 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>The practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<p><br></p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>6E1.</strong></p>
+<p><img src="figs/old_exam_quest_ci.PNG" class="img-fluid" style="width:90.0%"></p>
+<p>Given the information in this table, would you say that previous research is in agreement or disagreement with regard to the effect of physical activity on working memory capacity? Motivate your answer.</p>
+<p>(This is an old exam question)</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6E2.</strong> Meta-analysis is widely consider the best method for accumulation of scientific knowledge. If a meta-analysis was conducted on the studies in 6E1, what use would it have of the p-values in the fourth column of the table above?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6E3.</strong> I simulated data from a randomized experiment with a control group and a treatment group (n = 30 per group). The conditions were nature sound (treatment) versus no sound exposure (control) during a test of directed attention. The test has been used in previous research and is known to have a mean around 50 with a standard deviation around 10; a difference greater than 5 units on this scale is generally considered a substantial difference, whereas a difference of less than 1 unit is generally considered negligible. The between-group difference was 5 units in favor of the treatment group with 95 % confidence interval of [-1, 12].</p>
+<p>In a single sentence, summarize the result for the treatment effect, with reference to the point estimate and the compatibility interval. Phrase your sentence in line with the recommendations of <span class="citation" data-cites="Amrhein2019">Amrhein et al. (<a href="references.html#ref-Amrhein2019" role="doc-biblioref">2019</a>)</span> , and with reference to the general understanding of the outcome measure described above.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6E4.</strong> The estimated treatment effect in 6E3 was not considered statistically significant (p &gt; .05). However, it would be a mistake to conclude from this that the data supported no effect of treatment. Explain.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6E5.</strong> Which of the following tends to decrease as sample size increases: standard deviation, standard error, median absolute deviation, 95% confidence interval, interquartile range?</p>
+</div>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>6M1.</strong> The code below simulates data from a randomized experiment with one control group and one experimental group. Run the code to obtain the data, then:</p>
+<ol type="a">
+<li>Calculate a 50 % and 90 % compatibility interval around each group mean. Feel free to use whatever method you like in R to calculate point estimates and intervals (t.test(), lm(), glm(), stan_glm(), …)</li>
+<li>Visualize point estimates and intervals (50 and 90 %) for the two groups in a single graph (cf. <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, Fig. 4.2).</li>
+<li>Calculate a 50 % and 90 % compatibility interval around the between-group difference.</li>
+<li>Visualize point estimate and intervals (50 and 90 %) for he between-group difference in a single graph.</li>
+</ol>
+<p>R.code:</p>
+<p><code>set.seed(987)</code></p>
+<p><code>control   &lt;- rnorm(30, mean = 20, sd = 2)</code></p>
+<p><code>treatment &lt;- rnorm(30, mean = 22, sd = 2)</code></p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6M2.</strong> In your own words: What is the difference between a <em>sampling distribution</em> and a <em>likelihood function</em>?</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6M3.</strong> Below is the binomial probability distribution for number of successes in 7 trials, <span class="math inline">\(X \sim Binom(n = 7, p = 0.3)\)</span>. Does this remind you about a sampling distribution or a likelihood function. Motivate.</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">size =</span> <span class="dv">7</span>, <span class="at">prob =</span> <span class="fl">0.3</span>), <span class="at">type =</span> <span class="st">"h"</span>, <span class="at">xlab =</span> <span class="st">"x = Number of successes"</span>,</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Pr(X = x)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-stat25_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6M4.</strong> Look at the figure in 6M3, and estimate by eye:</p>
+<ol type="a">
+<li>Pr(X = 3)</li>
+<li>Pr(X &lt; 3)</li>
+<li>Pr(X &gt; 3)</li>
+<li>Pr(1 &lt; X &lt; 4)</li>
+</ol>
+</div>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>6H1.</strong> Run the simulation and stan_glm() analysis from above, section “Advanced: Sampling from the posterior”, and calculate a 50 % and 90 % compatibility interval.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6H2.</strong><br>
+(a) Search the internet to find the difference between “percentile interval” (PI) and “highest density interval” (HDI). Explain the difference in your own words. (b) Repeat 6H1, but now calculate a HDI. (The R package <code>HDInterval</code> may be useful.)</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>6H3.</strong></p>
+<ol type="a">
+<li>Explain, in your own words, step by step, how you would derive a 90 % confidence interval for a Pearson correlation coefficient using bootstrapping.</li>
+<li>Suggest R-code for each step, and evaluate using simulated data.</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] rstanarm_2.32.1 Rcpp_1.0.14    
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.1     dplyr_1.1.4          farver_2.1.2        
+ [4] loo_2.8.0            fastmap_1.2.0        tensorA_0.36.2.1    
+ [7] shinystan_2.6.0      promises_1.3.3       shinyjs_2.1.0       
+[10] digest_0.6.37        mime_0.13            lifecycle_1.0.4     
+[13] StanHeaders_2.32.10  processx_3.8.6       survival_3.7-0      
+[16] magrittr_2.0.3       posterior_1.6.1      compiler_4.4.2      
+[19] rlang_1.1.6          tools_4.4.2          igraph_2.1.4        
+[22] yaml_2.3.10          knitr_1.50           htmlwidgets_1.6.4   
+[25] pkgbuild_1.4.8       curl_6.4.0           cmdstanr_0.9.0.9000 
+[28] plyr_1.8.9           RColorBrewer_1.1-3   dygraphs_1.1.1.6    
+[31] abind_1.4-8          miniUI_0.1.2         grid_4.4.2          
+[34] stats4_4.4.2         xts_0.14.1           xtable_1.8-4        
+[37] inline_0.3.21        ggplot2_3.5.2        rethinking_2.42     
+[40] scales_1.4.0         gtools_3.9.5         MASS_7.3-61         
+[43] mvtnorm_1.3-3        cli_3.6.5            rmarkdown_2.29      
+[46] reformulas_0.4.1     generics_0.1.4       RcppParallel_5.1.10 
+[49] rstudioapi_0.17.1    reshape2_1.4.4       minqa_1.2.8         
+[52] rstan_2.32.7         stringr_1.5.1        shinythemes_1.2.0   
+[55] splines_4.4.2        bayesplot_1.13.0     parallel_4.4.2      
+[58] matrixStats_1.5.0    base64enc_0.1-3      vctrs_0.6.5         
+[61] V8_6.0.4             boot_1.3-31          Matrix_1.7-1        
+[64] jsonlite_2.0.0       crosstalk_1.2.1      glue_1.8.0          
+[67] nloptr_2.2.1         ps_1.9.1             codetools_0.2-20    
+[70] distributional_0.5.0 DT_0.33              shape_1.4.6.1       
+[73] stringi_1.8.7        gtable_0.3.6         later_1.4.2         
+[76] QuickJSR_1.8.0       lme4_1.1-37          tibble_3.3.0        
+[79] colourpicker_1.3.0   pillar_1.10.2        htmltools_0.5.8.1   
+[82] R6_2.6.1             Rdpack_2.6.4         evaluate_1.0.3      
+[85] shiny_1.11.1         lattice_0.22-6       markdown_2.0        
+[88] rbibutils_2.3        backports_1.5.0      threejs_0.3.4       
+[91] httpuv_1.6.16        rstantools_2.4.0     coda_0.19-4.1       
+[94] gridExtra_2.3        nlme_3.1-166         checkmate_2.3.2     
+[97] xfun_0.52            zoo_1.8-14           pkgconfig_2.0.3     </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-Amrhein2019" class="csl-entry" role="listitem">
+Amrhein, V., Greenland, S., &amp; McShane, B. (2019). Retire statisticial significance. <em>Nature</em>, <em>567</em>, 305–307.
+</div>
+<div id="ref-eriksson2014long" class="csl-entry" role="listitem">
+Eriksson, C., Hilding, A., Pyko, A., Bluhm, G., Pershagen, G., &amp; Östenson, C.-G. (2014). Long-term aircraft noise exposure and body mass index, waist circumference, and type 2 diabetes: A prospective study. <em>Environmental Health Perspectives</em>, <em>122</em>(7), 687–694.
+</div>
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+<div id="ref-van2019cricket" class="csl-entry" role="listitem">
+Van Hedger, S. C., Nusbaum, H. C., Clohisy, L., Jaeggi, S. M., Buschkuehl, M., &amp; Berman, M. G. (2019). Of cricket chirps and car horns: The effect of nature sounds on cognitive performance. <em>Psychonomic Bulletin &amp; Review</em>, <em>26</em>(2), 522–530.
+</div>
+<div id="ref-wilkinson99apa" class="csl-entry" role="listitem">
+Wilkinson, L. (1999). APA task force on statistical inference. Statistical methods in psychology journals: Guidelines and explanations. <em>American Psychologist</em>, <em>54</em>(8), 594–604.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-method25.html" class="pagination-link" aria-label="M: Measurement and Data Quality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-method25.html" class="pagination-link" aria-label="M: Within-participant Experiments">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; S: Descriptive Statistics and Visualization – RMS notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-method25.html" rel="next">
+<link href="./03-method25.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="mnstyle.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-stat25.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">RMS notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">M: Research Questions and Claims</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">S: Data Management and Screening</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-stat25.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">S: Point Estimates and Their Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">M: Within-participant Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S: Linear Regression: Basics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">M: Randomized Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">S: Linear Regression: Single Predictor</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">M: Broken Experiments and Quasi-experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">S: Linear Regression: Multiple Predictors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">M: Observational studies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">S: Linear Regression: Non-linear Transformations and Interactions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-method25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">M: Fallacies and paradoxes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-stat25.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">S: Logistic Regression</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#topics" id="toc-topics" class="nav-link active" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">4.1</span> Descriptive statistics</a>
+  <ul class="collapse">
+  <li><a href="#central-tendency" id="toc-central-tendency" class="nav-link" data-scroll-target="#central-tendency">Central tendency</a></li>
+  <li><a href="#dispersion" id="toc-dispersion" class="nav-link" data-scroll-target="#dispersion">Dispersion</a></li>
+  <li><a href="#quantiles" id="toc-quantiles" class="nav-link" data-scroll-target="#quantiles">Quantiles</a></li>
+  </ul></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization"><span class="header-section-number">4.2</span> Visualization</a>
+  <ul class="collapse">
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
+  <li><a href="#kernel-density-plot" id="toc-kernel-density-plot" class="nav-link" data-scroll-target="#kernel-density-plot">Kernel density plot</a></li>
+  <li><a href="#boxplot" id="toc-boxplot" class="nav-link" data-scroll-target="#boxplot">Boxplot</a></li>
+  <li><a href="#profile-plot" id="toc-profile-plot" class="nav-link" data-scroll-target="#profile-plot">Profile plot</a></li>
+  <li><a href="#example-data-set-rt_howell.txt" id="toc-example-data-set-rt_howell.txt" class="nav-link" data-scroll-target="#example-data-set-rt_howell.txt">Example data set: rt_howell.txt</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
+  <li><a href="#histogram-and-kernel-density-plots" id="toc-histogram-and-kernel-density-plots" class="nav-link" data-scroll-target="#histogram-and-kernel-density-plots">Histogram and Kernel density plots</a></li>
+  </ul></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations"><span class="header-section-number">4.3</span> Transformations</a>
+  <ul class="collapse">
+  <li><a href="#linear-transformations" id="toc-linear-transformations" class="nav-link" data-scroll-target="#linear-transformations">Linear transformations</a></li>
+  <li><a href="#non-linear-transformations" id="toc-non-linear-transformations" class="nav-link" data-scroll-target="#non-linear-transformations">Non-linear transformations</a></li>
+  </ul></li>
+  <li><a href="#probability-2-probability-distributions" id="toc-probability-2-probability-distributions" class="nav-link" data-scroll-target="#probability-2-probability-distributions"><span class="header-section-number">4.4</span> Probability 2: Probability distributions</a>
+  <ul class="collapse">
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
+  <li><a href="#how-normal-is-the-normal" id="toc-how-normal-is-the-normal" class="nav-link" data-scroll-target="#how-normal-is-the-normal">How normal is the Normal?</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
+  <ul class="collapse">
+  <li><a href="#easy" id="toc-easy" class="nav-link" data-scroll-target="#easy">Easy</a></li>
+  <li><a href="#medium" id="toc-medium" class="nav-link" data-scroll-target="#medium">Medium</a></li>
+  <li><a href="#hard" id="toc-hard" class="nav-link" data-scroll-target="#hard">Hard</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">(Session Info)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">S: Descriptive Statistics and Visualization</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Load R-libraries</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only base-R used in this chapter!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="topics" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="topics">Topics</h2>
+<div class="concepts">
+<ul>
+<li>Central tendency (location)
+<ul>
+<li>Mean</li>
+<li>Median</li>
+</ul></li>
+<li>Dispersion (scale)
+<ul>
+<li>Standard deviation</li>
+<li>Median absolute deviation (MAD)</li>
+<li>Inter Quartile Range (IQR)</li>
+</ul></li>
+<li>Quantiles
+<ul>
+<li>Quartiles</li>
+<li>Percentiles</li>
+</ul></li>
+<li>Exploratory visualizations. Displaying raw data to see things that you may otherwise miss. Three types of plots described below. When used for exploratory analysis, they don’t have to look pretty as they are not intended for publication <span class="citation" data-cites="gelman2020regression">(cf. <a href="references.html#ref-gelman2020regression" role="doc-biblioref">Gelman et al., 2021, p. 30</a>)</span>.
+<ul>
+<li>Boxplot</li>
+<li>Histogram</li>
+<li>Kernel density plot</li>
+<li>Profile plot</li>
+</ul></li>
+<li>Transformations
+<ul>
+<li>Linear transformations, for example, reversing, centering and z-scores</li>
+<li>Non-linear transformations, for example, the log-transform</li>
+</ul></li>
+<li>Probability (continued form ch 2)
+<ul>
+<li>Binomial distribution, <span class="math inline">\(Binom(n, p)\)</span></li>
+<li>Probability versus density</li>
+<li>Normal distribution, <span class="math inline">\(Normal(\mu, \sigma)\)</span>
+<ul>
+<li>Probability Density Function (PDF), in R: <code>dnorm()</code></li>
+<li>Cumulative Distribution Function (CDF), in R: <code>pnorm()</code></li>
+<li>Standard Normal: <span class="math inline">\(Normal(\mu = 0, \sigma = 1)\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Readings.</p>
+<p><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> do not cover basic descriptive statistics. But read chapter 2 on data visualization in general, there are many good points that we may come back to. Sections 3.3-3.4 are helpful if you are rusty on linear relationships and logarithms. We will get back to transformations in the chapters on regression. But if you want to jump ahead, please read sections 12.1-12.5 in chapter 12. For probability distributions, see Chapter 3, Section 3.5.</p>
+</div>
+<p><br></p>
+</section>
+<section id="descriptive-statistics" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">4.1</span> Descriptive statistics</h2>
+<section id="central-tendency" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="central-tendency">Central tendency</h3>
+<ul>
+<li><strong>Mean</strong>. Assumes at least interval-scale data. The mean is <em>efficient</em> for well-behaved data, but not <em>robust</em> to outliers. May be harder to interpret than the median, as the mean value can be representative or unrepresentative of a typical observation.</li>
+<li><strong>Median</strong>. Can be used for rank-order-scale data. Easy to interpret, it is the middle value, half of the observations are below and half above the median (assuming no ties). It is less efficient for well-behaved data than the mean, but may be more efficient than the mean for non-normal data, and it is robust to outliers.</li>
+</ul>
+</section>
+<section id="dispersion" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="dispersion">Dispersion</h3>
+<ul>
+<li><strong>Standard deviation</strong>, often reported together with the mean. Like the mean, the standard deviation is sensitive to outliers.</li>
+<li><strong>Inter-quartile range</strong> (IQR), often reported together with the median, give the range of the middle 50 % of the data (see below, quantiles).</li>
+<li><strong>Median absolute deviation</strong> (MAD), often reported together with the median. Note that the MAD typically is multiplied by a <code>constant = 1.4826</code> to make the expected value of MAD for a normal distribution equal to its standard deviation, <span class="math inline">\(\sigma\)</span>.</li>
+</ul>
+</section>
+<section id="quantiles" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="quantiles">Quantiles</h3>
+<p>Quantiles are cut-off points dividing the data in parts, A quantile define how large proportion of the data that is below (or above) a given cut-off. Two types of quantiles are:</p>
+<ul>
+<li><strong>percentiles</strong>. Divides the data in 100 parts. The 10th percentile give the value below which 10 % of the data is located, the 50th percentile give the value below which half of the data is located (i.e., the median), etc.</li>
+<li><strong>quartiles</strong>. Divides the data in four quartiles: 25, 50 and 75 % of the data is located below the first, second and third quartile, respectively. These quartiles are represented by the vertical lines of the box in a boxplot (see below).</li>
+</ul>
+</section>
+</section>
+<section id="visualization" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="visualization"><span class="header-section-number">4.2</span> Visualization</h2>
+<section id="histogram" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="histogram">Histogram</h3>
+<p>Histograms visualize a frequency distribution with rectangles representing the number (or proportion) of observations in intervals of the same size. Useful to get a feeling for the the shape of a distribution of values. Here a simple example using simulated data:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span>  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data by random draws from a skewed distribution (Gamma) </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">rgamma</span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">3</span>))  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># Two plots next to each other</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram with 50-unit bins (&lt;50, 50-99, 100-149, ...)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="at">by =</span> <span class="dv">50</span>), <span class="at">main =</span> <span class="st">"Bin size = 50"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram with 10-unit bins (&lt;50, 50-99, 100-149, ...)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="at">main =</span> <span class="st">"Bin size = 10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="kernel-density-plot" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="kernel-density-plot">Kernel density plot</h3>
+<p>The shape of a histogram depends on the analysts choice of bin size (see figure above). Kernel density plots are less dependent on such choices. <span class="citation" data-cites="howell2012statistical">(Example taken from chapter 2 of <a href="references.html#ref-howell2012statistical" role="doc-biblioref">Howell, 2012</a>)</span></p>
+<p>Here’s the general principle:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some observations</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">1.9</span>, <span class="fl">2.8</span>, <span class="fl">2.9</span>, <span class="fl">3.5</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0 1.0 1.1 1.5 1.9 2.8 2.9 3.5</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set "error"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># standard deviation of normal</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot normal distributions around observed values (+/- error)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>xvalues <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(xvalues))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xvalues, z, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.7</span>), <span class="at">pch =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> z <span class="co"># Empty vetcor to start with, and then loop over vector x</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)){</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  zout <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(xvalues, <span class="at">mean =</span> x[j], <span class="at">sd =</span> ss)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(xvalues, zout, <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  z1 <span class="ot">&lt;-</span> z1 <span class="sc">+</span> zout</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum densities vertically to obtain your kernel density estimator.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It is an estimator of the true probability density function (PDF) of </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the population from which the data was sampled.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xvalues, z, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.7</span>), <span class="at">pch =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xvalues, z1, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="boxplot" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="boxplot">Boxplot</h3>
+<p>Useful for illustrating the distributions of data. The three horizontal lines of the box show the 75th, 50th (median) and 25th percentiles. Thus, the length of the vertical side of the box is equal to the inter-quartile range (IQR). Data points located more than 1.5 IQR above or below the box are considered outliers and are indicated with symbols. The bottom and top horizontal lines of the figure indicate minimum and maximum value, once outliers have been removed.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">888</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rt</span>(<span class="dv">100</span>, <span class="at">df =</span> <span class="dv">4</span>)  <span class="co"># Random numbers from the T-distribution with df = 4</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.3-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="profile-plot" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="profile-plot">Profile plot</h3>
+<p>For within-subject data, displaying individual response profiles for each participant can be informative. Below is an example using simulated data from an experiment with 12 participants, each tested under three conditions: A, B, and C.</p>
+<p>Simulate data.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a bit advanced, using the multivariate normal to simulate </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># varying effect</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimental setup</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span>  <span class="co"># Number of participants</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">times =</span> n)  <span class="co"># Experimental conditions</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># True (unobserved) values for each participant condition</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># for mvrnorm</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>Mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">55</span>)  <span class="co"># Population mean</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">5</span>  <span class="co"># Population sigma of varying effects, assumed the same for all conditions</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> s<span class="sc">*</span>s<span class="sc">*</span><span class="fl">0.7</span>  <span class="co"># Covariance between mu</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(s<span class="sc">^</span><span class="dv">2</span>, cv, cv,   <span class="co"># Covariance matrix</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                  cv, s<span class="sc">^</span><span class="dv">2</span>, cv,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                  cv, cv,  s<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>truemean <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n, Mu, Sigma)  <span class="co"># Multivariate random number generator</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed values</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="dv">3</span>  <span class="co"># SD within subject</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(truemean, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean =</span> x, <span class="at">sd =</span> ss)))</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, obs)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(obs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+<p>Draw profile plot</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Trick to set limits of y-scale to even 5s</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ymin <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">min</span>(obs[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">/</span><span class="dv">5</span>)<span class="sc">*</span><span class="dv">5</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ymax <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">max</span>(obs[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">/</span><span class="dv">5</span>)<span class="sc">*</span><span class="dv">5</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Empty plot</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"Experimental condition"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Outcome"</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(ymin, ymax))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw profiles for each id using a for-loop</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> obs<span class="sc">$</span>id){</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  idd <span class="ot">&lt;-</span> obs[obs<span class="sc">$</span>id <span class="sc">==</span> j, ]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, idd[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, idd[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">bg =</span> <span class="st">"grey"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Add axis</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="fl">3.5</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">""</span>), <span class="at">pos =</span> ymin)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(ymin, ymax, <span class="dv">5</span>), <span class="at">pos =</span> <span class="fl">0.5</span>, <span class="at">las =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="example-data-set-rt_howell.txt" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="example-data-set-rt_howell.txt">Example data set: rt_howell.txt</h3>
+<p>Data from Table 2.1 in <span class="citation" data-cites="howell2012statistical">Howell (<a href="references.html#ref-howell2012statistical" role="doc-biblioref">2012</a>)</span>. (see also analysis that we did in 2: Data Management and Screening).</p>
+<p>The data is from a reaction-time experiment with one participant (Howell). The participant was first presented with a list of digits for a few seconds, e.g.,</p>
+<p><code>1, 5, 7</code></p>
+<p>After the list had been removed, Howell was shown a single digit, e.g.,</p>
+<p><code>2</code></p>
+<p>and was asked to determine whether the single digit was on the previously shown list (in the example above, correct answer would be <em>No</em>).</p>
+<p><strong>Code book</strong>:</p>
+<ul>
+<li>trial – Trial number, from 1 to 300 (here ordered according to stimulus condition, but I presume that stimuli were presented in random orders)</li>
+<li>nstim – Number of digits on the list (1, 3, or 5), we expect longer reaction times for longer lists</li>
+<li>yesno – Whether the single digit asked for was on the list (1, correct answer “Yes”) or not (2, correct answer “No”).</li>
+<li>rt – Reaction time in milliseconds</li>
+</ul>
+<p>Note that the data only contain trials in which the answer given was correct,</p>
+<p>You may download the data file “rt_howell.txt” from Athena or find the data on my Bitbucket repository.</p>
+<p><a href="https://bitbucket.org/matni/matni.bitbucket.org/raw/2764bd7e58ab2b24b69cdd82dee3102a8e42283b/rmsnotes/datasets/rt_howell.txt" target="blank">Follow this link to find data</a> Save (Ctrl+S on a pc) to download as text file</p>
+<p><br></p>
+</section>
+<section id="import-data" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="import-data">Import data</h3>
+<p>Once you have downloaded the file and made sure it is in the same folder as your current R-session (you may have done this already last time). To check from where R is working, run <code>getwd()</code> in the Console. Use <code>setwd(dir)</code> to change the directory of the current session, where <code>dir</code> is a character string. Example <code>setwd("C:/Users/MATNI/Documents/Stat1/datafiles")</code> would set R to work in the folder <code>datafiles</code> on my computer.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data.  Note that I have chosen to store the data in a subfolder called </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "datasets"" located in the directory from which R is working)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"datasets/rt_howell.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+</section>
+<section id="histogram-and-kernel-density-plots" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="histogram-and-kernel-density-plots">Histogram and Kernel density plots</h3>
+<p>From last time: Use box plots to inspect data</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot (there are many ways to make nicer boxplots)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># Two plots next to each other</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Reaction time, all data</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>rt, <span class="at">xlab =</span> <span class="st">"All trials"</span>, <span class="at">ylab =</span> <span class="st">"Reaction time (ms)"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reaction time, per condition</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(d<span class="sc">$</span>rt <span class="sc">~</span> d<span class="sc">$</span>yesno <span class="sc">+</span> d<span class="sc">$</span>nstim, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'green'</span>, <span class="st">'red'</span>),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Stimulus condition"</span>, <span class="at">ylab =</span> <span class="st">"Reaction time (ms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.5b-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Here a look specifically at the two stimulus conditions with the longest list (condition 1.5, and 2.5 in the boxplot above)</p>
+<p><br></p>
+<p>To simplify the following, this code make a reduced data frame <code>g</code> with only the longest-list conditions.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> d[d<span class="sc">$</span>nstim <span class="sc">==</span> <span class="dv">5</span>, ]  <span class="co"># Reduce data frame to simplify the following work</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+<p><strong>Histogram and density plot overlays</strong> for the “Yes” trials.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram for yes trials</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">1</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">20</span>), </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">'5-item list, Yes-trials'</span>, <span class="at">xlab =</span> <span class="st">"Reaction time (ms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same histogram, but note y-axis and argument freq = FALSE</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">1</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">20</span>), </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">''</span>, <span class="at">xlab =</span> <span class="st">"Reaction time (ms)"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for yes trials</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>dens_yes <span class="ot">&lt;-</span> <span class="fu">density</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_yes, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><strong>Histogram overlays</strong> for “Yes” and “No” trials</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blank histogram (note argument lty = 'blank', col = "white" to make bars</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># invisible)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">20</span>), <span class="at">lty =</span> <span class="st">'blank'</span>, <span class="at">col =</span> <span class="st">"White"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">''</span>, <span class="at">xlab =</span> <span class="st">"Reaction time (ms)"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Add histogram for Yes trials</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">1</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">20</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add histogram for No trials</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">2</span>], <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">20</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><strong>Density overlays</strong> for “Yes” and “No” trials.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blank histogram (note argument lty = 'blank')</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(g<span class="sc">$</span>rt, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="fu">max</span>(d<span class="sc">$</span>rt) <span class="sc">+</span> <span class="dv">50</span>, <span class="at">by =</span> <span class="dv">20</span>), <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="st">'blank'</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"white"</span>, <span class="at">main =</span> <span class="st">''</span>, <span class="at">xlab =</span> <span class="st">"Reaction time (ms)"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for Yes trials</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>dens_yes <span class="ot">&lt;-</span> <span class="fu">density</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_yes, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for No trials</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>dens_no <span class="ot">&lt;-</span> <span class="fu">density</span>(g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">2</span>])</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_no, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Below some descriptive statistics for the 5-item list and No-trials (red density curve above)</p>
+<p><strong>Boxplot</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> g<span class="sc">$</span>rt[g<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">2</span>]  <span class="co"># Put data in vector called x, to simplify things</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"5-item list, No-trials"</span>, <span class="dv">3</span>, <span class="at">line =</span> <span class="fl">0.5</span>) <span class="co"># Add heading</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Quantiles</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(x)  <span class="co"># Give five point summary, including quartiles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  530.0   630.0   665.0   691.2   735.0  1250.0 </code></pre>
+</div>
+</div>
+<p><strong>Central tendency (or Location)</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>m_rmout <span class="ot">&lt;-</span> <span class="fu">mean</span>(x[x <span class="sc">&lt;</span> <span class="dv">900</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># Remove values &gt; 900 ms</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Median</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>mdn <span class="ot">&lt;-</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>mdn_rmout <span class="ot">&lt;-</span> <span class="fu">median</span>(x[x <span class="sc">&lt;</span> <span class="dv">900</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># Remove values &gt; 900 ms</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>location <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">m =</span> m, <span class="at">m_rmout =</span> m_rmout, <span class="at">mdn =</span> mdn, <span class="at">mdn_rmout =</span> mdn_rmout)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(location, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>        m   m_rmout       mdn mdn_rmout 
+    691.2     674.2     665.0     660.0 </code></pre>
+</div>
+</div>
+<p><strong>Variation (or Dispersion or Scale)</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standard deviation</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>std <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>std_rmout <span class="ot">&lt;-</span> <span class="fu">sd</span>(x[x <span class="sc">&lt;</span> <span class="dv">900</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># Remove values &gt; 900 ms</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inter-quartile range</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>iqr <span class="ot">&lt;-</span> <span class="fu">IQR</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>iqr_rmout <span class="ot">&lt;-</span> <span class="fu">IQR</span>(x[x <span class="sc">&lt;</span> <span class="dv">900</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># Remove values &gt; 900 ms</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Median absolute deviation</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: default for mad() is with correction factor</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>mad <span class="ot">&lt;-</span> <span class="fu">mad</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>mad_rmout <span class="ot">&lt;-</span> <span class="fu">mad</span>(x[x <span class="sc">&lt;</span> <span class="dv">900</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># Remove values &gt; 900 ms</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>dispersion <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">std =</span> std, <span class="at">std_rmout =</span> std_rmout, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">iqr =</span> iqr, <span class="at">iqr_rmout =</span> iqr_rmout,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">mad =</span> mad, <span class="at">mad_rmout =</span> mad_rmout)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(dispersion, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      std std_rmout       iqr iqr_rmout       mad mad_rmout 
+    116.1      75.3     105.0      92.5      81.5      74.1 </code></pre>
+</div>
+</div>
+<p><br><br></p>
+</section>
+</section>
+<section id="transformations" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="transformations"><span class="header-section-number">4.3</span> Transformations</h2>
+<section id="linear-transformations" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="linear-transformations">Linear transformations</h3>
+<p><em>Linear</em> transformations changes the mean or the standard deviation or both of a set of values but will preserve the shape of the distribution of values. A kernel density plot would therefore have the same shape for a distribution of values as for a linear transformations of the same values.</p>
+<p>Linear transformations are applied for different reasons, some examples below:</p>
+<ul>
+<li><strong>centering</strong>. Remove the mean: <span class="math inline">\(x_{center} = x - mean(x)\)</span>. Often done before fitting a linear regression model to make the intercept meaningful or when fitting interaction models (more about this in later chapters). The mean of the centered variable will be zero, the standard deviation will remain the same.</li>
+<li><strong>z-transformation</strong>. Remove the mean and set standard deviation to unity: <span class="math inline">\(z_{x} = \frac{x - mean(x)}{sd(x)}\)</span>. Can be used for the same reasons as centering, but also to set variables with different units on a common scale (unit: sd).</li>
+<li><strong>transform range</strong>., e.g., set minimum = 0 and maximum = 1: <span class="math inline">\(x_{01} = \frac{x - min(x)}{max(x) - min(x)}\)</span>. This may be a way to help interpretation when x-scale has no meaningful unit, and be used to set variables with different units on a common scale (for the example above, unit: range of data).</li>
+<li><strong>change unit</strong>. For example, from meters to centimeters or from USD to USDx1000 to obtain numbers that are easy to work with, or to transform from an unfamiliar to a familiar unit, for example, from degrees Fahrenheit (F) to Celsius (C): <span class="math inline">\(C = \frac{5}{9}(F - 32)\)</span></li>
+</ul>
+<p>The figure below illustrates the preserved shape of data distributions after linear transformations of a set of (simulated) temperature measurements. But first a scatter plot matrix to verify that the variables indeed are linearly related.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A thousand temperature measurements, all around 60 F</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>fahr <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">60</span>, <span class="at">sd =</span> <span class="dv">2</span>) </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform to Celsius</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>celc <span class="ot">&lt;-</span> (<span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>) <span class="sc">*</span> (fahr <span class="sc">-</span> <span class="dv">32</span>) </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># z-transform</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span>(fahr <span class="sc">-</span> <span class="fu">mean</span>(fahr))<span class="sc">/</span><span class="fu">sd</span>(fahr)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot matrix, just to show that they linearly related</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="sc">~</span> fahr <span class="sc">+</span> celc <span class="sc">+</span> z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Density plots in three panels</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))  </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(fahr), <span class="at">main =</span> <span class="st">"Fahrenheit"</span>, <span class="at">xlab =</span> <span class="st">"Temperatur [degrees Fahrenheit]"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(celc), <span class="at">main =</span> <span class="st">"Celcius"</span>, <span class="at">xlab =</span> <span class="st">"Temperatur [degrees Celcius]"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(z), <span class="at">main =</span> <span class="st">"z-score"</span>, <span class="at">xlab =</span> <span class="st">"Temperatur [standard deviation]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.13-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="non-linear-transformations" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="non-linear-transformations">Non-linear transformations</h3>
+<p>Unlike linear transformations, non-linear transformations will change the shape of the distribution. We will talk more about reasons for non-linear transformations in regression analysis. Here I will only mention the log-transform, often used to handle skewed distributions. Reaction time is an example of a variable that typically has a positive skew, and therefore it is common to apply a log transform. Below illustrated using the reaction time data in <code>rt_howell.txt</code>.</p>
+<p>Linear and log-transformed reaction times for No-trials (yesno = 2) of the five-item list (nstim = 5).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>rt <span class="ot">&lt;-</span> d<span class="sc">$</span>rt[d<span class="sc">$</span>yesno <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> d<span class="sc">$</span>nstim <span class="sc">==</span> <span class="dv">5</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>log_rt <span class="ot">&lt;-</span> <span class="fu">log</span>(rt)  <span class="co"># Natural log</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Two plots</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear: histogram with density</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rt, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">275</span>, <span class="dv">1400</span>, <span class="at">by =</span> <span class="dv">25</span>), </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"linear"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>dens_yes <span class="ot">&lt;-</span> <span class="fu">density</span>(rt)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_yes, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Log: histogram with density</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(log_rt, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fu">log</span>(<span class="dv">275</span>), <span class="fu">log</span>(<span class="dv">1400</span>), <span class="at">by =</span> <span class="fl">0.05</span>), </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"natural log"</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>dens_yes <span class="ot">&lt;-</span> <span class="fu">density</span>(log_rt)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_yes, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/code4.14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Maybe not a big difference in shape, but note that the outlier in the left panel (around 1200 ms) has moved closer to the main bulk of the data in the right panel.</p>
+<p>The base of the log doesn’t matter for the shape of the distribution, it will remain the same. This because log-transformed values of different bases are linearly related, for example, <span class="math inline">\(log_{10}(x) = \frac{log_e(x)}{log_e(10)}\)</span>, and as we saw above, linear transformations doesn’t change the shape of a distribution.</p>
+<p><br></p>
+<p><br></p>
+</section>
+</section>
+<section id="probability-2-probability-distributions" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="probability-2-probability-distributions"><span class="header-section-number">4.4</span> Probability 2: Probability distributions</h2>
+<p><span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span> define “probability distribution” in an informal way that also defines “random variable”:</p>
+<div class="citations">
+<p>A probability distribution corresponds to an urn with a potentially infinite number of balls inside. When a ball is drawn at random, the “random variable” is what is written on this ball.</p>
+<p><font size="2"> <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, Section 3.5, p.&nbsp;40</font></p>
+</div>
+<p><br></p>
+<p>For discrete variables, there is a finite set of balls (outcomes) in proportion to their probability (so twice as many balls for an outcome twice as probable as another outcome). For continuous variables, the set is infinite, because there are infinitely many numbers in any interval of a continuous variable. Still, there will be more balls with numbers in a given interval than in another.</p>
+<p><br></p>
+<p>We will focus on the Normal distribution in this course, but let’s start with the Binomial distribution.</p>
+<section id="binomial-distribution" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="binomial-distribution">Binomial Distribution</h3>
+<p>The Binomial distribution may be thought of as the “coin-tossing” distribution: It gives you the probability of the number of outcomes classified as “successes” (e.g., “heads”) in <span class="math inline">\(n\)</span> independent trials with two outcomes (e.g., a coin toss), each with success probability <span class="math inline">\(p\)</span> (<span class="math inline">\(p = 0.5\)</span> for a fair coin, <span class="math inline">\(p \neq 0.5\)</span> for an unfair coin).</p>
+<p><strong>Notation</strong></p>
+<p>The notation <span class="math inline">\(Y \sim Binomial(n, p)\)</span> means that the random variable <span class="math inline">\(Y\)</span> is distributed as the Binomial distribution with <span class="math inline">\(n\)</span> independent trials, each with probability <span class="math inline">\(p\)</span> of success. Y can take on the values 0, 1, …, n.&nbsp;</p>
+<p>A special case of this distribution occurs when <span class="math inline">\(n = 1\)</span>, known as the Bernoulli distribution. The notation <span class="math inline">\(Y \sim Bernoulli(p)\)</span> means that <span class="math inline">\(Y\)</span> is distributed as the Binomial distribution with <span class="math inline">\(n = 1\)</span>, where <span class="math inline">\(Y\)</span> can take on only the values 0 or 1.</p>
+<p><span class="math inline">\(P(Y = y) = \binom{n}{y}p^y(1-p)^{n-y}\)</span> gives the probability of <span class="math inline">\(y\)</span> successes in <span class="math inline">\(n\)</span> trials, where <span class="math inline">\(\binom{n}{y}\)</span> is the number of ways you can draw <span class="math inline">\(y\)</span> objects from a set of <span class="math inline">\(n\)</span> objects, if order doesn’t matter (try out the <code>choose()</code> function in R).</p>
+<p>Expected value (mean value): <span class="math inline">\(E(Y) = np\)</span></p>
+<p>Standard deviation: <span class="math inline">\(SD(Y) = \sqrt{np(1-p)}\)</span></p>
+<p><br></p>
+<p>Example: Calculate the probability of two successes in three trials, if <span class="math inline">\(p = 0.6\)</span></p>
+<p><span class="math inline">\(Y \sim Binomial(n = 3, p = 0.6)\)</span></p>
+<p><span class="math inline">\(P(Y = 2) = \binom{3}{2}p^2(1-p)^{1} = 3 * 0.6 * 0.6 * 0.4 = 0.432\)</span></p>
+<p><br></p>
+<p><strong>Calculate by hand in R</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using equation</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>yprob <span class="ot">&lt;-</span> <span class="fu">choose</span>(<span class="dv">3</span>,<span class="dv">2</span>) <span class="sc">*</span> p<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span><span class="dv">1</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>yprob </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.432</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using R's binomial function</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">p =</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.432</code></pre>
+</div>
+</div>
+<p><br><br></p>
+<p><strong>Probability mass function (PMF)</strong></p>
+<p>A Probability mass function gives the probability for each outcome of a discrete random variable. It sums to one.</p>
+<p>Example: Plot PMF for n = 19, and p = 0.2, 0.5, 0.8</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Panels next to each other</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>binpmf <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">19</span>, p) {</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n  <span class="co"># Possible outcomes</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(y, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(y, m1, <span class="at">type =</span> <span class="st">'h'</span>, <span class="at">xlab =</span> <span class="st">"y"</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab  =</span> <span class="st">"P(Y = y)"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>), <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="fu">sprintf</span>(<span class="st">"n = %d, p = %0.1f"</span>, n, p), <span class="dv">3</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, n<span class="sc">+</span><span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf</span>(<span class="at">p =</span> p[<span class="dv">1</span>])</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf</span>(<span class="at">p =</span> p[<span class="dv">2</span>])</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf</span>(<span class="at">p =</span> p[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1536"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Cumulative distribution function (CDF)</strong></p>
+<p>The cumulative distribution function (CDF) gives the probability that a random variable is less than or equal to a specific value.</p>
+<p>Example: Plot CDF for n = 19, and p = 0.2, 0.5, 0.8</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.8</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Panels next to each other</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>bincdf <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">19</span>, p) {</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span>n  <span class="co"># Possible outcomes</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(y, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(y, m1, <span class="at">type =</span> <span class="st">'s'</span>, <span class="at">xlab =</span> <span class="st">"y"</span>,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab  =</span> <span class="st">"P(Y &lt;= y)"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="fu">sprintf</span>(<span class="st">"n = %d, p = %0.1f"</span>, n, p), <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, n<span class="sc">+</span><span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">bincdf</span>(<span class="at">p =</span> p[<span class="dv">1</span>])</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="fu">bincdf</span>(<span class="at">p =</span> p[<span class="dv">2</span>])</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bincdf</span>(<span class="at">p =</span> p[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1536"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>The Binomial distribution becomes approximately normal as <span class="math inline">\(n\)</span> gets very large. Here illustrated for <span class="math inline">\(p\)</span> = 0.2 and <span class="math inline">\(n\)</span> = 6, 60, and 600.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">60</span>, <span class="dv">600</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Panels next to each other</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>binpmf2 <span class="ot">&lt;-</span> <span class="cf">function</span>(n, p, nmin, nmax) {</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> nmin<span class="sc">:</span>nmax  <span class="co"># Possible outcomes</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(y, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(y, m1, <span class="at">type =</span> <span class="st">'h'</span>, <span class="at">xlab =</span> <span class="st">"y"</span>,</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab  =</span> <span class="st">"P(Y = y)"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(m1)), <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mtext</span>(<span class="fu">sprintf</span>(<span class="st">"n = %d, p = %0.1f"</span>, n, p), <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, n<span class="sc">+</span><span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf2</span>(<span class="at">n =</span> n[<span class="dv">1</span>], <span class="at">p =</span> p, <span class="at">nmin =</span> <span class="dv">0</span>, <span class="at">nmax =</span> <span class="dv">6</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf2</span>(<span class="at">n =</span> n[<span class="dv">2</span>], <span class="at">p =</span> p, <span class="at">nmin =</span> <span class="dv">0</span>, <span class="at">nmax =</span> <span class="dv">30</span>)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="fu">binpmf2</span>(<span class="at">n =</span> n[<span class="dv">3</span>], <span class="at">p =</span> p, <span class="at">nmin =</span> <span class="dv">85</span>, <span class="at">nmax =</span> <span class="dv">155</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br><br></p>
+</section>
+<section id="normal-distribution" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="normal-distribution">Normal Distribution</h3>
+<p>The sum of many small independent random variables will be approximately distributed as the Normal distribution (this follows from the Central Limit Theorem).</p>
+<p><strong>Notation</strong></p>
+<p><span class="math inline">\(Y \sim N(\mu, \sigma)\)</span>, random variable Y is distributed as a normal distribution with location (mean) <span class="math inline">\(\mu\)</span> and scale (sd) <span class="math inline">\(\sigma\)</span> (Note, the second parameter is often given as the variance <span class="math inline">\(\sigma^2\)</span>.)</p>
+<p><br></p>
+<p>Example: Y is scores on an IQ-test, normally distributed with mean = 100, sd = 15: <span class="math inline">\(Y \sim N(\mu=100, \sigma=15)\)</span></p>
+<p><br></p>
+<p><strong>Probability density function (PDF)</strong></p>
+<p>For a discrete variable, the probability mass function (PMF) sums to one (see examples above). For a continuous variable, the probability density function (PDF) has an area under the curve equal to one.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>iq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>iqdens <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(iq, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iq, iqdens, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"y [IQ-score]"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">160</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>NOTE</strong>: Density is not the same as probability. It can be greater than 1!</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Denisty for uniform(0, 0,5)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">to =</span> <span class="fl">0.6</span>, <span class="at">by =</span> <span class="fl">0.0001</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>xdens <span class="ot">&lt;-</span> <span class="fu">dunif</span>(x, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="fl">0.5</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, xdens, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">2.2</span>))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.7</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>What is the probability that a randomly selected individual has an IQ-score of</em> <em>exactly 100</em>, if <span class="math inline">\(IQ \sim N(\mu=100, \sigma=15)\)</span>? The probability correspond to an area under the curve (PDF) of the normal distribution. The answer to the question depends on what we mean with “exactly”. If we really mean it, as in <span class="math inline">\(100.000000...\)</span>, then the answer is <span class="math inline">\(P(IQ = 100.000...) = 0\)</span>, because the area under the curve has zero width. But I guess that IQ-scores are measured without decimals, if so, <span class="math inline">\(IQ = 100\)</span> can be interpreted as <span class="math inline">\(99.5 &lt; IQ &lt; 100.5\)</span>. This is an interval, and an area under the curve can be calculated: <span class="math inline">\(P \approx .03\)</span>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw PDF, and add line for mu = 100.0000...</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>iq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>iqdens <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(iq, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iq, iqdens, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"y [IQ-score]"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">130</span>))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">160</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)), </span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">lwd =</span> <span class="fl">0.2</span>, <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw PDF, and add area for 99.5 &lt; mu &lt; 100.5</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>iq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>iqdens <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(iq, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iq, iqdens, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"y [IQ-score]"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>,</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">130</span>))</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">160</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">99.5</span>, <span class="fl">100.5</span>, <span class="fl">0.01</span>)</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(mm, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(mm, <span class="fu">rev</span>(mm)), <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(d)), <span class="fu">rev</span>(d)),</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.1</span>), <span class="at">border =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Calculate probability (area under the curve):</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(mu == 100)  </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>) <span class="sc">-</span>  <span class="fu">pnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># P(mu &gt; 99.5 | mu &lt; 100.5)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">100.5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>) <span class="sc">-</span>  <span class="fu">pnorm</span>(<span class="fl">99.5</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02659123</code></pre>
+</div>
+</div>
+<p><strong>Cumulative distribution function (CDF)</strong></p>
+<p>The CDF has the same definition for discrete and continuous variables: It gives the probability that a random variable is less than or equal to a specific value of a random variable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>iq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">50</span>, <span class="at">to =</span> <span class="dv">150</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>iqcdf <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(iq, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(iq, iqcdf, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">xlab =</span> <span class="st">"y [IQ-score]"</span>, <span class="at">ylab =</span> <span class="st">"P(Y &lt; y)"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">160</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Location and scale of normal distribution</strong></p>
+<p>This plot shows three normal distributions with…</p>
+<ul>
+<li><p>Left panel: Same location (mean), different scale (standard deviation)</p></li>
+<li><p>Right panel: Different location, same scale</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Different scales, same location </span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">pch =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">2</span>), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">10</span>))</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">20</span>), <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Different location, same scale </span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>), <span class="at">pch =</span> <span class="st">""</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">30</span>, <span class="dv">3</span>), <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">50</span>, <span class="dv">3</span>))</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="dv">55</span>, <span class="dv">3</span>), <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<section id="standard-normal" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="standard-normal">Standard normal</h4>
+<p>Remember that linear transformations doesn’t change the shape of distributions. The standard normal is just a linear transformation (z-scores) of another normal distribution with the purpose of setting <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span>.</p>
+<p><span class="math inline">\(Y \sim N(\mu, \sigma)\)</span> Original (non-standard) normal,</p>
+<p><span class="math inline">\(Z = (Y - \mu)/\sigma\)</span> Linear transformation,</p>
+<p><span class="math inline">\(Z \sim N(0, 1)\)</span> Standard normal.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">0.1</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># PDF</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(z)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(z, dd, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">ylab =</span> <span class="st">"density"</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"PDF"</span>, <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># CDF</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z)</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(z, dd, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">ylab =</span> <span class="st">"probability, P(Z &lt;= z)"</span>)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"CDF"</span>, <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="the-68-95-99.7-rule" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-68-95-99.7-rule">The 68-95-99.7 rule</h4>
+<p>The 68-95-99.7 rule, also known as the empirical rule, describes the distribution of data in a normal distribution. According to this rule:</p>
+<ul>
+<li><p>Approximately 68 % of the data falls within one standard deviation of the mean. Put equivalently, the probability that a random observation, <span class="math inline">\(x\)</span> falls within one standard deviation of the mean is approximately 0.68, that is, <span class="math inline">\(Pr(\mu - \sigma &lt; x &lt; \mu + \sigma) \approx 0.68)\)</span></p></li>
+<li><p>About 95 % of the data lies within two standard deviations of the mean.</p></li>
+<li><p>About 99.7 % of the data is found within three standard deviations of the mean.</p></li>
+</ul>
+<p>For the standard normal, <span class="math inline">\(N(\mu = 0, \sigma = 1)\)</span>, these three intervals corresponds to the intervals [-1, 1], [-2, 2], and, [-3, 3], respectively.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In R, you can calculate the exact probabilities like this:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate (pm1sd for +/- 1 sd, etc.)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>pm1sd <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>pm2sd <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>pm3sd <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Round and print</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="at">pm1sd =</span> pm1sd, <span class="at">pm2sd =</span> pm2sd, <span class="at">pm3sd =</span> pm3sd), <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  pm1sd   pm2sd   pm3sd 
+0.68269 0.95450 0.99730 </code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="how-normal-is-the-normal" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="how-normal-is-the-normal">How normal is the Normal?</h3>
+<p>Example from <span class="citation" data-cites="gelman2020regression">Gelman et al. (<a href="references.html#ref-gelman2020regression" role="doc-biblioref">2021</a>)</span>, Fig. 3.6:</p>
+<p>Assume that height is normally distributed, with different means for men and women:</p>
+<ul>
+<li>Men: <span class="math inline">\(h_{male} \sim N(\mu = 180, \sigma = 8)\)</span>, unit cm.</li>
+<li>women: <span class="math inline">\(h_{female} \sim N(\mu = 168, \sigma = 8)\)</span>, unit cm.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>male <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">5e4</span>, <span class="dv">180</span>, <span class="dv">8</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">5e4</span>, <span class="dv">168</span>, <span class="dv">8</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">c</span>(male, female)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Blank histogram (note argument lty = 'blank')</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(male, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">120</span>, <span class="dv">230</span>, <span class="at">by =</span> <span class="dv">20</span>), <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="st">'blank'</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"white"</span>, <span class="at">main =</span> <span class="st">''</span>, <span class="at">xlab =</span> <span class="st">"Height (cm) "</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.06</span>))</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for Yes trials</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>dens_male <span class="ot">&lt;-</span> <span class="fu">density</span>(male)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_male, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for No trials</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>dens_female <span class="ot">&lt;-</span> <span class="fu">density</span>(female)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_female, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Height in the combined population of men and women is however not normally distributed.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blank histogram (note argument lty = 'blank')</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(combined, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">120</span>, <span class="dv">230</span>, <span class="at">by =</span> <span class="dv">20</span>), <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">lty =</span> <span class="st">'blank'</span>, </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"white"</span>, <span class="at">main =</span> <span class="st">''</span>, <span class="at">xlab =</span> <span class="st">"Height (cm) "</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.06</span>))</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add density for Yes trials</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>dens_combined <span class="ot">&lt;-</span> <span class="fu">density</span>(combined)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(dens_combined, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br> The density plot for the combined population looks normal, but actually it is not. If normally distributed, about 84 % of values are less than 1 standard deviation above the mean. This is true for our simulated male and female populations, but not for the combined population.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exact probability of x &lt; 1, if X ~ N(mean = 0, sd = 1)</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8413447</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate from our simulated male population</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(male <span class="sc">&lt;</span> <span class="fu">mean</span>(male) <span class="sc">+</span> <span class="fu">sd</span>(male))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8416</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate from our female popualtion</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(female <span class="sc">&lt;</span> <span class="fu">mean</span>(female) <span class="sc">+</span> <span class="fu">sd</span>(female)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.84062</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate from the combined popualtion</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(combined <span class="sc">&lt;</span> <span class="fu">mean</span>(combined) <span class="sc">+</span> <span class="fu">sd</span>(combined))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.83395</code></pre>
+</div>
+</div>
+<p>A common method for evaluating normality is to visualize using so called QQ-plots (points fall on the red line if the data is perfectly normal). <em>QQ-plots are not part of the course</em>, but I use them here to drive home the point that the (simulated) combined population (vector <code>combined</code>) is not normally distributed.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ-plot</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>zmale <span class="ot">&lt;-</span> (male <span class="sc">-</span> <span class="fu">mean</span>(male))<span class="sc">/</span><span class="fu">sd</span>(male)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>zfemale <span class="ot">&lt;-</span> (female <span class="sc">-</span> <span class="fu">mean</span>(female))<span class="sc">/</span><span class="fu">sd</span>(female)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>zcombined <span class="ot">&lt;-</span> (combined <span class="sc">-</span> <span class="fu">mean</span>(combined))<span class="sc">/</span><span class="fu">sd</span>(combined)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>ylim <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(zmale, <span class="at">main =</span> <span class="st">"Population male weight, z-score"</span>, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">ylim =</span> ylim)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(zmale, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(zfemale, <span class="at">main =</span> <span class="st">"Population female weight, z-score"</span>, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">ylim =</span> ylim)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(zfemale, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(zcombined, <span class="at">main =</span> <span class="st">"Population combined, z-score "</span>, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">ylim =</span> ylim)</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(zcombined, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="practice" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="practice">Practice</h2>
+<p>Practice problems are labeled Easy (E), Medium (M), and Hard (H), (as in <span class="citation" data-cites="McElreath2020">McElreath (<a href="references.html#ref-McElreath2020" role="doc-biblioref">2020</a>)</span>).</p>
+<section id="easy" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="easy">Easy</h3>
+<div class="practice">
+<p><strong>4E0.</strong> Identify two advantages and two disadvantages of using the arithmetic mean compared to the median as sample statistics for measuring central tendency.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E1.</strong> The median absolute deviation (MAD) is often multiplied by a constant, why and what is the constant?</p>
+<p>Note: In the regression outputs from <code>rstanarm::stan_glm()</code>, they call MAD multiplied by this constant for MAD_SD.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E2.</strong> Below a frequency table of number of children (0, 1, 2, 3, or 4) in a sample 200 families.</p>
+<p>Calculate by hand the following statistics for number of children in these families:</p>
+<ol type="a">
+<li>Median</li>
+<li>Maximum</li>
+<li>Inter-quartile range</li>
+<li>Median absolute deviation (Hint. It is the same with or without normalizing constant)</li>
+</ol>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>n_child <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>n_child_f <span class="ot">&lt;-</span> <span class="fu">factor</span>(n_child, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">Children =</span> n_child_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Children
+  0   1   2   3   4 
+ 54 119  16  11   0 </code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E3.</strong> Below is a boxplot.</p>
+<p>Approximate the following by eye:</p>
+<ol type="a">
+<li>Inter-quartile range (IQR).</li>
+<li>Median (IQR).</li>
+<li>Range</li>
+<li>Whether distribution is symmetric, positively or negatively skewed</li>
+</ol>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">60</span>, <span class="fu">log</span>(<span class="dv">10</span>), <span class="fu">log</span>(<span class="fl">2.5</span>))</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y, <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># round(c(iqr = IQR(y)), 0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E4.</strong> This dataset is from an experiment with 80 participants, evenly split into two groups of 40 participants: A control group (group = 0) and an experimental group (group = 1). The results are visualized using boxplots.</p>
+<p>Approximate by eye (and brain!):</p>
+<ol type="a">
+<li>Difference in median scores between groups</li>
+<li>Approximately how many in the experimental group that performed better than the median of the control group</li>
+<li>Variability of scores: Was it similar in the two groups?</li>
+</ol>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, n), <span class="fu">rep</span>(<span class="dv">1</span>, n))</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(group), (<span class="dv">10</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>group), (<span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>group))</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> group, <span class="at">xlab =</span> <span class="st">"Group"</span>, <span class="at">ylab =</span> <span class="st">"Outcome"</span>, <span class="at">horizontal =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E5.</strong> Below is a kernel density plot of a dataset with an arithmetic mean of 26. Which of the following values is closest to the median: 7, 10, 21, 27, 41?</p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">rlnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="fu">log</span>(<span class="dv">2</span>), <span class="at">sd =</span> <span class="fu">log</span>(<span class="dv">2</span>))</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(y), <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">main =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># median(y)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E6.</strong> One advantage of a kernel density plot over a histogram is that its shape is not influenced by the choice of bin size. Explain.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E7.</strong> Simulate a sample of reaction times [ms] using this code:</p>
+<p><code>set.seed(123)</code><br>
+<code>rt &lt;- rlnorm(1e3, meanlog = 6, sdlog = 0.69)</code></p>
+<p>Calculate:</p>
+<ol type="a">
+<li>Mean</li>
+<li>Median</li>
+<li>Standard deviation</li>
+<li>Inter-quartile range</li>
+<li>Median absolute deviation</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E8.</strong> Visualize the distribution of data from 4E7 (vector <code>rt</code>) using a histogram overlaid with a kernel density plot (see examples above). Locate the bins of the histogram at multiples of <span class="math inline">\(50 \pm 25 \ \ ms\)</span>.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E9.</strong> Repeat 4E8 but now with log reaction time <code>log(rt)</code>. Make as many bins as in 4E8.</p>
+<p>Note: In <code>hist()</code>, the argument <code>breaks = k</code> creates k equally spaced bins.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E10.</strong></p>
+<ol type="a">
+<li>Make two boxplots, one for <code>rt</code> and the other for <code>log(rt)</code>, using data from 4E7.</li>
+<li>How many observations were classified as outliers according to the boxplot rule for <code>rt</code> and for <code>log(rt)</code>.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E11.</strong> Assume that the waist circumference among Swedish middle aged men (40-60 y) is normally distributed with mean = 100 cm and standard deviation = 7 cm.</p>
+<p>Calculate the probability that a randomly selected man form this population has a waist circumference …</p>
+<ol type="a">
+<li>above 94 cm,</li>
+<li>within <span class="math inline">\(100 \pm 10\)</span> cm,</li>
+<li>either below 85 cm or above 115 cm,</li>
+<li>within the middle 50 % of the distribution.</li>
+</ol>
+<p>Hint: A useful function in R is <code>pnorm()</code>.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E12.</strong> Below a standard normal distribution. For each panel, approximate by eye (and brain!) the probability that a random observation would fall in the shaded region. Use the 68-95-99.7 rule where appropriate.</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="1056"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4E13.</strong> Use R to calculate exact answer (to 5 decimals) for the probabilities in 4E12.</p>
+<p>Hint: A useful function in R is <code>pnorm()</code>.</p>
+</div>
+</section>
+<section id="medium" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="medium">Medium</h3>
+<div class="practice">
+<p><strong>4M1.</strong></p>
+<ol type="a">
+<li>Search the internet for “geometric mean” and then explain in your own words what it is and when to use it.</li>
+<li>Calculate the geometric mean of the sample in 4E7 (vector <code>rt</code>). Here is one way to do it in R: <code>exp(mean(log(rt)))</code>.</li>
+<li>Was the geometric mean for the sample close to the population geometric mean? To find the latter, decipher the simulation code in 4E7.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4M2.</strong> Student X is taking an exam with 10 multiple choice questions, each with 5 response alternatives of which one is the correct answer. X has no clue and responds randomly.</p>
+<ol type="a">
+<li>Illustrate the Probability Mass Function (PMF), that is, make a diagram with the probabilities of each of the possible outcomes 0, 1, …, 10 correct answers (see examples above, the function <code>dbinom()</code> is helpful)</li>
+<li>Calculate the probability that he answers correct on exactly 4 questions</li>
+<li>Calculate the probability that he answers correct on 4 or more questions</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4M3.</strong> Below is a kernel density plot of a data set.</p>
+<ol type="a">
+<li>Based on the plot, suggest an interval within which you are 50 % confident that the arithmetic mean value of the dataset lies. That is, you would feel equally surprised whether your interval includes the mean or not.</li>
+<li>Suggest an interval within which you are 95 % confident that the mean value of the dataset lies. So you would be much more surprised if your interval does not include the mean than if it does.</li>
+</ol>
+<p><font size="2">I realize it’s a somewhat unusual question, but think of it as an exercise in thinking about subjective probability.</font></p>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span> <span class="sc">*</span> <span class="fu">rlnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="fu">log</span>(<span class="dv">5</span>), <span class="at">sd =</span> <span class="fu">log</span>(<span class="fl">1.5</span>)) <span class="sc">+</span> <span class="dv">199</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(y1, y2)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(y), <span class="at">xlab =</span> <span class="st">"X"</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">40</span>, <span class="dv">200</span>, <span class="dv">5</span>), <span class="at">cex.axis =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-stat25_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># median(y)</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean(y)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="practice">
+<p><strong>4M4.</strong> This is a data set of 7 observations: <span class="math inline">\(y = [1, 3, 3, 4, 4, 5, 8]\)</span>, with<br>
+<span class="math inline">\(mean(y) = 4\)</span>.</p>
+<ol type="a">
+<li>Calculate the minimum and maximum values after mean-centering this dataset.</li>
+<li>Apply the transformation <code>ynew = (y - mean(y))/(0.1*sd(y))</code>. What is the mean and standard deviation of <code>ynew</code>.</li>
+<li>Transform the data to have a minimum = 0 and maximum = 70. What is the median value of this transformed data.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4M5.</strong> Create a data set with 7 observations that has mean = 100 and sd = 15 (exactly). Describe your method by providing R-code.</p>
+</div>
+</section>
+<section id="hard" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="hard">Hard</h3>
+<div class="practice">
+<p><strong>4H1.</strong> Go back to 4E11 and answer this question: What is the probability that a randomly selected man has a waist-circumference of 96 cm? Answer in a way that also explains the difference between probability and density.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4H2.</strong></p>
+<ol type="a">
+<li>Draw the distribution from which the reaction time data in 4E7 was simulated. (You may look at the R-code that I used to draw normal distributions in the notes above).</li>
+<li>Calculate the probability that a randomly drawn observation from the distribution would be greater than 1000 ms.</li>
+<li>Calculate the probability that a randomly drawn observation would be between 200 and 800 ms.</li>
+</ol>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4H3.</strong> <em>Simulation is fun! And useful!</em> 4E11(d) was maybe too easy (answer = 0.5). A harder version would ask for the waist-circumference interval corresponding to the middle 50 % of the data. My answer is <span class="math inline">\([95.3, 104.7]\)</span> (rounded to 1 decimal). Use simulation to verify (or falsify) my answer.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4H4.</strong> Use <code>pnorm()</code> and <code>qnorm()</code> to calculate the exact interval in 4H3. Report with four decimals.</p>
+</div>
+<p><br></p>
+<div class="practice">
+<p><strong>4H5.</strong> Here another simulation exercise:</p>
+<p>Draw 10,000 samples of size <span class="math inline">\(n = 16\)</span> from a normal distribution with <span class="math inline">\(\mu = 100\)</span> and <span class="math inline">\(\sigma = 15\)</span>. For each sample, calculate a t-value, that is, calculate</p>
+<p><span class="math inline">\(t = \frac{\mu - \bar{x}}{s_{x}/\sqrt(n)}\)</span>,</p>
+<p>where <span class="math inline">\(\bar{x}\)</span> is the sample mean and <span class="math inline">\(s_{x}\)</span> is the sample standard deviation.</p>
+<ol type="a">
+<li>Plot the distribution of your 10,000 t-values in a histogram overlaid with a kernel density plot.</li>
+<li>Figure out a way to demonstrate that the distribution is not normal (although it looks pretty normal).</li>
+<li>In fact (as you know), your sample means follows a T-distribution with df = n-1. Use the function <code>dt()</code> in R to draw this distribution on your histogram from (a).</li>
+</ol>
+</div>
+</section>
+</section>
+<section id="session-info" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="session-info">(Session Info)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.4.2 (2024-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26100)
+
+Matrix products: default
+
+
+locale:
+[1] LC_COLLATE=Swedish_Sweden.utf8  LC_CTYPE=Swedish_Sweden.utf8   
+[3] LC_MONETARY=Swedish_Sweden.utf8 LC_NUMERIC=C                   
+[5] LC_TIME=Swedish_Sweden.utf8    
+
+time zone: Europe/Stockholm
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] MASS_7.3-61
+
+loaded via a namespace (and not attached):
+ [1] htmlwidgets_1.6.4 compiler_4.4.2    fastmap_1.2.0     cli_3.6.5        
+ [5] tools_4.4.2       htmltools_0.5.8.1 rstudioapi_0.17.1 yaml_2.3.10      
+ [9] rmarkdown_2.29    knitr_1.50        jsonlite_2.0.0    xfun_0.52        
+[13] digest_0.6.37     rlang_1.1.6       evaluate_1.0.3   </code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-gelman2020regression" class="csl-entry" role="listitem">
+Gelman, A., Hill, J., &amp; Vehtari, A. (2021). <em>Regression and other stories</em>. Cambridge University Press.
+</div>
+<div id="ref-howell2012statistical" class="csl-entry" role="listitem">
+Howell, D. C. (2012). <em>Statistical methods for psychology</em>. Cengage Learning.
+</div>
+<div id="ref-McElreath2020" class="csl-entry" role="listitem">
+McElreath, R. (2020). <em>Statistical rethinking: A bayesian course with examples in r and stan</em>. Chapman; Hall/CRC.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-method25.html" class="pagination-link" aria-label="M: Tools for Thinking About Causality">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">M: Tools for Thinking About Causality</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-method25.html" class="pagination-link" aria-label="M: Measurement and Data Quality">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">M: Measurement and Data Quality</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
