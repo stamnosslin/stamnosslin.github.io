@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probabilistic MCQ Test</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --border: #E2DDD6;
+    --text: #1A1714;
+    --muted: #7A746C;
+    --accent: #2B5CE6;
+    --accent-light: #EBF0FD;
+    --ok: #1A7A4A;
+    --ok-bg: #E8F5EE;
+    --warn: #A05C00;
+    --warn-bg: #FEF3E2;
+    --danger: #C0392B;
+    --danger-bg: #FDECEB;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-top: 1rem;
+  }
+  .site-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .site-header p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    line-height: 1.6;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .q-number {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 1.75rem;
+  }
+
+  /* ── Options ── */
+  .option-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 48px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .opt-letter {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-align: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .opt-inner { display: flex; flex-direction: column; gap: 5px; }
+  .opt-label { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .opt-pct { font-size: 13px; font-weight: 500; color: var(--accent); text-align: right; }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  input[type=range]:disabled { opacity: 0.4; cursor: default; }
+
+  /* ── Sum row ── */
+  .sum-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .sum-pill {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+  .sum-pill.ok     { background: var(--ok-bg);     color: var(--ok); }
+  .sum-pill.over   { background: var(--danger-bg);  color: var(--danger); }
+  .sum-pill.under  { background: var(--warn-bg);    color: var(--warn); }
+
+  /* ── Toggle ── */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  .toggle-row input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+
+  /* ── Buttons ── */
+  .btn-row { display: flex; gap: 8px; }
+  .btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text);
+    transition: background 0.15s;
+  }
+  .btn:hover:not(:disabled) { background: var(--bg); }
+  .btn:disabled { opacity: 0.35; cursor: default; }
+  .btn-accent {
+    padding: 10px 24px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-accent:hover:not(:disabled) { background: #1a45c7; }
+  .btn-accent:active:not(:disabled) { transform: scale(0.98); }
+  .btn-accent:disabled { opacity: 0.35; cursor: default; }
+
+  /* ── Nav ── */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .step-dots { display: flex; gap: 6px; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .dot.done    { background: var(--accent); opacity: 0.4; }
+  .dot.current { background: var(--accent); }
+
+  /* ── Results ── */
+  .results-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .results-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+  .results-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .score-tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .score-tile .big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .score-tile .label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .bar-wrap {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin: 1rem 0 1.5rem;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+
+  .q-result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .q-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+  }
+  .q-result-text { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
+  .q-score-badge {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .q-score-badge.high { background: var(--ok-bg); color: var(--ok); }
+  .q-score-badge.mid  { background: var(--warn-bg); color: var(--warn); }
+  .q-score-badge.low  { background: var(--danger-bg); color: var(--danger); }
+
+  .opt-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 4px 0;
+    color: var(--muted);
+  }
+  .opt-result-row.is-correct { color: var(--text); font-weight: 500; }
+  .correct-tag {
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    margin-left: 6px;
+  }
+
+  .restart-row { text-align: center; margin-top: 2rem; }
+
+  /* ── Intro screen ── */
+  #intro { display: block; }
+  #quiz  { display: none; }
+  #results { display: none; }
+
+  .intro-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+  }
+  .intro-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .intro-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+  .intro-card ul {
+    text-align: left;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.9;
+    padding-left: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="site-header">
+    <h1>Probabilistic MCQ</h1>
+    <p>Express your uncertainty — assign probabilities, not just one answer.</p>
+  </div>
+
+  <!-- ═══════════════ INTRO ═══════════════ -->
+  <div id="intro">
+    <div class="intro-card">
+      <h2>How this test works</h2>
+      <p>Instead of picking a single answer, you distribute 100% probability across all options — reflecting how confident you are in each one.</p>
+      <ul>
+        <li>Use the sliders to assign % to each option</li>
+        <li>All five options must sum to exactly 100%</li>
+        <li>You can auto-adjust or normalize manually</li>
+        <li>Your score per question ranges from 0 (worst) to 1 (best)</li>
+      </ul>
+      <hr class="divider">
+      <p style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:1.25rem;">
+        A perfect score means you put 100% on the correct answer.<br>
+        Spreading probability wisely still earns partial credit.
+      </p>
+      <button class="btn-accent" onclick="startQuiz()">Start test</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ QUIZ ═══════════════ -->
+  <div id="quiz">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
+      <span class="progress-label" id="prog-label"></span>
+    </div>
+
+    <label class="toggle-row">
+      <input type="checkbox" id="chk-auto" checked>
+      Auto-adjust other sliders to keep sum at 100%
+    </label>
+
+    <div class="card">
+      <div class="q-number" id="q-number"></div>
+      <div class="q-text" id="q-text"></div>
+      <div id="slider-list"></div>
+      <div class="sum-row">
+        <span class="sum-pill" id="sum-pill"></span>
+        <div class="btn-row">
+          <button class="btn" id="btn-norm" onclick="doNormalize()">Normalize</button>
+          <button class="btn-accent" id="btn-next" onclick="doNext()">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn" id="btn-back" onclick="doBack()">Back</button>
+      <div class="step-dots" id="step-dots"></div>
+      <div style="width:60px"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ RESULTS ═══════════════ -->
+  <div id="results">
+    <div class="results-header">
+      <h2>Your results</h2>
+      <p>Lower spread = better calibration. Score: 0 (worst) to 1 (best) per question.</p>
+    </div>
+
+    <div class="score-grid">
+      <div class="score-tile">
+        <div class="big" id="res-avg">—</div>
+        <div class="label">Average score<br>(0–1)</div>
+      </div>
+      <div class="score-tile">
+        <div class="big" id="res-pct">—</div>
+        <div class="label">Percentage<br>equivalent</div>
+      </div>
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" id="res-bar" style="width:0%"></div></div>
+
+    <div id="q-breakdown"></div>
+
+    <div class="restart-row">
+      <button class="btn-accent" onclick="doRestart()">Try again</button>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+/* ═══════════════════════════════════════════════
+   QUESTIONS — edit this array to add your own!
+   Each question needs:
+     text    : the question string
+     options : exactly 5 answer strings
+     correct : index of the correct answer (0–4)
+═══════════════════════════════════════════════ */
+const QUESTIONS = [
+  {
+    text: "What is the capital of Australia?",
+    options: ["Sydney", "Melbourne", "Canberra", "Brisbane", "Perth"],
+    correct: 2
+  },
+  {
+    text: "Which element has the chemical symbol 'Au'?",
+    options: ["Silver", "Gold", "Copper", "Aluminium", "Iron"],
+    correct: 1
+  },
+  {
+    text: "In which year did the First World War end?",
+    options: ["1915", "1916", "1917", "1918", "1919"],
+    correct: 3
+  },
+  {
+    text: "What is the largest planet in our solar system?",
+    options: ["Mars", "Saturn", "Neptune", "Uranus", "Jupiter"],
+    correct: 4
+  },
+  {
+    text: "Who wrote 'Pride and Prejudice'?",
+    options: ["Charlotte Brontë", "Jane Austen", "Mary Shelley", "George Eliot", "Virginia Woolf"],
+    correct: 1
+  }
+];
+
+/* ═══════════════ State ═══════════════ */
+let current = 0;
+let answers = QUESTIONS.map(q => {
+  const base = Math.floor(100 / q.options.length);
+  const arr = q.options.map(() => base);
+  arr[0] += 100 - arr.reduce((a,b)=>a+b,0);
+  return arr;
+});
+
+/* ═══════════════ Helpers ═══════════════ */
+function isAuto() { return document.getElementById('chk-auto').checked; }
+function getSum(idx) { return answers[idx].reduce((a,b)=>a+b,0); }
+
+function computeScore(probs, correct) {
+  const n = probs.length;
+  let brier = 0;
+  probs.forEach((p,i) => { brier += Math.pow(p/100 - (i===correct?1:0), 2); });
+  const worst = 1 + (n-1) * Math.pow(1/n, 2);
+  return Math.max(0, 1 - brier / worst);
+}
+
+/* ═══════════════ Normalize ═══════════════ */
+function doNormalize() {
+  const s = getSum(current);
+  if (s === 0) {
+    const base = Math.floor(100 / answers[current].length);
+    answers[current] = answers[current].map(() => base);
+    answers[current][0] += 100 - answers[current].reduce((a,b)=>a+b,0);
+  } else {
+    const scaled = answers[current].map(v => v / s * 100);
+    const floored = scaled.map(v => Math.floor(v));
+    let rem = 100 - floored.reduce((a,b)=>a+b,0);
+    const diffs = scaled.map((v,i) => v - floored[i]);
+    const order = diffs.map((_,i)=>i).sort((a,b)=>diffs[b]-diffs[a]);
+    for (let i=0; i<rem; i++) floored[order[i]]++;
+    answers[current] = floored;
+  }
+  syncSliders();
+  refreshStatus();
+}
+
+/* ═══════════════ Slider logic ═══════════════ */
+function onSlider(idx, raw) {
+  const v = Math.max(0, Math.min(100, parseInt(raw)));
+
+  if (isAuto()) {
+    const delta = v - answers[current][idx];
+    answers[current][idx] = v;
+    const others = answers[current].map((_,i)=>i).filter(i=>i!==idx);
+    const oSum = others.reduce((a,i)=>a+answers[current][i],0);
+
+    if (oSum > 0) {
+      let remaining = -delta;
+      others.forEach((i,k) => {
+        if (k === others.length-1) {
+          answers[current][i] = Math.max(0, answers[current][i] + remaining);
+        } else {
+          const adj = Math.round(remaining * (answers[current][i] / oSum));
+          answers[current][i] = Math.max(0, answers[current][i] + adj);
+          remaining -= adj;
+        }
+      });
+    }
+    /* fix any rounding drift */
+    const s = getSum(current);
+    if (s !== 100) {
+      const diff = 100 - s;
+      const others2 = answers[current].map((_,i)=>i).filter(i=>i!==idx);
+      for (let i=0; i<others2.length; i++) {
+        if (answers[current][others2[i]] + diff >= 0) {
+          answers[current][others2[i]] += diff;
+          break;
+        }
+      }
+    }
+    syncSliders();
+  } else {
+    answers[current][idx] = v;
+    document.getElementById('lb'+idx).textContent = v + '%';
+  }
+  refreshStatus();
+}
+
+function syncSliders() {
+  answers[current].forEach((v,i) => {
+    const sl = document.getElementById('sl'+i);
+    const lb = document.getElementById('lb'+i);
+    if (sl) { sl.value = v; lb.textContent = v + '%'; }
+  });
+}
+
+/* ═══════════════ Status bar ═══════════════ */
+function refreshStatus() {
+  const s = getSum(current);
+  const pill = document.getElementById('sum-pill');
+  const nextBtn = document.getElementById('btn-next');
+  const normBtn = document.getElementById('btn-norm');
+
+  pill.className = 'sum-pill ' + (s===100 ? 'ok' : s>100 ? 'over' : 'under');
+  pill.textContent = s===100 ? 'Sum = 100% — ready!'
+    : s>100 ? `Sum = ${s}% — ${s-100}% over`
+    : `Sum = ${s}% — ${100-s}% short`;
+
+  nextBtn.disabled = (s !== 100);
+  normBtn.disabled = isAuto();
+}
+
+/* ═══════════════ Render question ═══════════════ */
+function renderQuestion() {
+  const q = QUESTIONS[current];
+  const n = QUESTIONS.length;
+
+  document.getElementById('prog-fill').style.width = (current/n*100)+'%';
+  document.getElementById('prog-label').textContent = `${current+1} of ${n}`;
+  document.getElementById('q-number').textContent = `Question ${current+1}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  document.getElementById('slider-list').innerHTML = q.options.map((opt,i) => `
+    <div class="option-row">
+      <div class="opt-letter">${String.fromCharCode(65+i)}</div>
+      <div class="opt-inner">
+        <span class="opt-label">${opt}</span>
+        <input type="range" id="sl${i}" min="0" max="100" step="1"
+          value="${answers[current][i]}"
+          oninput="onSlider(${i}, parseInt(this.value))">
+      </div>
+      <span class="opt-pct" id="lb${i}">${answers[current][i]}%</span>
+    </div>
+  `).join('');
+
+  /* dots */
+  document.getElementById('step-dots').innerHTML = QUESTIONS.map((_,i) =>
+    `<div class="dot ${i<current?'done':i===current?'current':''}"></div>`
+  ).join('');
+
+  document.getElementById('btn-back').disabled = (current === 0);
+  document.getElementById('btn-next').textContent = current===n-1 ? 'Submit' : 'Next';
+
+  document.getElementById('chk-auto').onchange = refreshStatus;
+  refreshStatus();
+}
+
+/* ═══════════════ Navigation ═══════════════ */
+function startQuiz() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  renderQuestion();
+}
+
+function doNext() {
+  if (getSum(current) !== 100) return;
+  if (current === QUESTIONS.length-1) { showResults(); return; }
+  current++;
+  renderQuestion();
+}
+
+function doBack() {
+  if (current === 0) return;
+  current--;
+  renderQuestion();
+}
+
+/* ═══════════════ Results ═══════════════ */
+function showResults() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+
+  const scores = QUESTIONS.map((q,i) => computeScore(answers[i], q.correct));
+  const avg = scores.reduce((a,b)=>a+b,0) / scores.length;
+  const pct = Math.round(avg * 100);
+
+  document.getElementById('res-avg').textContent = avg.toFixed(2);
+  document.getElementById('res-pct').textContent = pct + '%';
+  setTimeout(() => {
+    document.getElementById('res-bar').style.width = pct + '%';
+  }, 100);
+
+  document.getElementById('q-breakdown').innerHTML = QUESTIONS.map((q,i) => {
+    const sc = scores[i];
+    const badgeCls = sc >= 0.7 ? 'high' : sc >= 0.4 ? 'mid' : 'low';
+    const opts = q.options.map((opt,j) => `
+      <div class="opt-result-row ${j===q.correct?'is-correct':''}">
+        <span>${String.fromCharCode(65+j)}. ${opt}${j===q.correct?'<span class="correct-tag">correct</span>':''}</span>
+        <span>${answers[i][j]}%</span>
+      </div>`).join('');
+    return `
+      <div class="q-result">
+        <div class="q-result-header">
+          <div class="q-result-text">${q.text}</div>
+          <span class="q-score-badge ${badgeCls}">${sc.toFixed(2)}</span>
+        </div>
+        ${opts}
+      </div>`;
+  }).join('');
+}
+
+function doRestart() {
+  current = 0;
+  answers = QUESTIONS.map(q => {
+    const base = Math.floor(100 / q.options.length);
+    const arr = q.options.map(() => base);
+    arr[0] += 100 - arr.reduce((a,b)=>a+b,0);
+    return arr;
+  });
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('chk-auto').checked = true;
+  document.getElementById('chk-auto').disabled = false;
+  renderQuestion();
+}
+</script>
+</body>
+</html>
