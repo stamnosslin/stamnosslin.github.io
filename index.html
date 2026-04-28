@@ -7,415 +7,142 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --border: #E2DDD6;
-    --text: #1A1714;
-    --muted: #7A746C;
-    --accent: #2B5CE6;
-    --accent-light: #EBF0FD;
-    --ok: #1A7A4A;
-    --ok-bg: #E8F5EE;
-    --warn: #A05C00;
-    --warn-bg: #FEF3E2;
-    --danger: #C0392B;
-    --danger-bg: #FDECEB;
-    --radius: 12px;
-    --radius-sm: 8px;
+    --bg: #F7F5F0; --surface: #FFFFFF; --border: #E2DDD6;
+    --text: #1A1714; --muted: #7A746C; --accent: #2B5CE6;
+    --ok: #1A7A4A; --ok-bg: #E8F5EE;
+    --warn: #A05C00; --warn-bg: #FEF3E2;
+    --danger: #C0392B; --danger-bg: #FDECEB;
+    --radius: 12px; --radius-sm: 8px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem 4rem;
-  }
-
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  /* ── Header ── */
-  .site-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    padding-top: 1rem;
-  }
-  .site-header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.2rem;
-    font-weight: 400;
-    color: var(--text);
-    letter-spacing: -0.02em;
-  }
-  .site-header p {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-top: 0.4rem;
-    line-height: 1.6;
-  }
-
-  /* ── Progress ── */
-  .progress-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 1.5rem;
-  }
-  .progress-track {
-    flex: 1;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 2px;
-    transition: width 0.4s ease;
-  }
-  .progress-label {
-    font-size: 13px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  /* ── Card ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .q-number {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.6rem;
-  }
-  .q-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 1.75rem;
-  }
-
-  /* ── Options ── */
-  .option-row {
-    display: grid;
-    grid-template-columns: 28px 1fr 48px;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .opt-letter {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--muted);
-    text-align: center;
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
+  .container { max-width: 680px; margin: 0 auto; }
+  .site-header { text-align: center; margin-bottom: 2.5rem; padding-top: 1rem; }
+  .site-header h1 { font-family: 'DM Serif Display', serif; font-size: 2.2rem; font-weight: 400; letter-spacing: -0.02em; }
+  .site-header p { font-size: 0.95rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.6; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+  .progress-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; margin-bottom: 1rem; }
+  .q-number { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+  .q-text { font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-weight: 400; line-height: 1.5; margin-bottom: 1.75rem; }
+  .option-row { display: grid; grid-template-columns: 28px 1fr 48px; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .opt-letter { font-size: 13px; font-weight: 500; color: var(--muted); text-align: center; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .opt-inner { display: flex; flex-direction: column; gap: 5px; }
-  .opt-label { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .opt-label { font-size: 14px; line-height: 1.4; }
   .opt-pct { font-size: 13px; font-weight: 500; color: var(--accent); text-align: right; }
-
-  input[type=range] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--border);
-    outline: none;
-    cursor: pointer;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 2px solid #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-    cursor: pointer;
-    transition: transform 0.1s;
-  }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 2px; background: var(--border); outline: none; cursor: pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15); cursor: pointer; transition: transform .1s; }
   input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-  input[type=range]:disabled { opacity: 0.4; cursor: default; }
-
-  /* ── Sum row ── */
-  .sum-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
-  }
-  .sum-pill {
-    font-size: 13px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 20px;
-  }
-  .sum-pill.ok     { background: var(--ok-bg);     color: var(--ok); }
-  .sum-pill.over   { background: var(--danger-bg);  color: var(--danger); }
-  .sum-pill.under  { background: var(--warn-bg);    color: var(--warn); }
-
-  /* ── Toggle ── */
-  .toggle-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-    font-size: 14px;
-    color: var(--muted);
-    cursor: pointer;
-    user-select: none;
-  }
+  input[type=range]:disabled { opacity: .4; cursor: default; }
+  .sum-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  .sum-pill { font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 20px; }
+  .sum-pill.ok    { background: var(--ok-bg);    color: var(--ok); }
+  .sum-pill.over  { background: var(--danger-bg); color: var(--danger); }
+  .sum-pill.under { background: var(--warn-bg);   color: var(--warn); }
+  .toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; font-size: 14px; color: var(--muted); cursor: pointer; user-select: none; }
   .toggle-row input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
-
-  /* ── Buttons ── */
   .btn-row { display: flex; gap: 8px; }
-  .btn {
-    padding: 8px 18px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    cursor: pointer;
-    background: transparent;
-    color: var(--text);
-    transition: background 0.15s;
-  }
+  .btn { padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; background: transparent; color: var(--text); transition: background .15s; }
   .btn:hover:not(:disabled) { background: var(--bg); }
-  .btn:disabled { opacity: 0.35; cursor: default; }
-  .btn-accent {
-    padding: 10px 24px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
-  }
+  .btn:disabled { opacity: .35; cursor: default; }
+  .btn-accent { padding: 10px 24px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background .15s, transform .1s; }
   .btn-accent:hover:not(:disabled) { background: #1a45c7; }
-  .btn-accent:active:not(:disabled) { transform: scale(0.98); }
-  .btn-accent:disabled { opacity: 0.35; cursor: default; }
-
-  /* ── Nav ── */
-  .nav-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-  }
+  .btn-accent:active:not(:disabled) { transform: scale(.98); }
+  .btn-accent:disabled { opacity: .35; cursor: default; }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
   .step-dots { display: flex; gap: 6px; }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: background 0.2s;
-  }
-  .dot.done    { background: var(--accent); opacity: 0.4; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .2s; }
+  .dot.done    { background: var(--accent); opacity: .4; }
   .dot.current { background: var(--accent); }
 
-  /* ── Results ── */
-  .results-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  .results-header h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-  }
+  /* Results */
+  .results-header { text-align: center; margin-bottom: 1.5rem; }
+  .results-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 400; }
   .results-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .score-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .score-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; text-align: center; }
+  .score-tile .big { font-family: 'DM Serif Display', serif; font-size: 2.2rem; font-weight: 400; }
+  .score-tile .big.positive { color: var(--ok); }
+  .score-tile .big.zero     { color: var(--muted); }
+  .score-tile .big.negative { color: var(--danger); }
+  .score-tile .label { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
 
-  .score-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 1.5rem;
-  }
-  .score-tile {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    text-align: center;
-  }
-  .score-tile .big {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: var(--accent);
-  }
-  .score-tile .label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
+  /* Centred score bar */
+  .bar-container { margin: 0.5rem 0 1.75rem; }
+  .bar-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .bar-track { position: relative; height: 8px; background: var(--border); border-radius: 4px; overflow: visible; }
+  .bar-neg { position: absolute; top: 0; height: 100%; background: var(--danger); border-radius: 4px 0 0 4px; transition: width .6s ease, left .6s ease; }
+  .bar-pos { position: absolute; top: 0; height: 100%; background: var(--ok); border-radius: 0 4px 4px 0; transition: width .6s ease, left .6s ease; }
+  .bar-zero { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--muted); border-radius: 1px; }
 
-  .bar-wrap {
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    margin: 1rem 0 1.5rem;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 3px;
-    transition: width 0.6s ease;
-  }
-
-  .q-result {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-  .q-result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 0.75rem;
-  }
-  .q-result-text { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
-  .q-score-badge {
-    font-size: 13px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .q-score-badge.high { background: var(--ok-bg); color: var(--ok); }
-  .q-score-badge.mid  { background: var(--warn-bg); color: var(--warn); }
+  .q-result { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: .75rem; }
+  .q-result-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: .75rem; }
+  .q-result-text { font-size: 14px; line-height: 1.5; flex: 1; }
+  .q-score-badge { font-size: 13px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .q-score-badge.high { background: var(--ok-bg);    color: var(--ok); }
+  .q-score-badge.mid  { background: var(--warn-bg);   color: var(--warn); }
   .q-score-badge.low  { background: var(--danger-bg); color: var(--danger); }
-
-  .opt-result-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    padding: 4px 0;
-    color: var(--muted);
-  }
+  .opt-result-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 4px 0; color: var(--muted); }
   .opt-result-row.is-correct { color: var(--text); font-weight: 500; }
-  .correct-tag {
-    font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 4px;
-    background: var(--ok-bg);
-    color: var(--ok);
-    margin-left: 6px;
-  }
-
+  .correct-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: var(--ok-bg); color: var(--ok); margin-left: 6px; }
   .restart-row { text-align: center; margin-top: 2rem; }
 
-  /* ── Intro screen ── */
-  #intro { display: block; }
-  #quiz  { display: none; }
-  #results { display: none; }
-
-  .intro-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 2rem;
-    text-align: center;
-  }
-  .intro-card h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 1rem;
-  }
-  .intro-card p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 0.75rem;
-    text-align: left;
-  }
-  .intro-card ul {
-    text-align: left;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.9;
-    padding-left: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
+  #intro { display: block; } #quiz { display: none; } #results { display: none; }
+  .intro-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
+  .intro-card h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; }
+  .intro-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: .75rem; text-align: left; }
+  .intro-card ul { text-align: left; font-size: 14px; color: var(--muted); line-height: 1.9; padding-left: 1.25rem; margin-bottom: 1.5rem; }
+  .score-legend { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 1rem 0 1.25rem; }
+  .legend-tile { border-radius: 8px; padding: .6rem .75rem; font-size: 13px; text-align: center; }
+  .legend-tile .val { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+  .legend-tile.good { background: var(--ok-bg);    color: var(--ok); }
+  .legend-tile.neut { background: var(--warn-bg);   color: var(--warn); }
+  .legend-tile.bad  { background: var(--danger-bg); color: var(--danger); }
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
 </style>
 </head>
 <body>
 <div class="container">
-
   <div class="site-header">
     <h1>Probabilistic MCQ</h1>
     <p>Express your uncertainty — assign probabilities, not just one answer.</p>
   </div>
 
-  <!-- ═══════════════ INTRO ═══════════════ -->
+  <!-- INTRO -->
   <div id="intro">
     <div class="intro-card">
       <h2>How this test works</h2>
       <p>Instead of picking a single answer, you distribute 100% probability across all options — reflecting how confident you are in each one.</p>
       <ul>
         <li>Use the sliders to assign % to each option</li>
-        <li>All five options must sum to exactly 100%</li>
-        <li>You can auto-adjust or normalize manually</li>
-        <li>Your score per question ranges from 0 (worst) to 1 (best)</li>
+        <li>All options must sum to exactly 100%</li>
+        <li>Scoring formula: S = 25 × (0.8 − Brier score)</li>
       </ul>
+      <div class="score-legend">
+        <div class="legend-tile good"><div class="val">+20</div>perfect answer</div>
+        <div class="legend-tile neut"><div class="val">0</div>pure ignorance</div>
+        <div class="legend-tile bad"><div class="val">−30</div>confidently wrong</div>
+      </div>
       <hr class="divider">
       <p style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:1.25rem;">
-        A perfect score means you put 100% on the correct answer.<br>
-        Spreading probability wisely still earns partial credit.
+        Spreading probability equally scores 0. The more weight you put on the right answer, the higher your score — but putting weight on wrong answers costs you.
       </p>
       <button class="btn-accent" onclick="startQuiz()">Start test</button>
     </div>
   </div>
 
-  <!-- ═══════════════ QUIZ ═══════════════ -->
+  <!-- QUIZ -->
   <div id="quiz">
     <div class="progress-wrap">
       <div class="progress-track"><div class="progress-fill" id="prog-fill"></div></div>
       <span class="progress-label" id="prog-label"></span>
     </div>
-
     <label class="toggle-row">
       <input type="checkbox" id="chk-auto" checked>
       Auto-adjust other sliders to keep sum at 100%
     </label>
-
     <div class="card">
       <div class="q-number" id="q-number"></div>
       <div class="q-text" id="q-text"></div>
@@ -428,7 +155,6 @@
         </div>
       </div>
     </div>
-
     <div class="nav-row">
       <button class="btn" id="btn-back" onclick="doBack()">Back</button>
       <div class="step-dots" id="step-dots"></div>
@@ -436,125 +162,137 @@
     </div>
   </div>
 
-  <!-- ═══════════════ RESULTS ═══════════════ -->
+  <!-- RESULTS -->
   <div id="results">
     <div class="results-header">
       <h2>Your results</h2>
-      <p>Lower spread = better calibration. Score: 0 (worst) to 1 (best) per question.</p>
+      <p>+20 = perfect &nbsp;·&nbsp; 0 = ignorance &nbsp;·&nbsp; −30 = confidently wrong</p>
     </div>
 
     <div class="score-grid">
       <div class="score-tile">
+        <div class="big" id="res-total">—</div>
+        <div class="label">Total score<br>(max +100)</div>
+      </div>
+      <div class="score-tile">
         <div class="big" id="res-avg">—</div>
-        <div class="label">Average score<br>(0–1)</div>
+        <div class="label">Avg per question<br>(max +20)</div>
       </div>
       <div class="score-tile">
         <div class="big" id="res-pct">—</div>
-        <div class="label">Percentage<br>equivalent</div>
+        <div class="label">% of max<br>possible</div>
       </div>
     </div>
-    <div class="bar-wrap"><div class="bar-fill" id="res-bar" style="width:0%"></div></div>
+
+    <!-- Centred bar: range −30 to +20, zero at 60% -->
+    <div class="bar-container">
+      <div class="bar-axis">
+        <span>−30</span>
+        <span>0 (ignorance)</span>
+        <span>+20</span>
+      </div>
+      <div class="bar-track" id="bar-track">
+        <div class="bar-neg" id="bar-neg" style="width:0%;left:0%"></div>
+        <div class="bar-pos" id="bar-pos" style="width:0%;left:60%"></div>
+        <div class="bar-zero" style="left:60%"></div>
+      </div>
+    </div>
 
     <div id="q-breakdown"></div>
-
-    <div class="restart-row">
-      <button class="btn-accent" onclick="doRestart()">Try again</button>
-    </div>
+    <div class="restart-row"><button class="btn-accent" onclick="doRestart()">Try again</button></div>
   </div>
-
-</div><!-- /container -->
+</div>
 
 <script>
-/* ═══════════════════════════════════════════════
-   QUESTIONS — edit this array to add your own!
-   Each question needs:
-     text    : the question string
-     options : exactly 5 answer strings
-     correct : index of the correct answer (0–4)
-═══════════════════════════════════════════════ */
+/* ── Questions ── */
 const QUESTIONS = [
   {
-    text: "What is the capital of Australia?",
-    options: ["Sydney", "Melbourne", "Canberra", "Brisbane", "Perth"],
+    text: "What is the capital of Malta?",
+    options: ["Larnaca", "Valletta", "Catania", "Ajaccio", "Lampedusa"],
+    correct: 1
+  },
+  {
+    text: "David Katz was the first professor in psychology at Stockholm University. What was his research speciality?",
+    options: ["Reaction time studies", "Intelligence testing", "Tactile perception", "Auditory attention", "Subliminal perception"],
     correct: 2
   },
   {
-    text: "Which element has the chemical symbol 'Au'?",
-    options: ["Silver", "Gold", "Copper", "Aluminium", "Iron"],
-    correct: 1
-  },
-  {
-    text: "In which year did the First World War end?",
-    options: ["1915", "1916", "1917", "1918", "1919"],
+    text: "Which of these is a Polish city?",
+    options: ["Radoszyn", "Ransom", "Radon", "Radom", "Random"],
     correct: 3
   },
   {
-    text: "What is the largest planet in our solar system?",
-    options: ["Mars", "Saturn", "Neptune", "Uranus", "Jupiter"],
-    correct: 4
+    text: "Which country came second in the Eurovision Song Contest in the year ABBA won?",
+    options: ["United Kingdom", "Luxembourg", "Spain", "Ukraine", "Norway"],
+    correct: 1
   },
   {
-    text: "Who wrote 'Pride and Prejudice'?",
-    options: ["Charlotte Brontë", "Jane Austen", "Mary Shelley", "George Eliot", "Virginia Woolf"],
-    correct: 1
+    text: "Who wrote the book \"2001: A Space Odyssey\"?",
+    options: ["Sonny Rollins", "Stanislaw Lem", "Isaac Asimov", "Alan Dean Foster", "Arthur C. Clarke"],
+    correct: 4
   }
 ];
 
-/* ═══════════════ State ═══════════════ */
+/* ── Scoring ──────────────────────────────────────────
+   Brier score: BS = Σ (p_i − o_i)²   where p_i in [0,1]
+   At ignorance (5 options, all 20%):
+     BS = 4×(0.2−0)² + 1×(0.2−1)² = 0.16 + 0.64 = 0.80
+   Formula: S = 25 × (0.80 − BS)
+     Perfect  BS=0.00 → S = +20
+     Ignorance BS=0.80 → S =   0
+     Worst    BS=2.00 → S = −30
+──────────────────────────────────────────────────── */
+function computeScore(probs, correct) {
+  let bs = 0;
+  probs.forEach((p, i) => {
+    bs += Math.pow(p / 100 - (i === correct ? 1 : 0), 2);
+  });
+  return 25 * (0.8 - bs);
+}
+
+/* ── State ── */
 let current = 0;
 let answers = QUESTIONS.map(q => {
   const base = Math.floor(100 / q.options.length);
   const arr = q.options.map(() => base);
-  arr[0] += 100 - arr.reduce((a,b)=>a+b,0);
+  arr[0] += 100 - arr.reduce((a, b) => a + b, 0);
   return arr;
 });
 
-/* ═══════════════ Helpers ═══════════════ */
 function isAuto() { return document.getElementById('chk-auto').checked; }
-function getSum(idx) { return answers[idx].reduce((a,b)=>a+b,0); }
+function getSum(idx) { return answers[idx].reduce((a, b) => a + b, 0); }
 
-function computeScore(probs, correct) {
-  const n = probs.length;
-  let brier = 0;
-  probs.forEach((p,i) => { brier += Math.pow(p/100 - (i===correct?1:0), 2); });
-  const worst = 1 + (n-1) * Math.pow(1/n, 2);
-  return Math.max(0, 1 - brier / worst);
-}
-
-/* ═══════════════ Normalize ═══════════════ */
+/* ── Normalize ── */
 function doNormalize() {
   const s = getSum(current);
   if (s === 0) {
     const base = Math.floor(100 / answers[current].length);
     answers[current] = answers[current].map(() => base);
-    answers[current][0] += 100 - answers[current].reduce((a,b)=>a+b,0);
+    answers[current][0] += 100 - answers[current].reduce((a, b) => a + b, 0);
   } else {
     const scaled = answers[current].map(v => v / s * 100);
     const floored = scaled.map(v => Math.floor(v));
-    let rem = 100 - floored.reduce((a,b)=>a+b,0);
-    const diffs = scaled.map((v,i) => v - floored[i]);
-    const order = diffs.map((_,i)=>i).sort((a,b)=>diffs[b]-diffs[a]);
-    for (let i=0; i<rem; i++) floored[order[i]]++;
+    let rem = 100 - floored.reduce((a, b) => a + b, 0);
+    const diffs = scaled.map((v, i) => v - floored[i]);
+    const order = diffs.map((_, i) => i).sort((a, b) => diffs[b] - diffs[a]);
+    for (let i = 0; i < rem; i++) floored[order[i]]++;
     answers[current] = floored;
   }
-  syncSliders();
-  refreshStatus();
+  syncSliders(); refreshStatus();
 }
 
-/* ═══════════════ Slider logic ═══════════════ */
+/* ── Slider ── */
 function onSlider(idx, raw) {
   const v = Math.max(0, Math.min(100, parseInt(raw)));
-
   if (isAuto()) {
     const delta = v - answers[current][idx];
     answers[current][idx] = v;
-    const others = answers[current].map((_,i)=>i).filter(i=>i!==idx);
-    const oSum = others.reduce((a,i)=>a+answers[current][i],0);
-
+    const others = answers[current].map((_, i) => i).filter(i => i !== idx);
+    const oSum = others.reduce((a, i) => a + answers[current][i], 0);
     if (oSum > 0) {
       let remaining = -delta;
-      others.forEach((i,k) => {
-        if (k === others.length-1) {
+      others.forEach((i, k) => {
+        if (k === others.length - 1) {
           answers[current][i] = Math.max(0, answers[current][i] + remaining);
         } else {
           const adj = Math.round(remaining * (answers[current][i] / oSum));
@@ -563,135 +301,144 @@ function onSlider(idx, raw) {
         }
       });
     }
-    /* fix any rounding drift */
     const s = getSum(current);
     if (s !== 100) {
       const diff = 100 - s;
-      const others2 = answers[current].map((_,i)=>i).filter(i=>i!==idx);
-      for (let i=0; i<others2.length; i++) {
-        if (answers[current][others2[i]] + diff >= 0) {
-          answers[current][others2[i]] += diff;
-          break;
-        }
+      const o2 = answers[current].map((_, i) => i).filter(i => i !== idx);
+      for (let i = 0; i < o2.length; i++) {
+        if (answers[current][o2[i]] + diff >= 0) { answers[current][o2[i]] += diff; break; }
       }
     }
     syncSliders();
   } else {
     answers[current][idx] = v;
-    document.getElementById('lb'+idx).textContent = v + '%';
+    document.getElementById('lb' + idx).textContent = v + '%';
   }
   refreshStatus();
 }
 
 function syncSliders() {
-  answers[current].forEach((v,i) => {
-    const sl = document.getElementById('sl'+i);
-    const lb = document.getElementById('lb'+i);
+  answers[current].forEach((v, i) => {
+    const sl = document.getElementById('sl' + i);
+    const lb = document.getElementById('lb' + i);
     if (sl) { sl.value = v; lb.textContent = v + '%'; }
   });
 }
 
-/* ═══════════════ Status bar ═══════════════ */
 function refreshStatus() {
   const s = getSum(current);
   const pill = document.getElementById('sum-pill');
-  const nextBtn = document.getElementById('btn-next');
-  const normBtn = document.getElementById('btn-norm');
-
-  pill.className = 'sum-pill ' + (s===100 ? 'ok' : s>100 ? 'over' : 'under');
-  pill.textContent = s===100 ? 'Sum = 100% — ready!'
-    : s>100 ? `Sum = ${s}% — ${s-100}% over`
-    : `Sum = ${s}% — ${100-s}% short`;
-
-  nextBtn.disabled = (s !== 100);
-  normBtn.disabled = isAuto();
+  pill.className = 'sum-pill ' + (s === 100 ? 'ok' : s > 100 ? 'over' : 'under');
+  pill.textContent = s === 100 ? 'Sum = 100% — ready!'
+    : s > 100 ? `Sum = ${s}% — ${s - 100}% over`
+    : `Sum = ${s}% — ${100 - s}% short`;
+  document.getElementById('btn-next').disabled = (s !== 100);
+  document.getElementById('btn-norm').disabled = isAuto();
 }
 
-/* ═══════════════ Render question ═══════════════ */
+/* ── Render question ── */
 function renderQuestion() {
-  const q = QUESTIONS[current];
-  const n = QUESTIONS.length;
-
-  document.getElementById('prog-fill').style.width = (current/n*100)+'%';
-  document.getElementById('prog-label').textContent = `${current+1} of ${n}`;
-  document.getElementById('q-number').textContent = `Question ${current+1}`;
+  const q = QUESTIONS[current], n = QUESTIONS.length;
+  document.getElementById('prog-fill').style.width = (current / n * 100) + '%';
+  document.getElementById('prog-label').textContent = `${current + 1} of ${n}`;
+  document.getElementById('q-number').textContent = `Question ${current + 1}`;
   document.getElementById('q-text').textContent = q.text;
-
-  document.getElementById('slider-list').innerHTML = q.options.map((opt,i) => `
+  document.getElementById('slider-list').innerHTML = q.options.map((opt, i) => `
     <div class="option-row">
-      <div class="opt-letter">${String.fromCharCode(65+i)}</div>
+      <div class="opt-letter">${String.fromCharCode(65 + i)}</div>
       <div class="opt-inner">
         <span class="opt-label">${opt}</span>
         <input type="range" id="sl${i}" min="0" max="100" step="1"
-          value="${answers[current][i]}"
-          oninput="onSlider(${i}, parseInt(this.value))">
+          value="${answers[current][i]}" oninput="onSlider(${i}, parseInt(this.value))">
       </div>
       <span class="opt-pct" id="lb${i}">${answers[current][i]}%</span>
-    </div>
-  `).join('');
-
-  /* dots */
-  document.getElementById('step-dots').innerHTML = QUESTIONS.map((_,i) =>
-    `<div class="dot ${i<current?'done':i===current?'current':''}"></div>`
-  ).join('');
-
+    </div>`).join('');
+  document.getElementById('step-dots').innerHTML = QUESTIONS.map((_, i) =>
+    `<div class="dot ${i < current ? 'done' : i === current ? 'current' : ''}"></div>`).join('');
   document.getElementById('btn-back').disabled = (current === 0);
-  document.getElementById('btn-next').textContent = current===n-1 ? 'Submit' : 'Next';
-
+  document.getElementById('btn-next').textContent = current === n - 1 ? 'Submit' : 'Next';
   document.getElementById('chk-auto').onchange = refreshStatus;
   refreshStatus();
 }
 
-/* ═══════════════ Navigation ═══════════════ */
+/* ── Navigation ── */
 function startQuiz() {
   document.getElementById('intro').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
   renderQuestion();
 }
-
 function doNext() {
   if (getSum(current) !== 100) return;
-  if (current === QUESTIONS.length-1) { showResults(); return; }
-  current++;
-  renderQuestion();
+  if (current === QUESTIONS.length - 1) { showResults(); return; }
+  current++; renderQuestion();
 }
-
 function doBack() {
   if (current === 0) return;
-  current--;
-  renderQuestion();
+  current--; renderQuestion();
 }
 
-/* ═══════════════ Results ═══════════════ */
+/* ── Results ── */
+function colorClass(v) { return v > 0 ? 'positive' : v < 0 ? 'negative' : 'zero'; }
+
 function showResults() {
   document.getElementById('quiz').style.display = 'none';
   document.getElementById('results').style.display = 'block';
 
-  const scores = QUESTIONS.map((q,i) => computeScore(answers[i], q.correct));
-  const avg = scores.reduce((a,b)=>a+b,0) / scores.length;
-  const pct = Math.round(avg * 100);
+  const scores = QUESTIONS.map((q, i) => computeScore(answers[i], q.correct));
+  const total  = scores.reduce((a, b) => a + b, 0);
+  const avg    = total / scores.length;
+  const maxTotal = 20 * QUESTIONS.length;  // +20 per question
+  const pct    = Math.round(total / maxTotal * 100);
 
-  document.getElementById('res-avg').textContent = avg.toFixed(2);
-  document.getElementById('res-pct').textContent = pct + '%';
+  const te = document.getElementById('res-total');
+  te.textContent = (total >= 0 ? '+' : '') + total.toFixed(1);
+  te.className = 'big ' + colorClass(total);
+
+  const ae = document.getElementById('res-avg');
+  ae.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(1);
+  ae.className = 'big ' + colorClass(avg);
+
+  const pe = document.getElementById('res-pct');
+  pe.textContent = pct + '%';
+  pe.className = 'big ' + colorClass(pct);
+
+  // Centred bar: full range = 50 units (−30 to +20), zero at 60%
+  const ZERO_LEFT = 60;   // % position of zero on bar
+  const NEG_SPAN  = 30;   // units from 0 to left edge
+  const POS_SPAN  = 20;   // units from 0 to right edge
+
   setTimeout(() => {
-    document.getElementById('res-bar').style.width = pct + '%';
+    if (avg <= 0) {
+      const frac = Math.min(Math.abs(avg) / NEG_SPAN, 1);
+      const w = frac * ZERO_LEFT;
+      document.getElementById('bar-neg').style.left  = (ZERO_LEFT - w) + '%';
+      document.getElementById('bar-neg').style.width = w + '%';
+      document.getElementById('bar-pos').style.width = '0%';
+    } else {
+      const frac = Math.min(avg / POS_SPAN, 1);
+      const w = frac * (100 - ZERO_LEFT);
+      document.getElementById('bar-pos').style.left  = ZERO_LEFT + '%';
+      document.getElementById('bar-pos').style.width = w + '%';
+      document.getElementById('bar-neg').style.width = '0%';
+    }
   }, 100);
 
-  document.getElementById('q-breakdown').innerHTML = QUESTIONS.map((q,i) => {
+  // Per-question breakdown
+  document.getElementById('q-breakdown').innerHTML = QUESTIONS.map((q, i) => {
     const sc = scores[i];
-    const badgeCls = sc >= 0.7 ? 'high' : sc >= 0.4 ? 'mid' : 'low';
-    const opts = q.options.map((opt,j) => `
-      <div class="opt-result-row ${j===q.correct?'is-correct':''}">
-        <span>${String.fromCharCode(65+j)}. ${opt}${j===q.correct?'<span class="correct-tag">correct</span>':''}</span>
+    const badgeCls = sc > 5 ? 'high' : sc >= -5 ? 'mid' : 'low';
+    const sign = sc >= 0 ? '+' : '';
+    const opts = q.options.map((opt, j) => `
+      <div class="opt-result-row ${j === q.correct ? 'is-correct' : ''}">
+        <span>${String.fromCharCode(65 + j)}. ${opt}${j === q.correct ? '<span class="correct-tag">correct</span>' : ''}</span>
         <span>${answers[i][j]}%</span>
       </div>`).join('');
     return `
       <div class="q-result">
         <div class="q-result-header">
           <div class="q-result-text">${q.text}</div>
-          <span class="q-score-badge ${badgeCls}">${sc.toFixed(2)}</span>
-        </div>
-        ${opts}
+          <span class="q-score-badge ${badgeCls}">${sign}${sc.toFixed(1)}</span>
+        </div>${opts}
       </div>`;
   }).join('');
 }
@@ -701,13 +448,12 @@ function doRestart() {
   answers = QUESTIONS.map(q => {
     const base = Math.floor(100 / q.options.length);
     const arr = q.options.map(() => base);
-    arr[0] += 100 - arr.reduce((a,b)=>a+b,0);
+    arr[0] += 100 - arr.reduce((a, b) => a + b, 0);
     return arr;
   });
   document.getElementById('results').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
   document.getElementById('chk-auto').checked = true;
-  document.getElementById('chk-auto').disabled = false;
   renderQuestion();
 }
 </script>
