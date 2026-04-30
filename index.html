@@ -3,81 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Probabilistic MCQ Test</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F7F5F0; --surface: #FFFFFF; --border: #E2DDD6;
-    --text: #1A1714; --muted: #7A746C; --accent: #2B5CE6;
+    --bg: var(--color-background-tertiary, #F7F5F0);
+    --surface: var(--color-background-primary, #FFFFFF);
+    --border: var(--color-border-tertiary, #E2DDD6);
+    --text: var(--color-text-primary, #1A1714);
+    --muted: var(--color-text-secondary, #7A746C);
+    --accent: #2B5CE6;
     --ok: #1A7A4A; --ok-bg: #E8F5EE;
     --warn: #A05C00; --warn-bg: #FEF3E2;
     --danger: #C0392B; --danger-bg: #FDECEB;
     --radius: 12px; --radius-sm: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
+  body { font-family: var(--font-sans, sans-serif); background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
   .container { max-width: 680px; margin: 0 auto; }
   .site-header { text-align: center; margin-bottom: 2.5rem; padding-top: 1rem; }
-  .site-header h1 { font-family: 'DM Serif Display', serif; font-size: 2.2rem; font-weight: 400; letter-spacing: -0.02em; }
+  .site-header h1 { font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; }
   .site-header p { font-size: 0.95rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.6; }
   .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
   .progress-track { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
   .progress-label { font-size: 13px; color: var(--muted); white-space: nowrap; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; margin-bottom: 1rem; }
+  .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.75rem; margin-bottom: 1rem; }
   .q-number { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
-  .q-text { font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-weight: 400; line-height: 1.5; margin-bottom: 1.75rem; }
-  .option-row { display: grid; grid-template-columns: 28px 1fr 48px; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .opt-letter { font-size: 13px; font-weight: 500; color: var(--muted); text-align: center; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  .opt-inner { display: flex; flex-direction: column; gap: 5px; }
+  .q-text { font-size: 1.15rem; font-weight: 500; line-height: 1.5; margin-bottom: 1.75rem; }
+  .option-row { display: grid; grid-template-columns: 28px 1fr 52px; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .opt-letter { font-size: 13px; font-weight: 500; color: var(--muted); width: 28px; height: 28px; border: 0.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .opt-inner { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
   .opt-label { font-size: 14px; line-height: 1.4; }
-  .opt-pct { font-size: 13px; font-weight: 500; color: var(--accent); text-align: right; }
-  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 2px; background: var(--border); outline: none; cursor: pointer; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15); cursor: pointer; transition: transform .1s; }
-  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .opt-pct { font-size: 13px; font-weight: 500; color: var(--accent); text-align: right; white-space: nowrap; }
+  input[type=range] { width: 100%; height: 4px; border-radius: 2px; cursor: pointer; }
   input[type=range]:disabled { opacity: .4; cursor: default; }
-  .sum-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  .sum-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 0.5px solid var(--border); }
   .sum-pill { font-size: 13px; font-weight: 500; padding: 5px 12px; border-radius: 20px; }
   .sum-pill.ok    { background: var(--ok-bg);    color: var(--ok); }
   .sum-pill.over  { background: var(--danger-bg); color: var(--danger); }
   .sum-pill.under { background: var(--warn-bg);   color: var(--warn); }
-  .toggle-row { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; font-size: 14px; color: var(--muted); cursor: pointer; user-select: none; }
-  .toggle-row input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+  .toggle-row { display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem; font-size: 14px; color: var(--muted); cursor: pointer; user-select: none; }
+  .toggle-row input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
   .btn-row { display: flex; gap: 8px; }
-  .btn { padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; background: transparent; color: var(--text); transition: background .15s; }
+  .btn { padding: 7px 16px; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; cursor: pointer; background: transparent; color: var(--text); transition: background .15s; }
   .btn:hover:not(:disabled) { background: var(--bg); }
   .btn:disabled { opacity: .35; cursor: default; }
-  .btn-accent { padding: 10px 24px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background .15s, transform .1s; }
+  .btn-accent { padding: 9px 22px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 500; cursor: pointer; transition: background .15s, transform .1s; }
   .btn-accent:hover:not(:disabled) { background: #1a45c7; }
   .btn-accent:active:not(:disabled) { transform: scale(.98); }
   .btn-accent:disabled { opacity: .35; cursor: default; }
   .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
   .step-dots { display: flex; gap: 6px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .2s; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
   .dot.done    { background: var(--accent); opacity: .4; }
   .dot.current { background: var(--accent); }
-
-  /* Results */
+  .demo-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; background: var(--warn-bg); color: var(--warn); padding: 3px 9px; border-radius: 4px; margin-bottom: 0.6rem; }
+  .score-panel { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-top: 1.25rem; }
+  .score-panel-title { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+  .score-grid-demo { display: grid; gap: 10px; }
+  .score-tile-demo { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; text-align: center; }
+  .score-tile-demo .big { font-size: 1.6rem; font-weight: 500; line-height: 1.2; }
+  .score-tile-demo .lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .score-not-ready { font-size: 13px; color: var(--muted); font-style: italic; text-align: center; padding: 0.5rem 0; }
+  .score-checks { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 0.5px solid var(--border); }
+  .score-checks label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; user-select: none; }
+  .score-checks input { accent-color: var(--accent); cursor: pointer; }
+  .positive { color: var(--ok); }
+  .negative { color: var(--danger); }
+  .zero     { color: var(--muted); }
   .results-header { text-align: center; margin-bottom: 1.5rem; }
-  .results-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 400; }
+  .results-header h2 { font-size: 1.6rem; font-weight: 500; }
   .results-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
   .score-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
-  .score-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; text-align: center; }
-  .score-tile .big { font-family: 'DM Serif Display', serif; font-size: 2.2rem; font-weight: 400; }
-  .score-tile .big.positive { color: var(--ok); }
-  .score-tile .big.zero     { color: var(--muted); }
-  .score-tile .big.negative { color: var(--danger); }
+  .score-tile { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem; text-align: center; }
+  .score-tile .big { font-size: 2rem; font-weight: 500; }
   .score-tile .label { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-
-  /* Centred score bar */
   .bar-container { margin: 0.5rem 0 1.75rem; }
   .bar-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
   .bar-track { position: relative; height: 8px; background: var(--border); border-radius: 4px; overflow: visible; }
   .bar-neg { position: absolute; top: 0; height: 100%; background: var(--danger); border-radius: 4px 0 0 4px; transition: width .6s ease, left .6s ease; }
   .bar-pos { position: absolute; top: 0; height: 100%; background: var(--ok); border-radius: 0 4px 4px 0; transition: width .6s ease, left .6s ease; }
   .bar-zero { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--muted); border-radius: 1px; }
-
-  .q-result { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: .75rem; }
+  .q-result { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: .75rem; }
   .q-result-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: .75rem; }
   .q-result-text { font-size: 14px; line-height: 1.5; flex: 1; }
   .q-score-badge { font-size: 13px; font-weight: 500; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
@@ -88,19 +94,22 @@
   .opt-result-row.is-correct { color: var(--text); font-weight: 500; }
   .correct-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: var(--ok-bg); color: var(--ok); margin-left: 6px; }
   .restart-row { text-align: center; margin-top: 2rem; }
-
-  #intro { display: block; } #quiz { display: none; } #results { display: none; }
-  .intro-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
-  .intro-card h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; }
+  .results-scoring-opts { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1.25rem; }
+  #intro { display: block; } #demo { display: none; } #quiz { display: none; } #results { display: none; }
+  .intro-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
+  .intro-card h2 { font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; }
   .intro-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: .75rem; text-align: left; }
   .intro-card ul { text-align: left; font-size: 14px; color: var(--muted); line-height: 1.9; padding-left: 1.25rem; margin-bottom: 1.5rem; }
   .score-legend { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 1rem 0 1.25rem; }
   .legend-tile { border-radius: 8px; padding: .6rem .75rem; font-size: 13px; text-align: center; }
-  .legend-tile .val { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+  .legend-tile .val { font-size: 1.3rem; font-weight: 500; }
   .legend-tile.good { background: var(--ok-bg);    color: var(--ok); }
   .legend-tile.neut { background: var(--warn-bg);   color: var(--warn); }
   .legend-tile.bad  { background: var(--danger-bg); color: var(--danger); }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+  .divider { border: none; border-top: 0.5px solid var(--border); margin: 1.25rem 0; }
+  .intro-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .hint-box { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; margin-bottom: 1rem; font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .hint-box code { font-family: var(--font-mono, monospace); font-size: 12px; background: var(--border); padding: 1px 5px; border-radius: 3px; color: var(--text); }
 </style>
 </head>
 <body>
@@ -118,7 +127,7 @@
       <ul>
         <li>Use the sliders to assign % to each option</li>
         <li>All options must sum to exactly 100%</li>
-        <li>Scoring formula: S = 25 × (0.8 − Brier score)</li>
+        <li>Scoring: S = 25 × (0.8 − Brier score)</li>
       </ul>
       <div class="score-legend">
         <div class="legend-tile good"><div class="val">+20</div>perfect answer</div>
@@ -127,9 +136,48 @@
       </div>
       <hr class="divider">
       <p style="text-align:center;font-size:13px;color:var(--muted);margin-bottom:1.25rem;">
-        Spreading probability equally scores 0. The more weight you put on the right answer, the higher your score — but putting weight on wrong answers costs you.
+        Spreading equally scores 0. More weight on the right answer = higher score. Weight on wrong answers costs you.
       </p>
-      <button class="btn-accent" onclick="startQuiz()">Start test</button>
+      <div class="intro-btns">
+        <button class="btn" onclick="startDemo()">Demo slide ↗</button>
+        <button class="btn-accent" onclick="startQuiz()">Start test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO SLIDE -->
+  <div id="demo">
+    <div class="hint-box" id="demo-hint"></div>
+    <div class="card">
+      <div class="demo-badge">Demo</div>
+      <div class="q-number">Demonstration question</div>
+      <div class="q-text" id="demo-q-text"></div>
+      <div id="demo-slider-list"></div>
+      <div class="sum-row">
+        <span class="sum-pill" id="demo-sum-pill"></span>
+        <div class="btn-row">
+          <button class="btn" id="demo-btn-norm" onclick="demoNormalize()">Normalize</button>
+          <button class="btn" onclick="demoReset()">Reset to equal</button>
+        </div>
+      </div>
+      <div class="score-panel">
+        <div class="score-panel-title">Live scoring</div>
+        <div id="demo-scores-wrap">
+          <div class="score-grid-demo" id="demo-scores"></div>
+          <div class="score-not-ready" id="demo-scores-placeholder" style="display:none;">
+            Adjust sliders to sum to 100% to see scores
+          </div>
+        </div>
+        <div class="score-checks" id="demo-score-checks"></div>
+      </div>
+    </div>
+    <div style="margin-top:.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <button class="btn" onclick="backToIntro()">← Back</button>
+      <label class="toggle-row" style="margin:0;">
+        <input type="checkbox" id="demo-chk-auto">
+        Auto-adjust sliders
+      </label>
+      <button class="btn-accent" onclick="startQuiz()">Start test →</button>
     </div>
   </div>
 
@@ -140,7 +188,7 @@
       <span class="progress-label" id="prog-label"></span>
     </div>
     <label class="toggle-row">
-      <input type="checkbox" id="chk-auto" checked>
+      <input type="checkbox" id="chk-auto">
       Auto-adjust other sliders to keep sum at 100%
     </label>
     <div class="card">
@@ -168,292 +216,354 @@
       <h2>Your results</h2>
       <p>+20 = perfect &nbsp;·&nbsp; 0 = ignorance &nbsp;·&nbsp; −30 = confidently wrong</p>
     </div>
-
+    <div class="results-scoring-opts">
+      <div style="font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;">Scoring method</div>
+      <div class="score-checks" id="results-score-checks"></div>
+    </div>
     <div class="score-grid">
       <div class="score-tile">
         <div class="big" id="res-total">—</div>
-        <div class="label">Total score<br>(max +100)</div>
+        <div class="label">Total score<br><span id="res-total-label">(max +100)</span></div>
       </div>
       <div class="score-tile">
         <div class="big" id="res-avg">—</div>
-        <div class="label">Avg per question<br>(max +20)</div>
+        <div class="label">Avg per question<br><span id="res-avg-label">(max +20)</span></div>
       </div>
       <div class="score-tile">
         <div class="big" id="res-pct">—</div>
-        <div class="label">% of max<br>possible</div>
+        <div class="label" id="res-pct-label">% of max possible</div>
       </div>
     </div>
-
-    <!-- Centred bar: range −30 to +20, zero at 60% -->
-    <div class="bar-container">
-      <div class="bar-axis">
-        <span>−30</span>
-        <span>0 (ignorance)</span>
-        <span>+20</span>
-      </div>
-      <div class="bar-track" id="bar-track">
+    <div class="bar-container" id="res-bar-wrap">
+      <div class="bar-axis"><span>−30</span><span>0 (ignorance)</span><span>+20</span></div>
+      <div class="bar-track">
         <div class="bar-neg" id="bar-neg" style="width:0%;left:0%"></div>
         <div class="bar-pos" id="bar-pos" style="width:0%;left:60%"></div>
         <div class="bar-zero" style="left:60%"></div>
       </div>
     </div>
-
     <div id="q-breakdown"></div>
     <div class="restart-row"><button class="btn-accent" onclick="doRestart()">Try again</button></div>
   </div>
 </div>
 
 <script>
-/* ── Questions ── */
+const DEMO_Q = {
+  text: "Which planet in our solar system has the most moons?",
+  options: ["Mars", "Jupiter", "Saturn", "Uranus", "Neptune"],
+  correct: 2
+};
+
 const QUESTIONS = [
-  {
-    text: "What is the capital of Malta?",
-    options: ["Larnaca", "Valletta", "Catania", "Ajaccio", "Lampedusa"],
-    correct: 1
-  },
-  {
-    text: "David Katz was the first professor in psychology at Stockholm University. What was his research speciality?",
-    options: ["Reaction time studies", "Intelligence testing", "Tactile perception", "Auditory attention", "Subliminal perception"],
-    correct: 2
-  },
-  {
-    text: "Which of these is a Polish city?",
-    options: ["Radoszyn", "Ransom", "Radon", "Radom", "Random"],
-    correct: 3
-  },
-  {
-    text: "Which country came second in the Eurovision Song Contest in the year ABBA won?",
-    options: ["United Kingdom", "Luxembourg", "Spain", "Ukraine", "Norway"],
-    correct: 1
-  },
-  {
-    text: "Who wrote the book \"2001: A Space Odyssey\"?",
-    options: ["Sonny Rollins", "Stanislaw Lem", "Isaac Asimov", "Alan Dean Foster", "Arthur C. Clarke"],
-    correct: 4
-  }
+  { text: "What is the capital of Malta?",
+    options: ["Larnaca","Valletta","Catania","Ajaccio","Lampedusa"], correct: 1 },
+  { text: "David Katz was the first professor in psychology at Stockholm University. What was his research speciality?",
+    options: ["Reaction time studies","Intelligence testing","Tactile perception","Auditory attention","Subliminal perception"], correct: 2 },
+  { text: "Which of these is a Polish city?",
+    options: ["Radoszyn","Ransom","Radon","Radom","Random"], correct: 3 },
+  { text: "Which country came second in Eurovision in the year ABBA won?",
+    options: ["United Kingdom","Luxembourg","Spain","Ukraine","Norway"], correct: 0 },
+  { text: "Who wrote the book \"2001: A Space Odyssey\"?",
+    options: ["Sonny Rollins","Stanislaw Lem","Isaac Asimov","Alan Dean Foster","Arthur C. Clarke"], correct: 4 }
 ];
 
-/* ── Scoring ──────────────────────────────────────────
-   Brier score: BS = Σ (p_i − o_i)²   where p_i in [0,1]
-   At ignorance (5 options, all 20%):
-     BS = 4×(0.2−0)² + 1×(0.2−1)² = 0.16 + 0.64 = 0.80
-   Formula: S = 25 × (0.80 − BS)
-     Perfect  BS=0.00 → S = +20
-     Ignorance BS=0.80 → S =   0
-     Worst    BS=2.00 → S = −30
-──────────────────────────────────────────────────── */
-function computeScore(probs, correct) {
-  let bs = 0;
-  probs.forEach((p, i) => {
-    bs += Math.pow(p / 100 - (i === correct ? 1 : 0), 2);
-  });
-  return 25 * (0.8 - bs);
-}
+function brierIgnorance(n) { return (n-1)/n; }
+function computeBrier(probs, correct) { return probs.reduce((s,p,i)=>s+Math.pow(p/100-(i===correct?1:0),2),0); }
+function computeScaled(probs, correct) { return 25*(brierIgnorance(probs.length)-computeBrier(probs,correct)); }
+function computeLog(probs, correct) { const p=probs[correct]/100; return p<=0?-Infinity:Math.log(p); }
 
-/* ── State ── */
-let current = 0;
-let answers = QUESTIONS.map(q => {
-  const base = Math.floor(100 / q.options.length);
-  const arr = q.options.map(() => base);
-  arr[0] += 100 - arr.reduce((a, b) => a + b, 0);
-  return arr;
-});
-
-function isAuto() { return document.getElementById('chk-auto').checked; }
-function getSum(idx) { return answers[idx].reduce((a, b) => a + b, 0); }
-
-/* ── Normalize ── */
-function doNormalize() {
-  const s = getSum(current);
-  if (s === 0) {
-    const base = Math.floor(100 / answers[current].length);
-    answers[current] = answers[current].map(() => base);
-    answers[current][0] += 100 - answers[current].reduce((a, b) => a + b, 0);
+function proportionalAdjust(probs, idx, newVal) {
+  newVal = Math.max(0, Math.min(100, newVal));
+  const budget = 100 - newVal;
+  const others = probs.map((_,i)=>i).filter(i=>i!==idx);
+  const otherSum = others.reduce((s,i)=>s+probs[i],0);
+  let floats = probs.slice();
+  floats[idx] = newVal;
+  if (otherSum === 0) {
+    const share = budget / others.length;
+    others.forEach(i=>{ floats[i]=share; });
   } else {
-    const scaled = answers[current].map(v => v / s * 100);
-    const floored = scaled.map(v => Math.floor(v));
-    let rem = 100 - floored.reduce((a, b) => a + b, 0);
-    const diffs = scaled.map((v, i) => v - floored[i]);
-    const order = diffs.map((_, i) => i).sort((a, b) => diffs[b] - diffs[a]);
-    for (let i = 0; i < rem; i++) floored[order[i]]++;
-    answers[current] = floored;
+    others.forEach(i=>{ floats[i] = probs[i]===0 ? 0 : (probs[i]/otherSum)*budget; });
   }
-  syncSliders(); refreshStatus();
+  const floors = floats.map(v=>Math.floor(v));
+  const fracs  = floats.map((v,i)=>({i, f:v-floors[i]}));
+  let rem = 100 - floors.reduce((s,v)=>s+v,0);
+  fracs.sort((a,b)=>b.f-a.f);
+  for (let k=0;k<rem;k++) floors[fracs[k].i]++;
+  return floors;
 }
 
-/* ── Slider ── */
-function onSlider(idx, raw) {
-  const v = Math.max(0, Math.min(100, parseInt(raw)));
-  if (isAuto()) {
-    const delta = v - answers[current][idx];
-    answers[current][idx] = v;
-    const others = answers[current].map((_, i) => i).filter(i => i !== idx);
-    const oSum = others.reduce((a, i) => a + answers[current][i], 0);
-    if (oSum > 0) {
-      let remaining = -delta;
-      others.forEach((i, k) => {
-        if (k === others.length - 1) {
-          answers[current][i] = Math.max(0, answers[current][i] + remaining);
-        } else {
-          const adj = Math.round(remaining * (answers[current][i] / oSum));
-          answers[current][i] = Math.max(0, answers[current][i] + adj);
-          remaining -= adj;
-        }
-      });
-    }
-    const s = getSum(current);
-    if (s !== 100) {
-      const diff = 100 - s;
-      const o2 = answers[current].map((_, i) => i).filter(i => i !== idx);
-      for (let i = 0; i < o2.length; i++) {
-        if (answers[current][o2[i]] + diff >= 0) { answers[current][o2[i]] += diff; break; }
-      }
-    }
-    syncSliders();
+function equalArr(n) {
+  const base=Math.floor(100/n), arr=Array(n).fill(base);
+  arr[0]+=100-arr.reduce((a,b)=>a+b,0); return arr;
+}
+function normalizeArr(arr) {
+  const s=arr.reduce((a,b)=>a+b,0);
+  if(s===0) return equalArr(arr.length);
+  const floats=arr.map(v=>v/s*100), floors=floats.map(v=>Math.floor(v));
+  const fracs=floats.map((v,i)=>({i,f:v-floors[i]}));
+  let rem=100-floors.reduce((a,b)=>a+b,0);
+  fracs.sort((a,b)=>b.f-a.f);
+  for(let k=0;k<rem;k++) floors[fracs[k].i]++;
+  return floors;
+}
+
+/* ── DEMO ── */
+let demoProbs = equalArr(DEMO_Q.options.length);
+let demoChecks = { brier: false, log: false };
+
+function demoSum() { return demoProbs.reduce((a,b)=>a+b,0); }
+
+function startDemo() {
+  document.getElementById('intro').style.display='none';
+  document.getElementById('demo').style.display='block';
+  document.getElementById('demo-q-text').textContent=DEMO_Q.text;
+  document.getElementById('demo-hint').innerHTML=
+    `<strong>Presenter note:</strong> The correct answer is option
+     <strong>${String.fromCharCode(65+DEMO_Q.correct)} — ${DEMO_Q.options[DEMO_Q.correct]}</strong>.
+     To change this question, edit <code>DEMO_Q</code> at the top of the &lt;script&gt; block.`;
+  demoProbs=equalArr(DEMO_Q.options.length);
+  renderDemoSliders();
+  renderDemoCheckboxes();
+  renderDemoScores();
+  demoRefreshStatus();
+}
+
+function renderDemoSliders() {
+  document.getElementById('demo-slider-list').innerHTML=DEMO_Q.options.map((opt,i)=>`
+    <div class="option-row">
+      <div class="opt-letter">${String.fromCharCode(65+i)}</div>
+      <div class="opt-inner">
+        <span class="opt-label">${opt}</span>
+        <input type="range" id="dsl${i}" min="0" max="100" step="1" value="${demoProbs[i]}"
+               oninput="onDemoSlider(${i},parseInt(this.value))">
+      </div>
+      <span class="opt-pct" id="dlb${i}">${demoProbs[i]}%</span>
+    </div>`).join('');
+  document.getElementById('demo-chk-auto').onchange=demoRefreshStatus;
+}
+
+function syncDemoSliders() {
+  demoProbs.forEach((v,i)=>{
+    const sl=document.getElementById('dsl'+i), lb=document.getElementById('dlb'+i);
+    if(sl){sl.value=v; lb.textContent=v+'%';}
+  });
+}
+
+function onDemoSlider(idx,val) {
+  if(document.getElementById('demo-chk-auto').checked){
+    demoProbs=proportionalAdjust(demoProbs,idx,val); syncDemoSliders();
   } else {
-    answers[current][idx] = v;
-    document.getElementById('lb' + idx).textContent = v + '%';
+    demoProbs[idx]=val; document.getElementById('dlb'+idx).textContent=val+'%';
+  }
+  demoRefreshStatus(); renderDemoScores();
+}
+
+function demoNormalize(){ demoProbs=normalizeArr(demoProbs); syncDemoSliders(); demoRefreshStatus(); renderDemoScores(); }
+function demoReset()    { demoProbs=equalArr(DEMO_Q.options.length); syncDemoSliders(); demoRefreshStatus(); renderDemoScores(); }
+
+function demoRefreshStatus() {
+  const s=demoSum();
+  const pill=document.getElementById('demo-sum-pill');
+  pill.className='sum-pill '+(s===100?'ok':s>100?'over':'under');
+  pill.textContent=s===100?'Sum = 100%':s>100?`Sum = ${s}% — ${s-100}% over`:`Sum = ${s}% — ${100-s}% short`;
+  document.getElementById('demo-btn-norm').disabled=document.getElementById('demo-chk-auto').checked;
+  renderDemoScores();
+}
+
+function renderDemoCheckboxes() {
+  document.getElementById('demo-score-checks').innerHTML=`
+    <label><input type="checkbox" onchange="demoChecks.brier=this.checked;renderDemoScores()" ${demoChecks.brier?'checked':''}> Raw Brier (lower = better)</label>
+    <label><input type="checkbox" onchange="demoChecks.log=this.checked;renderDemoScores()" ${demoChecks.log?'checked':''}> Log score (−∞ if p = 0)</label>`;
+}
+
+function renderDemoScores() {
+  const ready = demoSum()===100;
+  document.getElementById('demo-scores').style.display = ready ? 'grid' : 'none';
+  document.getElementById('demo-scores-placeholder').style.display = ready ? 'none' : 'block';
+  if (!ready) return;
+
+  const scaled=computeScaled(demoProbs,DEMO_Q.correct);
+  const brier =computeBrier(demoProbs,DEMO_Q.correct);
+  const logS  =computeLog(demoProbs,DEMO_Q.correct);
+
+  const tiles=[{
+    val:(scaled>=0?'+':'')+scaled.toFixed(2),
+    lbl:'Scaled score<br>(0 = ignorance)',
+    cls:scaled>0?'positive':scaled<0?'negative':'zero'
+  }];
+  if(demoChecks.brier) tiles.push({ val:brier.toFixed(3), lbl:'Raw Brier<br>(0 = perfect)', cls:'zero' });
+  if(demoChecks.log)   tiles.push({
+    val:isFinite(logS)?logS.toFixed(3):'−∞',
+    lbl:'Log score<br>(0 = perfect)',
+    cls:isFinite(logS)?(logS>-0.7?'positive':'negative'):'negative'
+  });
+
+  const el=document.getElementById('demo-scores');
+  el.style.gridTemplateColumns=`repeat(${tiles.length},1fr)`;
+  el.innerHTML=tiles.map(t=>`
+    <div class="score-tile-demo">
+      <div class="big ${t.cls}">${t.val}</div>
+      <div class="lbl">${t.lbl}</div>
+    </div>`).join('');
+}
+
+function backToIntro(){ document.getElementById('demo').style.display='none'; document.getElementById('intro').style.display='block'; }
+
+/* ── QUIZ ── */
+let current=0, answers=QUESTIONS.map(q=>equalArr(q.options.length));
+
+function getSum(idx){ return answers[idx].reduce((a,b)=>a+b,0); }
+function doNormalize(){ answers[current]=normalizeArr(answers[current]); syncQuizSliders(); refreshStatus(); }
+
+function onSlider(idx,val){
+  if(document.getElementById('chk-auto').checked){
+    answers[current]=proportionalAdjust(answers[current],idx,val); syncQuizSliders();
+  } else {
+    answers[current][idx]=val; document.getElementById('lb'+idx).textContent=val+'%';
   }
   refreshStatus();
 }
 
-function syncSliders() {
-  answers[current].forEach((v, i) => {
-    const sl = document.getElementById('sl' + i);
-    const lb = document.getElementById('lb' + i);
-    if (sl) { sl.value = v; lb.textContent = v + '%'; }
+function syncQuizSliders(){
+  answers[current].forEach((v,i)=>{
+    const sl=document.getElementById('sl'+i),lb=document.getElementById('lb'+i);
+    if(sl){sl.value=v;lb.textContent=v+'%';}
   });
 }
 
-function refreshStatus() {
-  const s = getSum(current);
-  const pill = document.getElementById('sum-pill');
-  pill.className = 'sum-pill ' + (s === 100 ? 'ok' : s > 100 ? 'over' : 'under');
-  pill.textContent = s === 100 ? 'Sum = 100% — ready!'
-    : s > 100 ? `Sum = ${s}% — ${s - 100}% over`
-    : `Sum = ${s}% — ${100 - s}% short`;
-  document.getElementById('btn-next').disabled = (s !== 100);
-  document.getElementById('btn-norm').disabled = isAuto();
+function refreshStatus(){
+  const s=getSum(current);
+  const pill=document.getElementById('sum-pill');
+  pill.className='sum-pill '+(s===100?'ok':s>100?'over':'under');
+  pill.textContent=s===100?'Sum = 100% — ready!':s>100?`Sum = ${s}% — ${s-100}% over`:`Sum = ${s}% — ${100-s}% short`;
+  document.getElementById('btn-next').disabled=(s!==100);
+  document.getElementById('btn-norm').disabled=document.getElementById('chk-auto').checked;
 }
 
-/* ── Render question ── */
-function renderQuestion() {
-  const q = QUESTIONS[current], n = QUESTIONS.length;
-  document.getElementById('prog-fill').style.width = (current / n * 100) + '%';
-  document.getElementById('prog-label').textContent = `${current + 1} of ${n}`;
-  document.getElementById('q-number').textContent = `Question ${current + 1}`;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('slider-list').innerHTML = q.options.map((opt, i) => `
+function renderQuestion(){
+  const q=QUESTIONS[current],n=QUESTIONS.length;
+  document.getElementById('prog-fill').style.width=(current/n*100)+'%';
+  document.getElementById('prog-label').textContent=`${current+1} of ${n}`;
+  document.getElementById('q-number').textContent=`Question ${current+1}`;
+  document.getElementById('q-text').textContent=q.text;
+  document.getElementById('slider-list').innerHTML=q.options.map((opt,i)=>`
     <div class="option-row">
-      <div class="opt-letter">${String.fromCharCode(65 + i)}</div>
+      <div class="opt-letter">${String.fromCharCode(65+i)}</div>
       <div class="opt-inner">
         <span class="opt-label">${opt}</span>
-        <input type="range" id="sl${i}" min="0" max="100" step="1"
-          value="${answers[current][i]}" oninput="onSlider(${i}, parseInt(this.value))">
+        <input type="range" id="sl${i}" min="0" max="100" step="1" value="${answers[current][i]}"
+               oninput="onSlider(${i},parseInt(this.value))">
       </div>
       <span class="opt-pct" id="lb${i}">${answers[current][i]}%</span>
     </div>`).join('');
-  document.getElementById('step-dots').innerHTML = QUESTIONS.map((_, i) =>
-    `<div class="dot ${i < current ? 'done' : i === current ? 'current' : ''}"></div>`).join('');
-  document.getElementById('btn-back').disabled = (current === 0);
-  document.getElementById('btn-next').textContent = current === n - 1 ? 'Submit' : 'Next';
-  document.getElementById('chk-auto').onchange = refreshStatus;
+  document.getElementById('step-dots').innerHTML=QUESTIONS.map((_,i)=>
+    `<div class="dot ${i<current?'done':i===current?'current':''}"></div>`).join('');
+  document.getElementById('btn-back').disabled=(current===0);
+  document.getElementById('btn-next').textContent=current===n-1?'Submit':'Next';
+  document.getElementById('chk-auto').onchange=refreshStatus;
   refreshStatus();
 }
 
-/* ── Navigation ── */
-function startQuiz() {
-  document.getElementById('intro').style.display = 'none';
-  document.getElementById('quiz').style.display = 'block';
+function startQuiz(){
+  document.getElementById('intro').style.display='none';
+  document.getElementById('demo').style.display='none';
+  document.getElementById('quiz').style.display='block';
   renderQuestion();
 }
-function doNext() {
-  if (getSum(current) !== 100) return;
-  if (current === QUESTIONS.length - 1) { showResults(); return; }
-  current++; renderQuestion();
+function doNext(){ if(getSum(current)!==100)return; if(current===QUESTIONS.length-1){showResults();return;} current++;renderQuestion(); }
+function doBack(){ if(current===0)return; current--;renderQuestion(); }
+
+/* ── RESULTS ── */
+let resChecks={brier:false,log:false};
+function colorClass(v){ return v>0?'positive':v<0?'negative':'zero'; }
+
+function renderResCheckboxes(){
+  document.getElementById('results-score-checks').innerHTML=`
+    <label><input type="checkbox" ${resChecks.brier?'checked':''} onchange="resChecks.brier=this.checked;refreshResults()"> Raw Brier (lower = better; 0 = perfect)</label>
+    <label><input type="checkbox" ${resChecks.log?'checked':''} onchange="resChecks.log=this.checked;refreshResults()"> Log score (0 = perfect; −∞ = p=0 on correct)</label>`;
 }
-function doBack() {
-  if (current === 0) return;
-  current--; renderQuestion();
-}
 
-/* ── Results ── */
-function colorClass(v) { return v > 0 ? 'positive' : v < 0 ? 'negative' : 'zero'; }
+function refreshResults(){
+  const scores=QUESTIONS.map((q,i)=>{
+    if(resChecks.log)   return computeLog(answers[i],q.correct);
+    if(resChecks.brier) return computeBrier(answers[i],q.correct);
+    return computeScaled(answers[i],q.correct);
+  });
+  const useScaled=!resChecks.brier&&!resChecks.log;
+  const hasInf=scores.some(s=>!isFinite(s));
+  const total=hasInf?-Infinity:scores.reduce((a,b)=>a+b,0);
+  const avg=hasInf?-Infinity:total/scores.length;
 
-function showResults() {
-  document.getElementById('quiz').style.display = 'none';
-  document.getElementById('results').style.display = 'block';
+  function fmt(v,dec){ if(!isFinite(v))return'−∞'; return(useScaled&&v>=0?'+':'')+v.toFixed(dec); }
 
-  const scores = QUESTIONS.map((q, i) => computeScore(answers[i], q.correct));
-  const total  = scores.reduce((a, b) => a + b, 0);
-  const avg    = total / scores.length;
-  const maxTotal = 20 * QUESTIONS.length;  // +20 per question
-  const pct    = Math.round(total / maxTotal * 100);
+  const te=document.getElementById('res-total');
+  te.textContent=fmt(total,1); te.className='big '+(isFinite(total)?colorClass(resChecks.brier?-total:total):'negative');
+  const ae=document.getElementById('res-avg');
+  ae.textContent=fmt(avg,1); ae.className='big '+(isFinite(avg)?colorClass(resChecks.brier?-avg:avg):'negative');
+  const pe=document.getElementById('res-pct');
 
-  const te = document.getElementById('res-total');
-  te.textContent = (total >= 0 ? '+' : '') + total.toFixed(1);
-  te.className = 'big ' + colorClass(total);
-
-  const ae = document.getElementById('res-avg');
-  ae.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(1);
-  ae.className = 'big ' + colorClass(avg);
-
-  const pe = document.getElementById('res-pct');
-  pe.textContent = pct + '%';
-  pe.className = 'big ' + colorClass(pct);
-
-  // Centred bar: full range = 50 units (−30 to +20), zero at 60%
-  const ZERO_LEFT = 60;   // % position of zero on bar
-  const NEG_SPAN  = 30;   // units from 0 to left edge
-  const POS_SPAN  = 20;   // units from 0 to right edge
-
-  setTimeout(() => {
-    if (avg <= 0) {
-      const frac = Math.min(Math.abs(avg) / NEG_SPAN, 1);
-      const w = frac * ZERO_LEFT;
-      document.getElementById('bar-neg').style.left  = (ZERO_LEFT - w) + '%';
-      document.getElementById('bar-neg').style.width = w + '%';
-      document.getElementById('bar-pos').style.width = '0%';
-    } else {
-      const frac = Math.min(avg / POS_SPAN, 1);
-      const w = frac * (100 - ZERO_LEFT);
-      document.getElementById('bar-pos').style.left  = ZERO_LEFT + '%';
-      document.getElementById('bar-pos').style.width = w + '%';
-      document.getElementById('bar-neg').style.width = '0%';
+  if(useScaled){
+    const maxTotal=20*QUESTIONS.length, pct=isFinite(total)?Math.round(total/maxTotal*100):0;
+    pe.textContent=pct+'%'; pe.className='big '+colorClass(pct);
+    document.getElementById('res-pct-label').textContent='% of max possible';
+    document.getElementById('res-total-label').textContent='(max +'+(20*QUESTIONS.length)+')';
+    document.getElementById('res-avg-label').textContent='(max +20)';
+    document.getElementById('res-bar-wrap').style.display='block';
+    if(isFinite(avg)){
+      const ZL=60,NS=30,PS=20;
+      if(avg<=0){
+        const w=Math.min(Math.abs(avg)/NS,1)*ZL;
+        document.getElementById('bar-neg').style.cssText=`width:${w}%;left:${ZL-w}%`;
+        document.getElementById('bar-pos').style.width='0%';
+      } else {
+        const w=Math.min(avg/PS,1)*(100-ZL);
+        document.getElementById('bar-pos').style.cssText=`width:${w}%;left:${ZL}%`;
+        document.getElementById('bar-neg').style.width='0%';
+      }
     }
-  }, 100);
+  } else {
+    pe.textContent=fmt(avg,3); pe.className='big '+(isFinite(avg)?colorClass(resChecks.brier?-avg:avg):'negative');
+    document.getElementById('res-pct-label').textContent=resChecks.brier?'Avg Brier':'Avg log score';
+    document.getElementById('res-total-label').textContent=resChecks.brier?'Total Brier':'Total log score';
+    document.getElementById('res-avg-label').textContent='(0 = perfect)';
+    document.getElementById('res-bar-wrap').style.display='none';
+  }
 
-  // Per-question breakdown
-  document.getElementById('q-breakdown').innerHTML = QUESTIONS.map((q, i) => {
-    const sc = scores[i];
-    const badgeCls = sc > 5 ? 'high' : sc >= -5 ? 'mid' : 'low';
-    const sign = sc >= 0 ? '+' : '';
-    const opts = q.options.map((opt, j) => `
-      <div class="opt-result-row ${j === q.correct ? 'is-correct' : ''}">
-        <span>${String.fromCharCode(65 + j)}. ${opt}${j === q.correct ? '<span class="correct-tag">correct</span>' : ''}</span>
-        <span>${answers[i][j]}%</span>
-      </div>`).join('');
-    return `
-      <div class="q-result">
-        <div class="q-result-header">
-          <div class="q-result-text">${q.text}</div>
-          <span class="q-score-badge ${badgeCls}">${sign}${sc.toFixed(1)}</span>
-        </div>${opts}
-      </div>`;
+  document.getElementById('q-breakdown').innerHTML=QUESTIONS.map((q,i)=>{
+    const sc=scores[i];
+    let badgeCls;
+    if(resChecks.brier)    badgeCls=sc<0.3?'high':sc<0.7?'mid':'low';
+    else if(resChecks.log) badgeCls=!isFinite(sc)?'low':sc>-0.5?'high':sc>-1?'mid':'low';
+    else                   badgeCls=sc>5?'high':sc>=-5?'mid':'low';
+    const fmtSc=!isFinite(sc)?'−∞':(useScaled&&sc>=0?'+':'')+sc.toFixed(useScaled?1:3);
+    return `<div class="q-result">
+      <div class="q-result-header">
+        <div class="q-result-text">${q.text}</div>
+        <span class="q-score-badge ${badgeCls}">${fmtSc}</span>
+      </div>
+      ${q.options.map((opt,j)=>`
+        <div class="opt-result-row ${j===q.correct?'is-correct':''}">
+          <span>${String.fromCharCode(65+j)}. ${opt}${j===q.correct?'<span class="correct-tag">correct</span>':''}</span>
+          <span>${answers[i][j]}%</span>
+        </div>`).join('')}
+    </div>`;
   }).join('');
 }
 
-function doRestart() {
-  current = 0;
-  answers = QUESTIONS.map(q => {
-    const base = Math.floor(100 / q.options.length);
-    const arr = q.options.map(() => base);
-    arr[0] += 100 - arr.reduce((a, b) => a + b, 0);
-    return arr;
-  });
-  document.getElementById('results').style.display = 'none';
-  document.getElementById('quiz').style.display = 'block';
-  document.getElementById('chk-auto').checked = true;
+function showResults(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('results').style.display='block';
+  resChecks={brier:false,log:false};
+  renderResCheckboxes();
+  setTimeout(refreshResults,100);
+}
+
+function doRestart(){
+  current=0; answers=QUESTIONS.map(q=>equalArr(q.options.length));
+  document.getElementById('results').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('chk-auto').checked=false;
   renderQuestion();
 }
 </script>
